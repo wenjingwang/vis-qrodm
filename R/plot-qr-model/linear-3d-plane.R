@@ -32,7 +32,14 @@ for(tau in taus){
 
 g <- ggobi(actual_data)
 d <- g[1]
-glyph_color(d) <- ifelse(actual_data$flag =="observations",2,
+
+gc <- ifelse(actual_data$flag =="observations",2,
                          ifelse(actual_data$flag=="plane0.1",5,
                                 ifelse(actual_data$flag=="plane0.5",4,
                                        ifelse(actual_data$flag=="plane0.9",9,12))))
+gt <- c(rep(6,nrow(ais_female)),rep(7,nrow(actual_data)-nrow(ais_female)))
+gs <- c(rep(4,nrow(ais_female)),rep(1,nrow(actual_data)-nrow(ais_female)))
+
+glyph_color(d) <- gc
+glyph_type(d) <- gt
+glyph_size(d) <- gs
