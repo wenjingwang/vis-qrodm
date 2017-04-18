@@ -1,6 +1,8 @@
 ---
 title: "Diagnosing outliers and visualization of quantile regression models"
-output: html_notebook
+author: 
+  - Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
+  - ^1^Renmin University of China  , ^2^Monash University
 ---
 
 # Introduction
@@ -18,7 +20,7 @@ where $\rho(.)$ is loss function which was defined as $\rho_{\tau}(u)=u(\tau-I(u
 Assuming $Y_1,...,Y_n$ is a sequence of i.i.d random variables, which has distribution function $F$ and continuous density function $f$. The objective function and gradient function on $\tau$th quantile are $Q_{\tau}$ and $g_{n}(Q_{\tau})$.
 
 mean: $Eg_{n}(Q_{\tau}\tau+\delta/n^{1/2}) ... f(Q_{\tau})\delta/n^{1/2}$
-variance£º$V(g_{n}(Q_{\tau}+\delta/n^{1/2})) ... \tau(1-\tau)/n$
+variance??$V(g_{n}(Q_{\tau}+\delta/n^{1/2})) ... \tau(1-\tau)/n$
 
 Considering the goodness of model fitting, if the distribution of error term are known and i.i.d, we can follow the traditional diagnostic method by compareing the value of maximum likelihood function of constrained and unconstrained model. They should be significantly close enough.
 
@@ -41,7 +43,7 @@ Sample data from the real world may have special points located far away from ot
 
 Outliers in regression can be divided into two class, one is outliers in vertical direction and the other is leverage point. Various methods for detecting outliers have been studied(Atkinson 1994; Barnett and Lewis 1994; Becker and Gather 1999, 2001; Davies and Gather 1993; Gather and Becker 1997; Gnanadesikan and Kettenking 1972; Hadi 1992, 1994; Hawkins 1980; Maronna and Yohai 1995; Penny 1995; Rocke and Woodruff 1996; Rousseeuw and Van Zomeren 1990). Commonly used methods in mean regression including residuals, leverage value, studentized residuals and jacknife residuals.
 
-Classic least ordinary square estimation of linear regresssion can be expressed as $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$£¬$\hat{Y}=X(X^{'}X)^{-1}X^{'}Y=HY$, where, $H$ is called hat matrix. Residuals can be write as $\hat{\epsilon}=Y-\hat{Y}(1-H)Y=(1-H)\epsilon$. The variance of the error term and the estimation of $Y$ are  $Var(\hat{\epsilon})=(1-H)Var(\epsilon)=(1-H)\sigma^{2}$, $Var(\hat{Y})=X\hat{\beta}=H\sigma^{2}$. 
+Classic least ordinary square estimation of linear regresssion can be expressed as $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$??$\hat{Y}=X(X^{'}X)^{-1}X^{'}Y=HY$, where, $H$ is called hat matrix. Residuals can be write as $\hat{\epsilon}=Y-\hat{Y}(1-H)Y=(1-H)\epsilon$. The variance of the error term and the estimation of $Y$ are  $Var(\hat{\epsilon})=(1-H)Var(\epsilon)=(1-H)\sigma^{2}$, $Var(\hat{Y})=X\hat{\beta}=H\sigma^{2}$. 
 
 If taking outliers in $y$ and leverage points all in consideration, we can construct studentized residuals, which is $r_i=\frac{\hat{epsilon}_{i}}{\sigma^{2}\sqrt{1-h_i}$. The larger $r_i$, the more suspicious the outlier is.
 
@@ -94,11 +96,10 @@ Q=\int xx^{'}f(X^{'}\hat{\beta}_{F}(\tau))dG(x)
 
 Simulation study
 
-```{r message = FALSE}
+```{r, message = FALSE}
 library(quokar)
 library(quantreg)
 library(tidyverse)
-
 ```
 
 In conclusion, quantile regression response differently to outliers comparing mean regression in two aspects: (a) not all models on each quantile will be affected when outliers exist. If we are interested in model on particular quantile, the effect of outliers should be carefully considered. (b) quantile regression model do not have robustness properties to so called leverage points. Koenker(2017) also proposed that more work needs to be done to develop better diagnostic tools for quantile regression models.
@@ -352,37 +353,37 @@ Visualization of quantile regression will help us understand the questions 'How 
 
 In two predictors case, quantile regression models are lines in space. We use ais data fitting models and visualize them with GGobi.
 
-```{r, out.width = 20%}
-knitr::include_graphics(c("Figures/QR-model/single-pixel/linear-3D-1.png",
-                          "Figures/QR-model/single-pixel/linear-3D-2.png",
-                          "Figures/QR-model/single-pixel/linear-3D-3.png",
-                          "Figures/QR-model/single-pixel/linear-3D-4.png",
-                          "Figures/QR-model/single-pixel/linear-3D-5.png",
-                          "Figures/QR-model/single-pixel/linear-3D-6.png",
-                          "Figures/QR-model/single-pixel/linear-3D-7.png",
-                          "Figures/QR-model/single-pixel/linear-3D-8.png",
-                          "Figures/QR-model/single-pixel/linear-3D-9.png"))
+```{r, out.width = '20%', out.height = '20%'}
+knitr::include_graphics(c("Figures/QR-model-single-pixel/linear-3D-1.png",
+                          "Figures/QR-model-single-pixel/linear-3D-2.png",
+                          "Figures/QR-model-single-pixel/linear-3D-3.png",
+                          "Figures/QR-model-single-pixel/linear-3D-4.png",
+                          "Figures/QR-model-single-pixel/linear-3D-5.png",
+                          "Figures/QR-model-single-pixel/linear-3D-6.png",
+                          "Figures/QR-model-single-pixel/linear-3D-7.png",
+                          "Figures/QR-model-single-pixel/linear-3D-8.png",
+                          "Figures/QR-model-single-pixel/linear-3D-9.png"))
 ```
 
 In three predictor case, quantile regression models are cuboids in space which were displayed as follows,
 
-```{r, out.width = 20%}
-knitr::include_graphics(c("Figures/QR-model/single-pixel/linear-4D-1.png",
-                          "Figures/QR-model/single-pixel/linear-4D-2.png",
-                          "Figures/QR-model/single-pixel/linear-4D-3.png",
-                          "Figures/QR-model/single-pixel/linear-4D-4.png",
-                          "Figures/QR-model/single-pixel/linear-4D-5.png",
-                          "Figures/QR-model/single-pixel/linear-4D-6.png",
-                          "Figures/QR-model/single-pixel/linear-4D-7.png",
-                          "Figures/QR-model/single-pixel/linear-4D-8.png",
-                          "Figures/QR-model/single-pixel/linear-4D-9.png"))
+```{r, out.width = '20%', out.height = '20%'}
+knitr::include_graphics(c("Figures/QR-model-single-pixel/linear-4D-1.png",
+                          "Figures/QR-model-single-pixel/linear-4D-2.png",
+                          "Figures/QR-model-single-pixel/linear-4D-3.png",
+                          "Figures/QR-model-single-pixel/linear-4D-4.png",
+                          "Figures/QR-model-single-pixel/linear-4D-5.png",
+                          "Figures/QR-model-single-pixel/linear-4D-6.png",
+                          "Figures/QR-model-single-pixel/linear-4D-7.png",
+                          "Figures/QR-model-single-pixel/linear-4D-8.png",
+                          "Figures/QR-model-single-pixel/linear-4D-9.png"))
 ```
 
 ## Non-linear quantile regression model
 
 In non-linear case, we use elliptic hyperboloid and hyperbolic paraboloid as examples.
 
-```{r, out.width = 20%}
+```{r, out.width = '20%', out.height = '20%'}
 knitr::include_graphics(c("Figures/QR-model/curve1-1.png",
                           "Figures/QR-model/curve1-2.png",
                           "Figures/QR-model/curve1-3.png",
@@ -394,7 +395,7 @@ knitr::include_graphics(c("Figures/QR-model/curve1-1.png",
                           "Figures/QR-model/curve1-9.png"))
 ```
 
-```{r, out.width = 20%}
+```{r, out.width = '20%', out.height = '20%'}
 knitr::include_graphics(c("Figures/QR-model/curve2-1.png",
                           "Figures/QR-model/curve2-2.png",
                           "Figures/QR-model/curve2-3.png",
