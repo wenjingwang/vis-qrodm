@@ -94,7 +94,7 @@ Q=\int xx^{'}f(X^{'}\hat{\beta}_{F}(\tau))dG(x)
 
 Simulation study
 
-```{r}
+```{r message = FALSE}
 library(quokar)
 library(quantreg)
 library(tidyverse)
@@ -197,50 +197,151 @@ devtools::install_github("wenjingwang/quokar")
 library(quokar)
 ```
 
-We implete an data example to develop
+We implete ais data as an example to introduce this package. AIS data include 14 variables for 100 female atheletes.
 
 ## Plot the outlier stats
 
-We use ais data.
+In single variable case, we can use scatter plot to represent the outlier stats. The following code showed how to display suspicious outliers based on quantile regression models.
 
 ```{r}
+data(ais)
+ais_female <- filter(ais, Sex == 1)
+case <- 1 : nrow(ais_female)
+ais_female <- cbind(case, ais_female)
+coef_rq <- coef(rq(BMI ~ LBM, tau = c(0.1, 0.5, 0.9),
+                   data = ais_female, method = "br"))
+
+br_coef <- data.frame(intercept = coef_rq[1, ],
+                      coef = coef_rq[2, ],
+                      tau_flag = colnames(coef_rq))
+ggplot(ais_female)+
+  geom_point(aes(x = LBM, y = BMI)) +
+  geom_abline(data = br_coef, aes(intercept = intercept,
+                                  slope = coef,
+                                  colour = tau_flag), size = 1) +
+  geom_text(data = subset(ais_female, case %in% c(1, 75)),
+                          aes(x = LBM, y = BMI, label = case), 
+            colour = "red",hjust = 0, vjust = 0) +
+  scale_colour_brewer("Dark2") +
+  theme_dark()
 
 ```
 
 ## Plot data with outliers marked
 
-Through outlier diagnostic model in qoukar, we get the long data to mark all the suspective outliers in data.
+Scatter plot has limitations when tackling multi-variable regression cases. In `quokar`, we provide functions to do outlier diagnostic which return the dataframe easily to plot data with outliers marked.
 
-In single variable case, result of residual-robust distance is,
+* residual-robust distance method
 
+First, we calculate residuals, mahananobi distance and robust distance for quantile regression using function `plot_distance`. Simutaneously, it provides the cutoff value for identifying the outliers in regression models.
 
 ```{r}
+tau <- c(0.1, 0.5, 0.9)
+object <- rq(BMI ~ LBM + Bfat, data = ais_female, tau = tau)
+plot_distance <- frame_distance(object, tau = c(0.1, 0.5, 0.9))
+distance <- plot_distance[[1]]
+head(distance, 3)
+cutoff_v <- plot_distance[[2]]; cutoff_v
+cutoff_h <- plot_distance[[3]]; cutoff_h
+```
+
+Function `plot_distance` returns the tidy data form for plotting data with outliers marked and overlaying the cutoff lines. 
+
+```{r Residual-Robust,warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Robust Distance-Residual Plot. Points on the right of vertical cutoff line are considered leverage points and points above the horizental cutoff line are outliers in y-direction."}
+n <- nrow(object$model)
+case <- rep(1:n, length(tau))
+distance <- cbind(case, distance)
+distance$residuals <- abs(distance$residuals)
+tau_flag <- paste("tau", tau, sep="")
+text_flag <- 1:length(cutoff_h) %>%
+                            map(function(i){
+                            distance %>% 
+                            filter((residuals > cutoff_h[i] |rd > cutoff_v)
+                                & tau_flag == tau_flag[i])})
+##need polish
+text_flag_d <- rbind(text_flag[[1]], text_flag[[2]], text_flag[[3]])
+ggplot(distance, aes(x = rd, y = residuals)) +
+      geom_point() +
+      geom_hline(data = data.frame(tau_flag, cutoff_h),   
+                 aes(yintercept = cutoff_h), colour = "red") +
+      geom_vline(xintercept = cutoff_v, colour = "red") +
+      geom_text(data = text_flag_d, aes(label = case), hjust = 0, vjust = 0) +
+      facet_wrap(~ tau_flag, scales = 'free_y') +
+      xlab("Robust Distance") +
+      ylab("|Residuals|")
+```
+
+* Generalized cook distance and Q function distance
+
+We apply generalized cook distance and Q function distance methods in function `frame_mle`. This function returns generalized cook or q function distance for regression model on each given quantile. The results are also in tidy data structure which can be easily used for plotting the two distances with outliers marked.
+
+
+```{r GCD,warning=FALSE,message=FALSE, results = "hide", fig.height=3, fig.width=8, fig.align = "center", fig.cap="Generalized cook distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large cook distance-funtion distance to other points"}
+y <- ais_female$BMI
+x <- cbind(1, ais_female$LBM, ais_female$Bfat)
+case <- rep(1:length(y), length(tau))
+GCD <- frame_mle(y, x, tau, error = 1e-06, iter = 10000,
+                  method = 'cook.distance')
+GCD_m <- cbind(case, GCD)
+ggplot(GCD_m, aes(x = case, y = value )) +
+    geom_point() +
+    facet_wrap(~variable, scale = 'free_y') +
+    geom_text(data = subset(GCD_m, value > mean(value) + 2*sd(value)),
+              aes(label = case), hjust = 0, vjust = 0) +
+    xlab("case number") +
+    ylab("Generalized Cook Distance")
+```
+
+The same, visualization of Q function diagnostic results are shown in fig,
+
+```{r QD,warning=FALSE,message=FALSE, results = "hide", fig.height=3, fig.width=8, fig.align = "center", fig.cap="Q function distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Q function distance to other points"}
+
+QD <- frame_mle(y, x, tau, error = 1e-06, iter = 10000,
+               method = 'qfunction')
+QD_m <- cbind(case, QD)
+ggplot(QD_m, aes(x = case, y = value)) +
+ geom_point() +
+ facet_wrap(~variable, scale = 'free_y')+
+ geom_text(data = subset(QD_m, value > mean(value) + sd(value)),
+           aes(label = case), hjust = 0, vjust = 0) +
+ xlab('case number') +
+ ylab('Qfunction Distance')
+```
+
+Same as above, we also applied mean post probability, KL divergence to diagnose,
+
+```{r BP,warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
+
+y <- ais_female$BMI
+x <- matrix(c(ais_female$LBM, ais_female$Bfat), ncol = 2, byrow = FALSE)
+tau <- c(0.1, 0.5, 0.9)
+case <- rep(1:length(y), length(tau))
+prob <- frame_bayes(y, x, tau, M =  100,
+                 method = 'bayes.prob')
+
+prob_m <- cbind(case, prob)
+ggplot(prob_m, aes(x = case, y = value )) +
+   geom_point() +
+   facet_wrap(~variable, scale = 'free') +
+  geom_text(data = subset(prob_m, value > mean(value) + 2*sd(value)),
+            aes(label = case), hjust = 0, vjust = 0) +
+   xlab("case number") +
+   ylab("Mean probability of posterior distribution")
 
 ```
 
-Use generalized cook distance, Q-function distance, we get,
+```{r BKL,warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback and Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
 
-```{r}
-
-```
-In multi-variable case, also use diagnostic methods we get,
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-Same as above, we also use mean post probability, KL divergence to diagnose,
-
-```{r}
-
-```
-
-```{r}
-
+kl <- frame_bayes(y, x, tau, M = 100,
+                  method = 'bayes.kl')
+kl_m <- cbind(case, kl)
+ggplot(kl_m, aes(x = case, y = value)) +
+  geom_point() +
+  facet_wrap(~variable, scale = 'free')+
+  geom_text(data = subset(kl_m, value > mean(value) + 2*sd(value)),
+            aes(label = case), hjust = 0, vjust = 0) +
+  xlab('case number') +
+  ylab('Kullback-Leibler')
 ```
 
 # Visualizing quantile regression
@@ -249,32 +350,61 @@ Visualization of quantile regression will help us understand the questions 'How 
 
 ## Linear quantile regression model
 
-In single variable case, quantile regression models are lines in space. We use ais data fitting models and visualize them with GGobi.
+In two predictors case, quantile regression models are lines in space. We use ais data fitting models and visualize them with GGobi.
 
-\begin{picture}(30,30)
-  \includegraphics{}
-  \includegraphics{}
-\end{picture}
+```{r, out.width = 20%}
+knitr::include_graphics(c("Figures/QR-model/single-pixel/linear-3D-1.png",
+                          "Figures/QR-model/single-pixel/linear-3D-2.png",
+                          "Figures/QR-model/single-pixel/linear-3D-3.png",
+                          "Figures/QR-model/single-pixel/linear-3D-4.png",
+                          "Figures/QR-model/single-pixel/linear-3D-5.png",
+                          "Figures/QR-model/single-pixel/linear-3D-6.png",
+                          "Figures/QR-model/single-pixel/linear-3D-7.png",
+                          "Figures/QR-model/single-pixel/linear-3D-8.png",
+                          "Figures/QR-model/single-pixel/linear-3D-9.png"))
+```
 
-In multi-variable case, quantile regression models are cuboids in space which were displayed as follows,
+In three predictor case, quantile regression models are cuboids in space which were displayed as follows,
 
-\begin{picture}(30,30)
-   \includegraphic{}
-   \includegraphic{}
-\end{picture}
+```{r, out.width = 20%}
+knitr::include_graphics(c("Figures/QR-model/single-pixel/linear-4D-1.png",
+                          "Figures/QR-model/single-pixel/linear-4D-2.png",
+                          "Figures/QR-model/single-pixel/linear-4D-3.png",
+                          "Figures/QR-model/single-pixel/linear-4D-4.png",
+                          "Figures/QR-model/single-pixel/linear-4D-5.png",
+                          "Figures/QR-model/single-pixel/linear-4D-6.png",
+                          "Figures/QR-model/single-pixel/linear-4D-7.png",
+                          "Figures/QR-model/single-pixel/linear-4D-8.png",
+                          "Figures/QR-model/single-pixel/linear-4D-9.png"))
+```
 
 ## Non-linear quantile regression model
 
-In non-linear case, we use ... and ... as example.
+In non-linear case, we use elliptic hyperboloid and hyperbolic paraboloid as examples.
 
-\begin{picture}(width,height)
- \include 
-\end{picture}
+```{r, out.width = 20%}
+knitr::include_graphics(c("Figures/QR-model/curve1-1.png",
+                          "Figures/QR-model/curve1-2.png",
+                          "Figures/QR-model/curve1-3.png",
+                          "Figures/QR-model/curve1-4.png",
+                          "Figures/QR-model/curve1-5.png",
+                          "Figures/QR-model/curve1-6.png",
+                          "Figures/QR-model/curve1-7.png",
+                          "Figures/QR-model/curve1-8.png",
+                          "Figures/QR-model/curve1-9.png"))
+```
 
-\begin{picture}(width,height)
-\include 
-\end{picture}
-
+```{r, out.width = 20%}
+knitr::include_graphics(c("Figures/QR-model/curve2-1.png",
+                          "Figures/QR-model/curve2-2.png",
+                          "Figures/QR-model/curve2-3.png",
+                          "Figures/QR-model/curve2-4.png",
+                          "Figures/QR-model/curve2-5.png",
+                          "Figures/QR-model/curve2-6.png",
+                          "Figures/QR-model/curve2-7.png",
+                          "Figures/QR-model/curve2-8.png",
+                          "Figures/QR-model/curve2-9.png"))
+```
 
 # Future work
 
