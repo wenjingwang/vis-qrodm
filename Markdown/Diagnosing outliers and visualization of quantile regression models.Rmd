@@ -3,12 +3,17 @@ title: "Diagnosing outliers and visualization of quantile regression models"
 author:
 - Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
 - ^1^Renmin University of China  , ^2^Monash University
-fontsize: 11pt
+output:
+  bookdown::pdf_document2: default
+  fig_caption: yes
 papersize: a4
-output: 
-  bookdown::pdf_document2:
-    fig_caption: yes
+fontsize: 11pt
 ---
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
 
 ```{r, message = FALSE, include = FALSE}
 library(quokar)
@@ -23,25 +28,35 @@ library(purrr)
 
 ## Background of quantile regression
 
-Quantile regression model has been widely used in many research areas such as economy, finance, social science and many other areas (Autor, Houseman and Kerr (2017), Mitchell, Dowda and Pate (2017), Gallego-Álvarez and Ortas (2017), Korobilis (2017), Maciejowska, Nowotarski and Weron (2016)). Observed covariates in quantile regression can describe the distribution of response variable which extend the mean regression analysis. In addition, mean regression can no longer maintain the optimal properties due to heteroscedasticity or heavy tail distribution. 
+Quantile regression model has been widely used in many research areas such as economy, finance, social science (Autor, Houseman and Kerr (2017), Mitchell, Dowda and Pate (2017), Gallego-Álvarez and Ortas (2017), Korobilis (2017), Maciejowska, Nowotarski and Weron (2016)). Quantile regression has significant advantages over mean regression on two aspects:(a) observed covariates can describe the whole distribution of response variable instead of mean. (b) mean regression can no longer maintain the optimal properties due to heteroscedasticity or heavy tail distribution while quantile regression can deal with that.
 
-Linear quantile regression model can be present as $y=X^{'}\beta+\epsilon$, where $y$ is response variable, $X$ is covariate variable vector, $\beta$ and $\epsilon$ are coefficient vector and error term. The $\tau$th quantile function of the sample is $Q_{y}(\tau|x)=X^{'}\beta(\tau)$. Based on the idea of minimizing a sum of asymmetrically weighted absolute residuals, the objective function of quantile regression model is,
+Koenker and Bassett (1978) proposed linear model for the $\tau$th quantile is,
 
-$$\min\sum_{i=1}^{n} \rho_{\tau}(y_i-X^{'}\beta)$$
+\begin{equation}
+y_i=x^{'}_{i}\beta_{\tau}+\epsilon_{i}, \quad i=1,...,n
+\label{eq:linear_qr}
+\end{equation}
 
-where $\rho(.)$ is loss function which was defined as $\rho_{\tau}(u)=u(\tau-I(u <0))$
+The $\tau$th quantile function of the sample is $Q_{y}(\tau|x)=x^{'}\beta(\tau)$. Based on the idea of minim izing a sum of asymmetrically weighted absolute residuals, the objective function of quantile regression model is,
 
-Assuming $Y_1,...,Y_n$ is a sequence of i.i.d random variables, which has distribution function $F$ and continuous density function $f$. The covariant matrix is $\textbf{X}$. Quantile regressoin coefficient vector $\hat{\beta}_{\tau}$ is asymptotically normal,
+\begin{equation}
+\min_{\beta_{\tau} \in \mathbb{R}^{p}}\sum_{i=1}^{n} \rho_{\tau}(y_i-x_{i}^{'}\beta_{\tau})
+\label{eq:object_function}
+\end{equation}
 
-$$\sqrt{n}(\hat{\beta}_{\tau}-\beta_{\tau}) \xrightarrow{d} N(0, \tau(1-\tau)D^{-1}\varOmega_{x}D^{-1})$$
+where $\rho(.)$ is loss function which was defined as $\rho_{\tau}(u)=u(\tau-I(u <0))$. In addition, assuming $Y_1,...,Y_n$ is a sequence of i.i.d random variables which has distribution function $F$ and continuous density function $f$. The coefficience vector $\hat{\beta}_{\tau}$ is asymptotically normal, which can be expressed as,
 
-where
+\begin{equation}
+\sqrt{n}(\hat{\beta}_{\tau}-\beta_{\tau}) \xrightarrow{d}
+N(0,\tau(1-\tau)D^{-1}\varOmega_{x}D^{-1})
+\label{eq:distrbution}
+\end{equation}
 
-$D=E(f(\textbf{X}\beta)\textbf{XX^{'}})$ and $\varOmega_{x}=E(\textbf{X}^{'}\textbf{X})$
+where $D=E(f(\textbf{X}\beta)\textbf{X}\textbf{X}^{'})$ and $\varOmega_{x}=E(\textbf{X}^{'}\textbf{X})$.
 
-In current research trend, quantile regression has been embeded in other models to enhance model features or conduct better results analysis. Geraci (2014) proposed linear quantile mixed model which dealt with within-subject dependence by embeding subject-specific random intercepts into quantile regression model. Chernozhukov and Hansen (2006) used instrumental variable quantile regression for heterogeneous treatment effect models and simulaneous equations models to evaluate the impact of endogenous variables or treatments on the entire distribution of outcomes.
+Many current research focus on ebbeding quantile in other models to enhance model features or conduct better results analysis. Geraci (2014) proposed linear quantile mixed model which dealt with within-subject dependence by embeding subject-specific random intercepts into quantile regression model. Chernozhukov and Hansen (2006) used instrumental variable quantile regression for heterogeneous treatment effect models and simulaneous equations models to evaluate the impact of endogenous variables or treatments on the entire distribution of outcomes.
 
-Another development is fitting quantile regression for specified data class. Koenker (2004), Geraci and Bottai (2006) proposed to conduct quantile regression for longitudinal data. Parente and Santos Silva (2016) studied properties of the quantile regression estimator when data are sampled from independent and identically distributed clusters. Canay (2011), Arellano and Bonhomme (2016) introduce a class of quantile regression estimators for short panels. Galvao and Kato (2016),  presented fixed effects estimation of quantile regression models for panel data. 
+Another development is fitting quantile regression for specified data. Koenker (2004), Geraci and Bottai (2006) proposed to conduct quantile regression for longitudinal data. Parente and Santos Silva (2016) studied properties of the quantile regression estimator when data are sampled from independent and identically distributed clusters. Canay (2011), Arellano and Bonhomme (2016) introduce a class of quantile regression estimators for short panels. Galvao and Kato (2016),  presented fixed effects estimation of quantile regression models for panel data. 
 
 Extensive theories has been used for inferencing quantile regression parameters. Gutenbrunner, Jureckova, Koenker, and Portnoy (1993) proposed rank-based inference to deal problems of constructing confidence intervals for individual quantile regression parameter estimates. Hahn (1995), Horowitz (1998), Fitzenberger (1998), He and Hu (1999) contributed to a variety of resampling methods to quantifying the robustness of inferencing. Koneker and Machado (1999) discussed inference for quantile regression based on Kolmogorov-Smironov goodness of fit method. To deal with "the Durbin problem", Koenker and Xiao (2002) developed new tests of the location shift and location-scale shift models for quantile regression process. There are also studies of quantile regression in bayesian framework which extended research ideas. 
 
@@ -60,44 +75,119 @@ If taking outliers in $y$ and leverage points all in consideration, we can const
 
 # Outlier detection in quantile regression
 
-Due to the robust property of quantiles, quantile regressions are relatively robust towards outliers than mean regression model, This property has been discussed by Onyedikachi(2015). They used influence funtion to discuss the property of robustness of quantile regression. 
+Quantile is more robust than mean when extreme values exist in the dataset interested. This property applies equally in regression context. Onyedikachi(2015) discussed the robustness of quantile regression using influence function. They used influence funtion to discuss the robustness of quantile and quantile regression.   
 
-Suppose $T$ is a function of $F$, the influence function is the directional derivative of $T(F)$ at $F$, and it measures the effect of a small perturbation in $F$ on $T(F)$. For the $\tau$th quantile points, influence function can be expressed as,
+Set $T$ as a functional of $F$, the influence function is the directional derivative of $T(F)$ at $F$, and it measures the effect of a small perturbation in $F$ on $T(F)$. For Mean, the influence function is,
 
 \begin{equation}
+IF(y;T;F)=y-T(F)
+\label{eq:mean}
+\end{equation}
 
+Suppose the estimator for the $\tau$th quantile is $\theta$. We have,
+
+\begin{equation}
+\theta = F^{-1}(\tau)
+\label{eq: theta}
+\end{equation}
+
+For the $\tau$th quantile points, influence function can be expressed as,
+
+\begin{equation}
 IF(y;T;F)=\left\{
 \begin{aligned}
 \frac{\tau}{f(F^{-1}(\tau))} & ; & y > F^{-1}(\tau) \\
 \frac{(\tau-1)}{f(F^{-1}(\tau))} & ; & y \leq F^{-1}(\tau) 
 \end{aligned}
 \right.
-
-(\#eq:quantile_influence)
+\label{eq:quantile_influence}
 \end{equation}
 
-The influence function \@ref(eq:quantile_influence) indicate that the contamination in $y$ on quantile points is bounded. Onyedikachi(2015) also provided the influence function for quantile regression.
+where $f$ is the density function of $F$. Comparing \@ref(eq:mean) and \@ref(eq:quantile_influence), the latter obviously has boundary when $y$ is changing. We visualized the influence function by an example. The distribution function of y is $F(x)=1-e^{-\lambda x} \quad x>0$, $f(x)=e^{-x}$, $Q(tau)=-ln(1-p)$
 
-Let $F$ represent the joint distribution of the pairs $(x,y)$, we have,
+```{r, eval = TRUE, echo = FALSE, fig.align="center", fig.height = 3, fig.width = 12, fig.cap = "Visualization of influence function for Mean and Quantile. It is obviously that quantile influence functions are bounded which indicating their robustness."}
+
+F <- function(x){
+  1-exp(-x)
+}
+f <- function(x){
+  exp(-x)
+}
+Q <- function(p){
+  -log(1-p)
+}
+x <- seq(0, 10, by = 0.001)
+y <- sort(1-exp(-x))
+inf_mean <- y - 0.01
+data_m <- data.frame(y, inf_mean)
+p <- ggplot(data_m, aes(y, inf_mean))+
+  geom_line() +
+  xlab("y") +
+  ylab("Influence function of Mean")
+
+inf_quantile <- function(y, tau){
+  n <- length(y)
+  n1 <- sum(y > Q(tau))
+  n2 <- sum(y <= Q(tau))
+  inf_q <- rep(tau/f(Q(tau)), n)
+  inf_q[1:n2] <- rep((tau-1)/f(Q(tau)), n2)
+  return(inf_q)
+}
+
+tau <- 0.1
+data_q <- data.frame(inf_q = inf_quantile(y, 0.1), y = y)
+p1 <- ggplot(data_q, aes(y, inf_q))+
+  geom_line() + 
+  geom_point(data = data.frame(a = Q(tau), b = -1), aes(a, b), shape = 1) +
+  geom_point(data = data.frame(a = Q(tau), b = 0.1111), aes(a, b), shape = 16) +
+  geom_vline(xintercept = Q(tau), colour = "red", linetype = "longdash") +
+  geom_hline(yintercept = 0, colour = "red", linetype = "longdash") +
+  xlab("y") +
+  ylab("Influence function for quantile (tau = 0.1)")
+
+tau <- 0.5
+data_q <- data.frame(inf_q = inf_quantile(y, 0.5), y = y)
+p2 <- ggplot(data_q, aes(y, inf_q))+
+  geom_line() + 
+  geom_point(data = data.frame(a = Q(tau), b = -1), aes(a, b), shape = 1) +
+  geom_point(data = data.frame(a = Q(tau), b = 1), aes(a, b), shape = 16) +
+  geom_hline(yintercept = 0, colour = "red", linetype = "longdash") +
+  geom_vline(xintercept = max(y), colour = "red", linetype = "longdash") +
+  xlab("y") +
+  ylab("Influence function for quantile (tau = 0.5)")
+
+tau <- 0.9
+data_q <- data.frame(inf_q = inf_quantile(y, 0.9), y = y)
+p3 <- ggplot(data_q, aes(y, inf_q))+
+  geom_line() + 
+  geom_point(data = data.frame(a = max(y), b = -1), aes(a, b), shape = 1) +
+  geom_hline(yintercept = 0, colour = "red", linetype = "longdash") +
+  geom_vline(xintercept = max(y), colour = "red", linetype = "longdash") +
+  xlab("y") +
+  ylab("Influence function for quantile (tau = 0.9)")
+grid.arrange(p, p1, p2, p3, nrow = 1)
+```
+
+Onyedikachi (2015) also provided the influence function for quantile regression. Suppose $F$ represent the joint distribution of the pairs $(x,y)$, we have,
 
 \begin{equation}
 IF((y,x),\hat{\beta}_{F(\tau)},F)=Q^{-1}xsgn(y-x^{'}\hat{\beta}_{F}(\tau))
-(\#eq:quantile_regression_influence)
+\label{eq:quantile_regression_influence}
 \end{equation}
 
 where 
 
 \begin{equation}
 dF=dG(x)f(y|x)dy
-(\#eq: dg)
+\label{eq: dg}
 \end{equation}
 
 \begin{equation}
 Q=\int xx^{'}f(X^{'}\hat{\beta}_{F}(\tau))dG(x)
-(\#eq: q_influence)
+\label{eq: q_influence}
 \end{equation}
 
-\@ref(eq:quantile_regression_influence) implies that in quantile regression, the quantile regression estimates will not be affected by any chagne in the value of the dependent variable for some observations as long as the relative positions of the observation points to the fitted plane are maintained. 
+\@ref(eq:quantile_regression_influence) implies that quantile regression estimates will not be affected by any change in the value of the dependent variable for some observations as long as the relative positions of the observation points to the fitted plane are maintained. 
 
 ## Displaying how do the outliers affect quantile regression
 
@@ -169,7 +259,7 @@ p1 <- ggplot(df_m, aes(x = x, y=value)) +
         xlab("x") +
         ylab("y") +
         facet_wrap(~variable, ncol=2, scale = "free_y") +
-        geom_quantile(quantiles = seq(0.1, 0.9, 0.1), colour =                          "purple") +
+        geom_quantile(quantiles = seq(0.1, 0.9, 0.1), colour = "purple") +
         geom_smooth(method = "lm", se = FALSE, colour = "orange")
 
 coefs <- 2:5 %>%
@@ -276,38 +366,98 @@ We proposed three methods for quantile regression outlier diagnostic which will 
 
 * Standard residual-Robust Distance
 
-Leverage points can not be detected using the famous "Hat Matrix" in quantile regression since the coefficient estimation of quantile regression do not satisfy $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$. One way to identify possible multivariate outliers is to calculate a distance from each point to a "center" of the data. An outlier would then be a point with a distance larger than some predetermined cutoff. A conventional measurement of quadradic distance from a point $X$ to a location $Y$ given given a shape $S$, in the multivariate setting is:
+We can not use the famous "Hat Matrix" to detect leverage points in quantile regression since the coefficient estimation of quantile regression do not satisfy $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$. One way to identify possible leverage points is to calculate a distance from each point to a "center" of the data. Leverage point would then be the one with a distance larger than some predetermined cutoff. A conventional measurement is Mahalanobi distance:
 
-$$d^{2}_{S}(X,Y)=(X-Y)^{'}S^{-1}(X-Y)$$
+\begin{equation}
+MD(x_i) = [(x_i-\bar{x})^{'}\bar{\textbf{C}}(\textbf{A})^{-1}(x_i-\bar{x})]^{1/2}
+\label{eq:distance}
+\end{equation}
 
-This distance is often called Mahalanobis squared distance(MSD). If there are only a few outliers, large values of $d^{2}_{S}(x_i, \bar{X})$, when $\bar{X}$ and $S$ are the standard sample mean and covariance matrix, indicate that the point $x_i$ is an outlier(Barnett and Lewis 1994). The distribution of the MSD with both the true location and shape parameters and the standard sample location and shape parameters is well known(Gnanadesikan and Kettenring 1972). However, the standard sample locatoin and shape parameters are not robust to outliers, and the distributional fit to the distance breaks down when robust measures of location and shape are used in the MSD(Rousseeuw and van Zomeren 1991). Datasets with multiple outliers or clusters of outliers are subject to problems of masking and swamping(Pearson and Chandra Sekar 1936).
+where $\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i$ and $\bar{\textbf{C}}(\textbf{A})=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^{'}(x_i-\bar{x})$ are the empirical multivariate location and scale respectively. However, the standard sample location and scale parameters are not robust to outliers. In addition, datasets with multiple outliers or clusters of outliers are subject to problems of masking and swamping (Pearson and Chandra Sekar 1936). Such problems of unrobust, masking and swamping can be resolved by using robust estimates of shape and location, which by definition are less affected by outliers (Rousseeuw and van Zomeren (1991)). We use Rousseeuw's minimum covariance determinant (MCD) proposed by Rousseeuw and Van Driessen (1999) to estimate the location and scale of the data.
 
-Problems of masking and swamping can be resolved by using robust estimates of shape and location, which by definition are less affected by outliers. We use Rousseeuw's minimum covariance determinant(MCD)(Rousseeuw 1985) to estimate the location and shape of the data. 
+The MCD estimator can be defined as:
 
-The MCD estimator is a robust, high-breakdown point which can be defined as:
+\begin{equation}
+MCD = (\bar{X}^{*}_{h}, S^{*}_{h})
+\label{eq: mcd}
+\end{equation}
 
-$$MCD = (\bar{X}^{*}_{h}, S^{*}_{h})$$
-where $h={p: |S^{*}_{h}|<|S^{*}_{k}|,|k|=p}$, $\bar{X}^{*}_{h}=\frac{1}{p}\sum_{i \in p}x_{i}$, $S^{*}_{p}=\frac{1}{p}\sum_{i \in p}(x_i-\bar{X}^{*}_{p})(x_i-\bar{X}^{*}_{p})^{'}$.
+where $X$ and $S$ stand for location and scale. $h={p: |S^{*}_{h}|<|S^{*}_{k}|,|k|=p}$, $\bar{X}^{*}_{h}=\frac{1}{p}\sum_{i \in p}x_{i}$, $S^{*}_{p}=\frac{1}{p}\sum_{i \in p}(x_i-\bar{X}^{*}_{p})(x_i-\bar{X}^{*}_{p})^{'}$.
 
-The value $p$ can be thought of as the minimum number of points which must not be outliers. The MCD has its highest possible breakdown at $h=[\frac{n+p+1}{2}]$ where $[.]$ is the greatest integer function. Because we are interested in outlier detection, we will use $h$ at its highest possible breakdown. $h=[\frac{n+p+1}{2}]$ in our calculations, and we refer to a sample of size $h$ as a "half sample" The MCD is omputed from the "closet" half sample, and therefore, the outlying points will have little affect on the MCD location or shape estimate.
+The value $p$ can be thought of as the minimum number of points which must not be outliers. The MCD has its highest possible breakdown at $h=[\frac{n+p+1}{2}]$ where $[.]$ is the greatest integer function. Because we are interested in outlier detection, we will use $h$ at its highest possible breakdown. $h=[\frac{n+p+1}{2}]$ in our calculations, and we refer to a sample of size $h$ as a "half sample" The MCD is omputed from the "closet" half sample, and therefore, the outlying points will have little affect on the MCD location or shape estimate. With MCD, we can calculate robust distance which was defined as,
 
-We use MCD to detect outliers in covariates and use absolute standard residuals to detect outliers in y direction.
+\begin{equation}
+RD(x_i)=[(x_i-\textbf{T(A)})^{'}\textbf{C(A)}^{-1}(x_i-\textbf{T(A)})]^{1/2}
+\label{eq:rd}
+\end{equation}
+
+Where $\textbf{T(A)}$ and $\textbf{C(A)}$ are robust multivariate location and scale estimates that are computed according to the MCD.
+
+Package `quokar` provide Mahalanobi distance and Robust distance to detect leverage points in quantile regression. Residuals that are based on quantile regression estimates are used to detect vertical outliers.
  
-* Generalized Cook Distance
+* Cook's Distance and Likelihood Distance
 
-To assess the influence of the $i$th case on the coefficient estimation of quantile regression, we compare the difference between $\hat{\theta}_{[i]}$ and $\hat{\theta}$.
+Case-deletion is another classical approach to study the outlier effects in regression by leaving 1 or k observations out every time fitting the regression model. case-deletion diagnostics such as Cook's distance or the likelihoood distance have been successfully applied to various statistical models. Based on the research of Sánchez, Lachos and Labra (2013), we applied generalized cook's distance and likelihood distance for quantile regression outlier diagnostic in package `quokar`.
 
-Case-deletion is a classical approach to study the effects of dropping the $i$th observation deleted. Thus, the complete-data log-likelihood function based on the data with the $i$th case deleted will be denoted by $L_{c}(\theta|y_{c[i]})$. Let $\hat{\theta}_{[i]}=(\hat{\beta}^{T}_{p[i]}, \hat{\sigma}^{2}_{[i]})^{T}$ be the maximizer of the function $Q_{[i]}(\theta|\hat{\theta})=E_{\hat{\theta}}[l_{c}(\theta|Y_{c[i]})|y]$, where $\hat{\theta}=(\hat{\beta}^{T}, \hat{\sigma}^{2})^{T}$ is the ML estimate of $\theta$. 
+Yu and Moyeed (2001) proposed random variable $Y$ distributed as asymmetric Laplace distribution with location parameter $\mu$, scale parameter $\sigma >0$ and skewness parameter $\tau \in (0,1)$ has density function:
 
-To calculate the case-deletion estimate $\hat{\theta}_{[i]}$ of $\theta$, proposed the following one-step approximation based on Q-function,
+\begin{equation}
+f(y|\mu, \sigma, \tau) = \frac{\tau (1-\tau)}{\sigma}exp{-\rho_{p}(\frac{(y-\mu)}{\sigma})}
+\label{eq: ald}
+\end{equation}
 
-$$\hat{\theta}_{[i]}=\hat{\theta}+\{-Q(\hat{\theta}|\hat{\theta})\}^{-1}Q_{[i]}(\hat{\theta}|\hat{\theta})$$
+where $\rho_{\tau}(.)$ is the loss function mentioned above. 
+
+Suppose that $y_i \sim ALD(\textbf{x}^{'}_{i}\mathbf{\beta}_{p}, \sigma, \tau)$, $i=1,...,n$ are independent. The likelihood function for $n$ observations is
+
+\begin{equation}
+L(\mathbf{\beta},\sigma|y)=\frac{\tau^{n}(1-\tau)^{n}}{\sigma^{n}}exp{-\sum_{i=1}^{n} \rho_{\tau}(\frac{y_i-\textbf{x}^{'}_{i}}{\sigma})}
+\label{eq: ald_likelihood}
+\end{equation}
+
+For note, a quantity with a subscript '[i]' means the relevant quantity with the $i$th observation deleted. Let $\hat{\theta}$ and $\hat{\theta}^{*}_{[i]}$ be the maximum likelihood estimator of $theta$ based on $L(\theta|Y)$ and $L(\theta|Y_{[i]})$ respectively. Cook's distance $CD_{i}$ is given by \@ref(cd). For external norms, $M$ is usually chosen to be $-\ddot{L(Y|\theta)}$.
+
+\begin{equation}
+CD_{i}=(\hat{\theta}^{1}_{[i]}-\hat{\theta})^{'}M(\hat{\theta}^{1}_{[i]}-\hat{\theta})
+\label{eq:cd}
+\end{equation}
+
+Alternatively, another measure of difference between $\theta$ and $\theta^{*}_{[i]}$ is the observed data likelihood function which is defined as 
+Likelihood distance.
+
+\begin{equation}
+LD_i=L(\hat{\theta}|Y)-L(\hat{\theta}^{1}_{[i]}|Y)
+\label{eq: ld}
+\end{equation}
+
+The $i$th observation is regarded as influential if the value of Cook's distance or Likelihood distance is relatively large.
+
+Sánchez and Lachos (2015) proposed a EM algorithm to calculate the above Cook's distance and Likelihood distance for quantile regression using asymmetric laplace distribution. 
+
+\begin{equation}
+Q(\theta|\hat{\theta})=E{L(\theta|Y)|\hat{\theta}}
+\label{eq:q_function}
+\end{equation}
+
+To assess the influence of the $i$th case, we will consider the function
+
+\begin{equation}
+Q_{[i]}(\theta|\hat{\theta})=E{L(\theta|Y_{[i]})|\hat{\theta}}
+\label{eq: q_one_deletion}
+\end{equation}
+
+Let $\hat{\theta}_{[i]}$ be the maximiser of $Q_{[i]}(\theta|\hat{\theta})$. The one-step approximation $\hat{\theta}_{[i]}$ is
+
+\begin{\equation}
+\hat{\theta}_{[i]}=\hat{\theta}+\{-\ddot{Q}(\hat{\theta}|\hat{\theta})\}^{-1}\dot{Q}_{[i]}(\hat{\theta}|\hat{\theta})
+\label{eq: estimator}
+\end{equation}
 
 where
 
-$$Q(\hat{\theta}|\hat{\theta})=\frac{\partial^{2}Q(\theta|\hat{\theta})}{\partial\theta\partial \theta^{T}}|_{\theta=\hat{\theta}}$$
+$$\ddot{Q}(\hat{\theta}|\hat{\theta})=\frac{\partial^{2}Q(\theta|\hat{\theta})}{\partial\theta\partial \theta^{T}}|_{\theta=\hat{\theta}}$$
 
-$$Q_{[i]}(\hat{\theta}|\hat{\theta})=\frac{\partial Q_{[i]}(\theta|\hat{\theta})}{\partial\theta}|_{\theta=\hat{\theta}}$$
+$$\dot{Q}_{[i]}(\hat{\theta}|\hat{\theta})=\frac{\partial Q_{[i]}(\theta|\hat{\theta})}{\partial\theta}|_{\theta=\hat{\theta}}$$
 
 
 are the Hessian matrix and the gradient vector evaluated at $\hat{\theta}$, respectively.
@@ -315,9 +465,6 @@ are the Hessian matrix and the gradient vector evaluated at $\hat{\theta}$, resp
 For measuring the distance between $\hat{\theta}_{[i]}$ and $\hat{\theta}$. We consider generalized cook distance as follows.
 
 $$GD_{i} =(\hat{\theta}_{[i]}-\hat{\theta})^{T}\{-Q(\hat{\theta}|\hat{\theta})\}(\hat{\theta}_{[i]}-\hat{\theta}), i=1,...,n$$
-
-
-* Q-function Distance
 
 The measurement of the influence of the $i$th case is based on the Q-distance function, similar to the likelihood distance $LD_{i}$ which was defined as
 
@@ -356,7 +503,7 @@ The outliers should show a high probability value for this divergence. We comput
 
 We developed R package `quokar` to implete quantile regression outlier diagnostic methods. This package mainly realized two basic features: (a) plot the outlier states; (b) plot data with outliers marked. `quokar` is available from Github at https://github.com/wenjingwang/quokar, so to install and load withn R use:
 
-```{r}
+```{r, eval = FALSE, echo = FALSE}
 devtools::install_github("wenjingwang/quokar")
 library(quokar)
 ```
@@ -459,7 +606,7 @@ ggplot(GCD_m, aes(x = case, y = value )) +
 
 The same, visualization of Q function diagnostic results are shown in fig,
 
-```{r,warning=FALSE,message=FALSE, results = "hide", fig.height=3, fig.width=8, fig.align = "center", fig.cap="Q function distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Q function distance to other points"}
+```{r, warning=FALSE,message=FALSE, results = "hide", fig.height=3, fig.width=8, fig.align = "center", fig.cap="Q function distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Q function distance to other points"}
 
 QD <- frame_mle(y, x, tau, error = 1e-06, iter = 10000,
                method = 'qfunction')
@@ -475,13 +622,13 @@ ggplot(QD_m, aes(x = case, y = value)) +
 
 Same as above, we also applied mean post probability, KL divergence to diagnose,
 
-```{r,warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
+```{r, eval = FALSE, echo = FALSE, warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
 
 y <- ais_female$BMI
 x <- matrix(c(ais_female$LBM, ais_female$Bfat), ncol = 2, byrow = FALSE)
 tau <- c(0.1, 0.5, 0.9)
 case <- rep(1:length(y), length(tau))
-prob <- frame_bayes(y, x, tau, M =  100,
+prob <- frame_bayes(y, x, tau, M =  10, burn = 1, 
                  method = 'bayes.prob')
 
 prob_m <- cbind(case, prob)
@@ -495,9 +642,9 @@ ggplot(prob_m, aes(x = case, y = value )) +
 
 ```
 
-```{r,warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback and Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
+```{r,eval = FALSE, echo = FALSE, warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback and Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
 
-kl <- frame_bayes(y, x, tau, M = 100,
+kl <- frame_bayes(y, x, tau, M = 10, burn = 1,
                   method = 'bayes.kl')
 kl_m <- cbind(case, kl)
 ggplot(kl_m, aes(x = case, y = value)) +

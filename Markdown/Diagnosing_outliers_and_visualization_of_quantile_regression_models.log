@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.4.9)  19 APR 2017 16:33
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.4.9)  22 APR 2017 22:22
 entering extended mode
 **Diagnosing_outliers_and_visualization_of_quantile_regression_models.tex
 
@@ -748,8 +748,9 @@ Package: amsthm 2004/08/06 v2.20
 \c@corollary=\count129
 \c@proposition=\count130
 \c@example=\count131
-No file Diagnosing_outliers_and_visualization_of_quantile_regression_models.aux
-.
+
+(E:\vis-qrodm\Markdown\Diagnosing_outliers_and_visualization_of_quantile_regres
+sion_models.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 140.
 LaTeX Font Info:    ... okay on input line 140.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 140.
@@ -837,6 +838,11 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 140.
 LaTeX Info: Redefining \pageref on input line 140.
 LaTeX Info: Redefining \nameref on input line 140.
+
+(E:\vis-qrodm\Markdown\Diagnosing_outliers_and_visualization_of_quantile_regres
+sion_models.out)
+(E:\vis-qrodm\Markdown\Diagnosing_outliers_and_visualization_of_quantile_regres
+sion_models.out)
 \@outlinefile=\write4
 (C:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -890,21 +896,116 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) (C:\CTEX\MiKTeX\tex\latex\microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
+(E:\vis-qrodm\Markdown\Diagnosing_outliers_and_visualization_of_quantile_regres
+sion_models.toc)
 \tf@toc=\write5
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 163.
-! Missing $ inserted.
-<inserted text> 
-                $
-l.184 \(D=E(f(\textbf{X}\beta)\textbf{XX^{'}}
-                                             )\) and 
-Here is how much of TeX's memory you used:
- 10466 strings out of 495354
- 149043 string characters out of 3183860
- 256615 words of memory out of 3000000
- 13446 multiletter control sequences out of 15000+200000
- 63829 words of font info for 65 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 32i,11n,35p,292b,298s stack positions out of 5000i,500n,10000p,200000b,50000s
+(Font)              <10.95> on input line 162.
+[1
 
+{C:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 231.
+
+(C:\CTEX\MiKTeX\tex\latex\lm\t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Underfull \hbox (badness 2635) in paragraph at lines 259--267
+[]\T1/lmr/m/n/10.95 (+20) Classic least or-di-nary square es-ti-ma-tion of lin-
+ear re-gress-sion can be ex-pressed as
+ []
+
+[2]
+
+LaTeX Warning: Reference `eq:mean' on page 3 undefined on input line 316.
+
+
+<Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
+re-latex/unnamed-chunk-2-1.pdf, id=46, 867.24pt x 216.81pt>
+File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
+/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+
+<use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
+figure-latex/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
+ession_models_files/figure-latex/unnamed-chunk-2-1.pdf used on input line 324.
+(pdftex.def)             Requested size: 452.96559pt x 113.24138pt.
+[3 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_reg
+ression_models_files/figure-latex/unnamed-chunk-2-1.pdf>]
+<Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
+re-latex/unnamed-chunk-3-1.pdf, id=64, 578.16pt x 216.81pt>
+File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
+/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
+
+<use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
+figure-latex/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
+ession_models_files/figure-latex/unnamed-chunk-3-1.pdf used on input line 369.
+(pdftex.def)             Requested size: 452.96558pt x 169.86208pt.
+
+<Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
+re-latex/move-y1-1.pdf, id=65, 722.7pt x 289.08pt>
+File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
+/figure-latex/move-y1-1.pdf Graphic file (type pdf)
+
+<use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
+figure-latex/move-y1-1.pdf>
+Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
+ession_models_files/figure-latex/move-y1-1.pdf used on input line 389.
+(pdftex.def)             Requested size: 452.96558pt x 181.18622pt.
+
+<Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
+re-latex/move-y-multi1-1.pdf, id=66, 578.16pt x 216.81pt>
+File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
+/figure-latex/move-y-multi1-1.pdf Graphic file (type pdf)
+
+<use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
+figure-latex/move-y-multi1-1.pdf>
+Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
+ession_models_files/figure-latex/move-y-multi1-1.pdf used on input line 402.
+(pdftex.def)             Requested size: 452.96558pt x 169.86208pt.
+
+<Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
+re-latex/move-x1-1.pdf, id=67, 722.7pt x 289.08pt>
+File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
+/figure-latex/move-x1-1.pdf Graphic file (type pdf)
+
+<use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
+figure-latex/move-x1-1.pdf>
+Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
+ession_models_files/figure-latex/move-x1-1.pdf used on input line 415.
+(pdftex.def)             Requested size: 452.96558pt x 181.18622pt.
+[4 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_reg
+ression_models_files/figure-latex/unnamed-chunk-3-1.pdf>] [5 <E:/vis-qrodm/Mark
+down/Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
+figure-latex/move-y1-1.pdf> <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visu
+alization_of_quantile_regression_models_files/figure-latex/move-y-multi1-1.pdf>
+]
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 438.
+
+(C:\CTEX\MiKTeX\tex\latex\lm\ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [6 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_r
+egression_models_files/figure-latex/move-x1-1.pdf>]
+
+LaTeX Warning: Reference `cd' on page 7 undefined on input line 542.
+
+[7]
+
+! Package amsmath Error: \hat allowed only in math mode.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.584 ...extbar{}\hat{\theta})\}\^{}\{-1\}\dot{Q}}
+                                                  \{{[}i{]}\}(\hat{\theta}\t...
+ 
+Here is how much of TeX's memory you used:
+ 10694 strings out of 495354
+ 155055 string characters out of 3183860
+ 268854 words of memory out of 3000000
+ 13552 multiletter control sequences out of 15000+200000
+ 80271 words of font info for 102 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 32i,11n,35p,771b,389s stack positions out of 5000i,500n,10000p,200000b,50000s
 !  ==> Fatal error occurred, no output PDF file produced!
