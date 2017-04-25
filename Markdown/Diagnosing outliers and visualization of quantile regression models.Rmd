@@ -1,14 +1,17 @@
 ---
-title: "Diagnosing outliers and visualization of quantile regression models"
+title: "Diagnosing Outliers and Visualization of Quantile Regression Models"
 author:
 - Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
 - ^1^Renmin University of China  , ^2^Monash University
+includes:
+  in_header: style.css
 output:
-  bookdown::pdf_document2: default
+  bookdown::pdf_book: default
   fig_caption: yes
 papersize: a4
 fontsize: 11pt
 ---
+
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "AMS" } }
@@ -23,14 +26,33 @@ library(gridExtra)
 library(purrr)
 ```
 
+# Abstract
+
+
 
 # Introduction
 
-## Background of quantile regression
+Quantile regression model has been widely used in many research areas such as economy, finance and social science. (Autor, Houseman and Kerr (2017), Mitchell, Dowda and Pate (2017), Gallego-Álvarez and Ortas (2017), Korobilis (2017), Maciejowska, Nowotarski and Weron (2016)). Quantile regression has significant advantages over mean regression mainly on two aspects: (a) observed covariates can describe the whole distribution of response variable which produce comprehensive results; (b) estimators can still maintain optimal properties of in case of heteroscedasticity or heavy tail distribution.
 
-Quantile regression model has been widely used in many research areas such as economy, finance, social science (Autor, Houseman and Kerr (2017), Mitchell, Dowda and Pate (2017), Gallego-Álvarez and Ortas (2017), Korobilis (2017), Maciejowska, Nowotarski and Weron (2016)). Quantile regression has significant advantages over mean regression on two aspects:(a) observed covariates can describe the whole distribution of response variable instead of mean. (b) mean regression can no longer maintain the optimal properties due to heteroscedasticity or heavy tail distribution while quantile regression can deal with that.
+The research scope of quantile regression has been broadened considerably in the past decades. We surveyed some of the most recent developments. Koenker (2004), Geraci and Bottai (2006) conducted quantile regression for longitudinal data. Longitudinal data introduced a large number of “fixed effects” in quantile regression and these "fixed effects" will significantly inflate the variability of estimates of other covariate effects. They proposed using $l$1 regularization methods as essential computational tools. Parente and Santos Silva (2016) studied properties of the quantile regression estimator when data are sampled from independent and identically distributed clusters. They provided a consistent estimator of the covaiance matrix and showed the regression estimator is consistent and asympototically normal. Researchers also studied the intersection of quantile regression and panel data. Panel data potentially allows the researcher to include fixed effects to control unobserved covariates which extend the original quantile regression model. They presented new model format and fixed effects estimation.
 
-Koenker and Bassett (1978) proposed linear model for the $\tau$th quantile is,
+Due to the advantages of quantile regression model held, researches also interested in ebbeding it in other models to enhance model features or conduct better results analysis. Geraci (2014) proposed linear quantile mixed model which dealt with within-subject dependence by embeding subject-specific random intercepts into quantile regression model. Estimation strategies to reduce the computational burden and inefficiency using EM algorithm. Chernozhukov and Hansen (2006) proposed instrumental variable quantile regression to evaluate the impact of endogenous variables or treatments on the entire distribution of outcomes. They  modifies the conventional quantile regression and recovers quantile-specific covariate effects in an instrumental variables model.
+
+Except for the recent progresses in model updating, extensive researches have been done in model inferencing. Gutenbrunner, Jureckova, Koenker, and Portnoy (1993) proposed rank-based inference to deal problems of constructing confidence intervals for individual quantile regression parameter estimates. In order to quantify the robustness of inferencing, resampling methods are carefully studied and used (Hahn (1995), Horowitz (1998), Fitzenberger (1998), He and Hu (1999)). Koneker and Machado (1999) used Kolmogorov-Smironov method to measure the goodness of fit for quantile regression. To tackle the "Durbin problem", Koenker and Xiao (2002) developed location shift and location-scale shift test for quantile regression process. There are also studies of quantile regression in bayesian framework (Yu and Moyeed (2001), Yu and Stander (2007), JKozumi and Kobayashi (2011), Santos and Bolfarine (2016)),  which widely extended the research framework.
+
+Based on above numerous of methodology and application studies of quantile regression, varieties of toolboxes conduct model fitting and inference has been developed. Koenker(2017) also pointed out that more work needs to be done to develop better diagnostic tools for quantile regression models. Free software R offers several packages implementing quantile regression, most famous `quantreg` by Roger Koenker, but also `gbm`, `quantregForest`, `qrnn`, `ALDqr` and `bayesQR`. However, few model diagnostic methods were proposed for quantile regression and no toolbox for model diagnostic were implemented in R. 
+
+Outlier detection is one aspect of model diagnosing, and it is important in regression analysis because the results of regression can be sensitive to these outliers. Data for regression model may have special points located far away from others either in response variable data or in the space of the predictors. The latter also be called leverage points. In single variabe case, we can easily observe the data based on scatter plot which will help us spot outliers. Difficulty lies in high-dimensional situation, where statistical methods should be used. To deal with this, various methods for detecting outliers have been studied (Atkinson 1994; Barnett and Lewis 1994; Becker and Gather 1999, 2001; Davies and Gather 1993; Gather and Becker 1997; Gnanadesikan and Kettenking 1972; Hadi 1992, 1994; Hawkins 1980; Maronna and Yohai 1995; Penny 1995; Rocke and Woodruff 1996; Rousseeuw and Van Zomeren 1990). Commonly used methods include residuals, leverage value, studentized residuals and jacknife residuals.
+
+In regression context, classic least ordinary square estimation of linear regresssion can be expressed as $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$, $\hat{Y}=X(X^{'}X)^{-1}X^{'}Y=HY$, where, $H$ is called hat matrix. Residuals can be write as $\hat{\epsilon}=Y-\hat{Y}(1-H)Y=(1-H)\epsilon$. Hence, considering the influence of outliers in vertical direction and leverage points at the same time, we should use studentized residuals, which is $r_i=\frac{\hat{\epsilon}_{i}}{\sigma^{2}\sqrt{1-h_i}}$. The larger $r_i$, the more suspicious the outlier is. Another widely used outlier diagnositc framework is `leave-one-out`. Jackknife residual and Cook's distance (Cook (1977)) are constructed based on this idea. These diagnostic statistics has already become available on widely distributed statistical software packages SAS, SPSS, as well as R. 
+
+Due to the different estimation methods and estimator form of quantile regression, outlier diagnosing for quantile regression model should be specially discussed. In addition, quantile regressions can be fitted on every quantile interested, which add difficulties in applying diagnosing methods and displaying results simutaneously. Benites, Lachos, and Vilca (2016) developed case-deletion diagnostics for quantile regression using the asymmetric Laplace distribution. Santos and Bolfarine (2016) discussed Bayesian quantile regression and considered using the posterior distribution of the latent variable for outlier diagnosing. Some simple outlier diagnostic methods for quantile regression can be conducted in statistical software SAS using procedure `QUANTREG`. However, to the authors’ knowledge, these methods are still not be impleted in R. To fill the gap, an implementation in R language now is available in rencently developed package `quokar` which provides several outlier diagnostic methods as well as supportive visualization results for quantile regression.
+
+This article aims to introduce R package `quoakr` and  display supportive visualizaitons for quantile regression models in high dimension. The remainder of this article is organized as follows: In Section 2, we provide a general introduction to quantile regression model and its robusness property. In Section 3 we give a tour of outlier diagnostic methods for quantile regression used in package `quokar`. In section 4 we will show how to conduct diagnostic methods in package `quokar`. In section 5, we displayed supportive visualizations for quantile regerssion in high-dimension and non-linear situations. The current limitations and future research and development directions are discussed in Section 6.
+
+# Robustness of Quantile Regression
+
+Koenker and Bassett (1978) first proposed linear model as
 
 \begin{equation}
 y_i=x^{'}_{i}\beta_{\tau}+\epsilon_{i}, \quad i=1,...,n
@@ -54,41 +76,13 @@ N(0,\tau(1-\tau)D^{-1}\varOmega_{x}D^{-1})
 
 where $D=E(f(\textbf{X}\beta)\textbf{X}\textbf{X}^{'})$ and $\varOmega_{x}=E(\textbf{X}^{'}\textbf{X})$.
 
-Many current research focus on ebbeding quantile in other models to enhance model features or conduct better results analysis. Geraci (2014) proposed linear quantile mixed model which dealt with within-subject dependence by embeding subject-specific random intercepts into quantile regression model. Chernozhukov and Hansen (2006) used instrumental variable quantile regression for heterogeneous treatment effect models and simulaneous equations models to evaluate the impact of endogenous variables or treatments on the entire distribution of outcomes.
+Quantile is more robust than mean when extreme values exist in the dataset interested. This property applies equally in regression context. Onyedikachi (2015) discussed the robustness of quantile and quantile regression using influence function.
 
-Another development is fitting quantile regression for specified data. Koenker (2004), Geraci and Bottai (2006) proposed to conduct quantile regression for longitudinal data. Parente and Santos Silva (2016) studied properties of the quantile regression estimator when data are sampled from independent and identically distributed clusters. Canay (2011), Arellano and Bonhomme (2016) introduce a class of quantile regression estimators for short panels. Galvao and Kato (2016),  presented fixed effects estimation of quantile regression models for panel data. 
-
-Extensive theories has been used for inferencing quantile regression parameters. Gutenbrunner, Jureckova, Koenker, and Portnoy (1993) proposed rank-based inference to deal problems of constructing confidence intervals for individual quantile regression parameter estimates. Hahn (1995), Horowitz (1998), Fitzenberger (1998), He and Hu (1999) contributed to a variety of resampling methods to quantifying the robustness of inferencing. Koneker and Machado (1999) discussed inference for quantile regression based on Kolmogorov-Smironov goodness of fit method. To deal with "the Durbin problem", Koenker and Xiao (2002) developed new tests of the location shift and location-scale shift models for quantile regression process. There are also studies of quantile regression in bayesian framework which extended research ideas. 
-
-Based on above numerous of methodology and application studies of quantile regression, extensive toolboxs conduct model fitting and inference has been developed. Free software R offers several packages implementing quantile regression, most famous `quantreg` by Roger Koenker, but also `gbm`, `quantregForest`, `qrnn`, `ALDqr` and `bayesQR`. However, few model diagnostic methods were proposed for quantile regression and no toolbox for model diagnostic were implemented in R. Statistical software SAS offered simple outlier diagnostic methods in procedure `QUANTREG`. Koenker(2017) also pointed out that more work needs to be done to develop better diagnostic tools for quantile regression models.
-
-## Outlier detection in regression and HLMdiag
-
-Sample data from the real world may have special points located far away from others. In regression model, these points may affect model fitting. In single variabe case, we can observe outliers based on scatter plot. Difficulty lies in high-dimensional situation, where statistical methods should be used.
-
-Outliers in regression can be divided into two class, one is outliers in vertical direction and the other is leverage point. Various methods for detecting outliers have been studied(Atkinson 1994; Barnett and Lewis 1994; Becker and Gather 1999, 2001; Davies and Gather 1993; Gather and Becker 1997; Gnanadesikan and Kettenking 1972; Hadi 1992, 1994; Hawkins 1980; Maronna and Yohai 1995; Penny 1995; Rocke and Woodruff 1996; Rousseeuw and Van Zomeren 1990). Commonly used methods in mean regression including residuals, leverage value, studentized residuals and jacknife residuals.
-
-Classic least ordinary square estimation of linear regresssion can be expressed as $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$, $\hat{Y}=X(X^{'}X)^{-1}X^{'}Y=HY$, where, $H$ is called hat matrix. Residuals can be write as $\hat{\epsilon}=Y-\hat{Y}(1-H)Y=(1-H)\epsilon$. The variance of the error term and the estimation of $Y$ are  $Var(\hat{\epsilon})=(1-H)$, $Var(\hat{Y})=X\hat{\beta}=H\sigma^{2}$. 
-
-If taking outliers in $y$ and leverage points all in consideration, we can construct studentized residuals, which is $r_i=\frac{\hat{\epsilon}_{i}}{\sigma^{2}\sqrt{1-h_i}}$. The larger $r_i$, the more suspicious the outlier is.Another widely used outlier diagnositc idea is `leave-one-out`. Jackknif residual, knowing as $t_i=\frac{\hat{y}_{(i)}-\hat{y_i}}{\hat{\sigma}_{(i)}(1+x^{'}_{i}(X^{'}_{(i)}X_{(i)})^{-1}x_{i})^{-1/2}}$ and cook distance used this idea.
-
-
-# Outlier detection in quantile regression
-
-Quantile is more robust than mean when extreme values exist in the dataset interested. This property applies equally in regression context. Onyedikachi(2015) discussed the robustness of quantile regression using influence function. They used influence funtion to discuss the robustness of quantile and quantile regression.   
-
-Set $T$ as a functional of $F$, the influence function is the directional derivative of $T(F)$ at $F$, and it measures the effect of a small perturbation in $F$ on $T(F)$. For Mean, the influence function is,
+Set $T$ as a functional of $F$, the influence function is the directional derivative of $T(F)$ at $F$, and it measures the effect of a small perturbation in $F$ on $T(F)$. For Mean, the influence function is
 
 \begin{equation}
 IF(y;T;F)=y-T(F)
-\label{eq:mean}
-\end{equation}
-
-Suppose the estimator for the $\tau$th quantile is $\theta$. We have,
-
-\begin{equation}
-\theta = F^{-1}(\tau)
-\label{eq: theta}
+\label{eq:mean-influence}
 \end{equation}
 
 For the $\tau$th quantile points, influence function can be expressed as,
@@ -100,12 +94,12 @@ IF(y;T;F)=\left\{
 \frac{(\tau-1)}{f(F^{-1}(\tau))} & ; & y \leq F^{-1}(\tau) 
 \end{aligned}
 \right.
-\label{eq:quantile_influence}
+\label{eq:quantile-influence}
 \end{equation}
 
-where $f$ is the density function of $F$. Comparing \@ref(eq:mean) and \@ref(eq:quantile_influence), the latter obviously has boundary when $y$ is changing. We visualized the influence function by an example. The distribution function of y is $F(x)=1-e^{-\lambda x} \quad x>0$, $f(x)=e^{-x}$, $Q(tau)=-ln(1-p)$
+where $f$ is the density function of $F$. Comparing \@ref(eq:mean-influece) and \@ref(eq:quantile-influence), the latter obviously has boundary when $y$ is changing. To explain the characteristic of the boundaries on different quantile, we provide visualization results with an example. Data are generated from distribution function $F(x)=1-e^{-\lambda x} \quad x>0$, and the density function and inverse distribution function are $f(x)=e^{-x}$, $Q(\tau)=-ln(1-p)$ respectively.
 
-```{r, eval = TRUE, echo = FALSE, fig.align="center", fig.height = 3, fig.width = 12, fig.cap = "Visualization of influence function for Mean and Quantile. It is obviously that quantile influence functions are bounded which indicating their robustness."}
+```{r, eval = TRUE, echo = FALSE, fig.align="center", fig.height = 3, fig.width = 12, fig.cap = "Visualization of influence function for Mean and Quantile. It is obviously that quantile influence functions on quantile 0.1, 0.5 and 0.9 are bounded which indicat that quantile is more robust then Mean. The boundaries of influence function on low and high quantile are asymmetrical."}
 
 F <- function(x){
   1-exp(-x)
@@ -127,52 +121,56 @@ p <- ggplot(data_m, aes(y, inf_mean))+
 
 inf_quantile <- function(y, tau){
   n <- length(y)
-  n1 <- sum(y > Q(tau))
-  n2 <- sum(y <= Q(tau))
+  n1 <- sum(y <= Q(tau))
   inf_q <- rep(tau/f(Q(tau)), n)
-  inf_q[1:n2] <- rep((tau-1)/f(Q(tau)), n2)
+  inf_q[1:n1] <- rep((tau-1)/f(Q(tau)), n1)
   return(inf_q)
 }
-
 tau <- 0.1
 data_q <- data.frame(inf_q = inf_quantile(y, 0.1), y = y)
 p1 <- ggplot(data_q, aes(y, inf_q))+
   geom_line() + 
-  geom_point(data = data.frame(a = Q(tau), b = -1), aes(a, b), shape = 1) +
-  geom_point(data = data.frame(a = Q(tau), b = 0.1111), aes(a, b), shape = 16) +
+  geom_point(data = data.frame(a = Q(tau), b = (tau-1)/f(Q(tau))), aes(a, b), shape = 1) +
+  geom_point(data = data.frame(a = Q(tau), b = tau/f(Q(tau))), aes(a, b), shape = 16) +
   geom_vline(xintercept = Q(tau), colour = "red", linetype = "longdash") +
   geom_hline(yintercept = 0, colour = "red", linetype = "longdash") +
   xlab("y") +
   ylab("Influence function for quantile (tau = 0.1)")
-
 tau <- 0.5
 data_q <- data.frame(inf_q = inf_quantile(y, 0.5), y = y)
 p2 <- ggplot(data_q, aes(y, inf_q))+
   geom_line() + 
-  geom_point(data = data.frame(a = Q(tau), b = -1), aes(a, b), shape = 1) +
-  geom_point(data = data.frame(a = Q(tau), b = 1), aes(a, b), shape = 16) +
+  geom_point(data = data.frame(a = Q(tau), b = (tau-1)/f(Q(tau))), aes(a, b), shape = 1) +
+  geom_point(data = data.frame(a = Q(tau), b = tau/f(Q(tau))), aes(a, b), shape = 16) +
   geom_hline(yintercept = 0, colour = "red", linetype = "longdash") +
-  geom_vline(xintercept = max(y), colour = "red", linetype = "longdash") +
+  geom_vline(xintercept = Q(tau), colour = "red", linetype = "longdash") +
   xlab("y") +
   ylab("Influence function for quantile (tau = 0.5)")
-
 tau <- 0.9
 data_q <- data.frame(inf_q = inf_quantile(y, 0.9), y = y)
-p3 <- ggplot(data_q, aes(y, inf_q))+
+y_outlier1 <- seq(0, Q(tau), by = 0.01)
+y_outlier2 <- seq(Q(tau), 3, by = 0.01)
+ny1 <- length(y_outlier1)
+ny2 <- length(y_outlier2)
+data_q_outlier1 <- data.frame(h = rep((tau-1)/f(Q(tau)), ny1), y = y_outlier1)
+data_q_outlier2 <- data.frame(h = rep(tau/f(Q(tau)), ny2), y = y_outlier2)
+data_q_outlier <- rbind(data_q_outlier1, data_q_outlier2)
+p3 <- ggplot(data_q_outlier, aes(y, h))+
   geom_line() + 
-  geom_point(data = data.frame(a = max(y), b = -1), aes(a, b), shape = 1) +
+  geom_point(data = data.frame(a = Q(tau), b = (tau-1)/f(Q(tau))), aes(a, b), shape = 1) +
+  geom_point(data = data.frame(a = Q(tau), b = tau/f(Q(tau))), aes(a, b), shape = 16) +
   geom_hline(yintercept = 0, colour = "red", linetype = "longdash") +
-  geom_vline(xintercept = max(y), colour = "red", linetype = "longdash") +
+  geom_vline(xintercept = Q(tau), colour = "red", linetype = "longdash") +
   xlab("y") +
   ylab("Influence function for quantile (tau = 0.9)")
 grid.arrange(p, p1, p2, p3, nrow = 1)
 ```
 
-Onyedikachi (2015) also provided the influence function for quantile regression. Suppose $F$ represent the joint distribution of the pairs $(x,y)$, we have,
+For quantile regression, suppose $F$ represent the joint distribution of the pairs $(x,y)$, the influce function is 
 
 \begin{equation}
 IF((y,x),\hat{\beta}_{F(\tau)},F)=Q^{-1}xsgn(y-x^{'}\hat{\beta}_{F}(\tau))
-\label{eq:quantile_regression_influence}
+\label{eq:quantile-regression-influence}
 \end{equation}
 
 where 
@@ -187,12 +185,9 @@ Q=\int xx^{'}f(X^{'}\hat{\beta}_{F}(\tau))dG(x)
 \label{eq: q_influence}
 \end{equation}
 
-\@ref(eq:quantile_regression_influence) implies that quantile regression estimates will not be affected by any change in the value of the dependent variable for some observations as long as the relative positions of the observation points to the fitted plane are maintained. 
+Equation \@ref(eq:quantile-regression-influence) implies that quantile regression estimates will not be affected by changes in value of dependent variable as long as the relative positions of the observation points to the fitted plane are maintained. 
 
-## Displaying how do the outliers affect quantile regression
-
-We conducted simulation to display how does outliers affect quantile regression estimations. In two simple simulation studies, we generate 100 sample observation and 3 outliers. The outliers are distributed in two locations in each case. We fitted mean regression and quantile regression based on these dataset to observe how do outliers affect model coefficients. 
-
+We also conducted experiments to visualize the robustness of quantile regression. In two simulation studies, we generate 100 sample observation and 3 outliers. The outliers are distributed in two locations in each case. We fitted quantile regression based on these dataset to observe how do outliers affect model coefficients. 
 
 ```{r, eval=TRUE, echo=FALSE, fig.align="center", fig.height = 3, fig.width = 8,fig.align = "center", fig.cap = "Fitting quantile regression model on quantile 0.1, 0.5 and 0.9 using simulated datasets with and without outliers. The outliers located at the top-left of the original dataset. Results show that outliers pull up the slope of the 0.9 and 0.1 regression line. When outliers located at the bottom-right of the original dataset, results show that outliers pull down the slope of the 0.1 regression line."}
 
@@ -202,11 +197,13 @@ df <- data.frame(y1, x)
 add_outlier <- data.frame(y1 = c(60,61,62), x = c(0.71, 0.73,0.75))
 df_o <- rbind(df, add_outlier)
 
-coef1 <- rq(y1 ~ x, tau = c(0.1, 0.5, 0.9), data = df, method = "br")$coef
+coef1 <- rq(y1 ~ x, tau = c(0.1, 0.5, 0.9), 
+            data = df, method = "br")$coef
 rq_coef1 <- data.frame(intercept = coef1[1, ], coef = coef1[2, ],
                        tau_flag =colnames(coef1))
 
-coef2 <- rq(y1 ~ x, tau = c(0.1, 0.5, 0.9),data = df_o, method = "br")$coef
+coef2 <- rq(y1 ~ x, tau = c(0.1, 0.5, 0.9),
+            data = df_o, method = "br")$coef
 rq_coef2 <- data.frame(intercept = coef2[1, ], coef = coef2[2, ],
                        tau_flag =colnames(coef2))
 p1 <- ggplot(df_o) +
@@ -223,10 +220,12 @@ df <- data.frame(y2, x)
 add_outlier <- data.frame(y2 = c(1,2,3), x = c(0.71, 0.73,0.75))
 df_o <- rbind(df, add_outlier)
 
-coef1 <- rq(y2 ~ x, tau = c(0.1, 0.5, 0.9), data = df, method = "br")$coef
+coef1 <- rq(y2 ~ x, tau = c(0.1, 0.5, 0.9), 
+            data = df, method = "br")$coef
 rq_coef1 <- data.frame(intercept = coef1[1, ], coef = coef1[2, ], tau_flag = colnames(coef1))
 
-coef2 <- rq(y2 ~ x, tau = c(0.1, 0.5, 0.9), data = df_o, method = "br")$coef
+coef2 <- rq(y2 ~ x, tau = c(0.1, 0.5, 0.9), 
+            data = df_o, method = "br")$coef
 rq_coef2 <- data.frame(intercept = coef2[1, ], coef = coef2[2, ], tau_flag = colnames(coef2))
 
 p2 <- ggplot(df_o) +
@@ -239,7 +238,7 @@ p2 <- ggplot(df_o) +
 grid.arrange(p1, p2, nrow = 1)
 ```
 
-We also change the location of outliers or add outliers numbers to observe how they affect coeficient estimations on each quantile. These simulation studies are extended to multi-variables model.Using the simulated data to construct quantile regression model. By comparing the four models, we have a brief idea of the effect of outliers locating. The results show that when outliers moving down in y direction for 10 unit, it pulls down the slope on every quantile(comparing the result of model rq(y1~x) and rq(y2~x)). However, keeping moving down the outliers does no change to the slopes. This reflect the boundary theory expressed by influence function above.
+We also conduct simulations to observe the robustness of quantile regression. These simulation studies are extended to multi-variable model. We generate 100 data which contains 5 outliers. In each experiment, we changed the y axis value of the outliers. The results show that when outliers moving down in y direction for 10 unit, outliers pull down the slope on every quantile (by comparing the result of rq(y1~x) and rq(y2~x)). However, keeping moving down the outliers does no change to regression slopes. This reflect the theory of bounded influence function.
 
 ```{r move-y1, warning=FALSE,message=FALSE, eval = TRUE, echo = FALSE, fig.height = 4, fig.width = 10, fig.align = "center", fig.cap = "Left fig: Fitting quantile regression models using simulated data. We keep moving down the outliers in y direction in y2 (y-5), y3 (y-10) and y4 (y-15). Right fig: Fitting quantile regression models using simulated data. We keep moving down the outliers in y direction getting datasets with variable y2 (=y-5), y3 (=y-10) and y4 (=y-15). Results show that in single predictor case, outliers moving down in y make no difference to the quantile regression coefficients estimations"}
 
@@ -254,33 +253,34 @@ y4 <- y3
 y4[selectedX] <- y3[selectedX] - 10
 df <- data.frame(x, y, y2, y3, y4)
 df_m <- df %>% gather(variable, value, -x)
-p1 <- ggplot(df_m, aes(x = x, y=value)) +
-        geom_point(alpha = 0.5) +
-        xlab("x") +
-        ylab("y") +
-        facet_wrap(~variable, ncol=2, scale = "free_y") +
-        geom_quantile(quantiles = seq(0.1, 0.9, 0.1), colour = "purple") +
-        geom_smooth(method = "lm", se = FALSE, colour = "orange")
-
 coefs <- 2:5 %>%
   map(~ rq(df[, .] ~ x, data = df, seq(0.1, 0.9, 0.1))) %>%
   map_df(~ as.data.frame(t(as.matrix(coef(.)))))
 colnames(coefs) <- c("intercept", "slope")
+variable <- rep(c("y", "y2", "y3", "y4"), each = 9)
+tau_flag <- paste("tau=", rep(seq(0.1, 0.9, by = 0.1), 4), sep = "")
+qr_lines <- data.frame(coefs, variable, tau_flag)
+p1 <- ggplot(df_m, aes(x = x, y=value)) +
+  geom_point(alpha = 0.3) +
+  geom_abline(data = qr_lines, aes(intercept = intercept, 
+                                   slope =  slope, colour = tau_flag))+
+  xlab("x") +
+  ylab("y") +
+  facet_wrap(~variable, ncol=2, scale = "free_y") +
+  scale_colour_brewer("Dark") +
+  theme_dark()
 tau <- rep(seq(0.1, 0.9, by = 0.1), 4)
 model <- paste('rq', rep(1:4, each = 9), sep="")
-
 df_m1 <- data.frame(model, tau, coefs)
 df_mf <- df_m1 %>% gather(variable, value, -c(model, tau))
 p2 <- ggplot(df_mf, aes(x = tau, y = value, colour = model)) +
-        geom_point() +
-        geom_line() +
-        facet_wrap(~ variable, scale = "free_y") +
-        xlab('quantiles') +
-        ylab('coefficients')
-
+  geom_point() +
+  geom_line() +
+  facet_wrap(~ variable, scale = "free_y") +
+  xlab('quantiles') +
+  ylab('coefficients')
 grid.arrange(p1, p2, nrow = 1)
 ```
-
 We also observed the change of coefficients in multi-variable model. The results show that coefficients changes slowly when keep moving down the outliers in y-direction.
 
 ```{r move-y-multi1, eval=TRUE, echo=FALSE,warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Fitting quantile regression models using simulated data. We keep moving down the outliers in y direction getting three datasets with different locations of outliers (changing in y-aixs, y2 (=y-5), y3 (=y-10) and y4 (=y-15)). Results show that in multi predictors case, outliers moving down in y make small change to the quantile regression coefficients estimations"}
@@ -333,17 +333,22 @@ df$x3[selectedIdx] <- df$x3[selectedIdx] + 0.2
 df$x4 <- df$x3
 df$x4[selectedIdx] <- df$x4[selectedIdx] + 0.2
 df_m <- df %>% gather(variable, value, -y, -y2)
-p1 <- ggplot(df_m, aes(x = value, y=y2)) +
-  geom_point() +
-  xlab("x") +
-  ylab("y") +
-  facet_wrap(~variable, ncol=2, scale = "free") +
-  geom_quantile(quantiles = seq(0.1, 0.9, 0.1))
-
 coefs <- 3:6 %>%
   map(~ rq(df$y2 ~ df[, .], data = df, seq(0.1, 0.9, 0.1))) %>%
   map_df(~ as.data.frame(t(as.matrix(coef(.)))))
 colnames(coefs) <- c("intercept", "slope")
+variable <- rep(c("x", "x2", "x3", "x4"), each = 9)
+tau_flag <- paste("tau=", rep(seq(0.1, 0.9, by = 0.1), 4), sep = "")
+qr_lines <- data.frame(coefs, variable, tau_flag)
+p1 <- ggplot(df_m, aes(x = value, y=y2)) +
+  geom_point(alpha = 0.3) +
+  geom_abline(data = qr_lines, aes(intercept = intercept, 
+                                   slope = slope, colour = tau_flag)) +
+  xlab("x") +
+  ylab("y") +
+  facet_wrap(~variable, ncol=2, scale = "free") +
+  scale_colour_brewer("Dark") +
+  theme_dark()
 tau <- rep(seq(0.1, 0.9, by = 0.1), 4)
 model <- paste('rq', rep(1:4, each = 9), sep="")
 df_m1 <- data.frame(model, tau, coefs)
@@ -354,17 +359,16 @@ p2 <- ggplot(df_mf, aes(x = tau, y = value, colour = model)) +
   facet_wrap(~ variable, scale = "free_y") +
   xlab('quantiles') +
   ylab('coefficients')
-
 grid.arrange(p1, p2, nrow = 1)
 ```
 
 In conclusion, quantile regression response differently to outliers comparing mean regression in two aspects: (a) not all models on each quantile will be affected when outliers exist. If we are interested in model on particular quantile, the effect of outliers should be carefully considered. (b) quantile regression model do not have robustness properties to so called leverage points. 
 
-# Outlier diagnosting methods for quantile regression 
+# Outlier Diagnostic Methods for Quantile Regression 
 
-We proposed three methods for quantile regression outlier diagnostic which will be discussed as follows.
+Based on related researches, we implete several methods for outlier detecting in `quokar`. 
 
-* Standard residual-Robust Distance
+### 1. Standard residual-Robust Distance
 
 We can not use the famous "Hat Matrix" to detect leverage points in quantile regression since the coefficient estimation of quantile regression do not satisfy $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$. One way to identify possible leverage points is to calculate a distance from each point to a "center" of the data. Leverage point would then be the one with a distance larger than some predetermined cutoff. A conventional measurement is Mahalanobi distance:
 
@@ -395,9 +399,9 @@ Where $\textbf{T(A)}$ and $\textbf{C(A)}$ are robust multivariate location and s
 
 Package `quokar` provide Mahalanobi distance and Robust distance to detect leverage points in quantile regression. Residuals that are based on quantile regression estimates are used to detect vertical outliers.
  
-* Cook's Distance and Likelihood Distance
+### 2. Cook's Distance and Likelihood Distance
 
-Case-deletion is another classical approach to study the outlier effects in regression by leaving 1 or k observations out every time fitting the regression model. case-deletion diagnostics such as Cook's distance or the likelihoood distance have been successfully applied to various statistical models. Based on the research of Sánchez, Lachos and Labra (2013), we applied generalized cook's distance and likelihood distance for quantile regression outlier diagnostic in package `quokar`.
+Case-deletion diagnostics such as Cook's distance or Likelihood distance have been successfully applied to various statistical models. Based on the research of Sánchez, Lachos and Labra (2013), we calculate Cook's distance and Likelihood distance for quantile regression in package `quokar`. More specify process will be discussed as follows.
 
 Yu and Moyeed (2001) proposed random variable $Y$ distributed as asymmetric Laplace distribution with location parameter $\mu$, scale parameter $\sigma >0$ and skewness parameter $\tau \in (0,1)$ has density function:
 
@@ -412,7 +416,7 @@ Suppose that $y_i \sim ALD(\textbf{x}^{'}_{i}\mathbf{\beta}_{p}, \sigma, \tau)$,
 
 \begin{equation}
 L(\mathbf{\beta},\sigma|y)=\frac{\tau^{n}(1-\tau)^{n}}{\sigma^{n}}exp{-\sum_{i=1}^{n} \rho_{\tau}(\frac{y_i-\textbf{x}^{'}_{i}}{\sigma})}
-\label{eq: ald_likelihood}
+\label{eq:ald_likelihood}
 \end{equation}
 
 For note, a quantity with a subscript '[i]' means the relevant quantity with the $i$th observation deleted. Let $\hat{\theta}$ and $\hat{\theta}^{*}_{[i]}$ be the maximum likelihood estimator of $theta$ based on $L(\theta|Y)$ and $L(\theta|Y_{[i]})$ respectively. Cook's distance $CD_{i}$ is given by \@ref(cd). For external norms, $M$ is usually chosen to be $-\ddot{L(Y|\theta)}$.
@@ -422,33 +426,30 @@ CD_{i}=(\hat{\theta}^{1}_{[i]}-\hat{\theta})^{'}M(\hat{\theta}^{1}_{[i]}-\hat{\t
 \label{eq:cd}
 \end{equation}
 
-Alternatively, another measure of difference between $\theta$ and $\theta^{*}_{[i]}$ is the observed data likelihood function which is defined as 
-Likelihood distance.
+Alternatively, another measure of difference between $\theta$ and $\theta^{*}_{[i]}$ is the observed data likelihood function which is defined as Likelihood distance.
 
 \begin{equation}
 LD_i=L(\hat{\theta}|Y)-L(\hat{\theta}^{1}_{[i]}|Y)
 \label{eq: ld}
 \end{equation}
 
-The $i$th observation is regarded as influential if the value of Cook's distance or Likelihood distance is relatively large.
-
-Sánchez and Lachos (2015) proposed a EM algorithm to calculate the above Cook's distance and Likelihood distance for quantile regression using asymmetric laplace distribution. 
+The $i$th observation is regarded as influential if the value of Cook's distance or Likelihood distance is relatively large. Sánchez and Lachos (2015) proposed a EM algorithm to calculate the above Cook's distance and Likelihood distance which reduced the calculation burden. They used the expectation of likelihood function. 
 
 \begin{equation}
-Q(\theta|\hat{\theta})=E{L(\theta|Y)|\hat{\theta}}
+Q(\theta|\hat{\theta})=E\{L(\theta|Y)|\hat{\theta}\}
 \label{eq:q_function}
 \end{equation}
 
 To assess the influence of the $i$th case, we will consider the function
 
 \begin{equation}
-Q_{[i]}(\theta|\hat{\theta})=E{L(\theta|Y_{[i]})|\hat{\theta}}
+Q_{[i]}(\theta|\hat{\theta})=E\{L(\theta|Y_{[i]})|\hat{\theta}\}
 \label{eq: q_one_deletion}
 \end{equation}
 
 Let $\hat{\theta}_{[i]}$ be the maximiser of $Q_{[i]}(\theta|\hat{\theta})$. The one-step approximation $\hat{\theta}_{[i]}$ is
 
-\begin{\equation}
+\begin{equation}
 \hat{\theta}_{[i]}=\hat{\theta}+\{-\ddot{Q}(\hat{\theta}|\hat{\theta})\}^{-1}\dot{Q}_{[i]}(\hat{\theta}|\hat{\theta})
 \label{eq: estimator}
 \end{equation}
@@ -459,47 +460,67 @@ $$\ddot{Q}(\hat{\theta}|\hat{\theta})=\frac{\partial^{2}Q(\theta|\hat{\theta})}{
 
 $$\dot{Q}_{[i]}(\hat{\theta}|\hat{\theta})=\frac{\partial Q_{[i]}(\theta|\hat{\theta})}{\partial\theta}|_{\theta=\hat{\theta}}$$
 
-
 are the Hessian matrix and the gradient vector evaluated at $\hat{\theta}$, respectively.
 
-For measuring the distance between $\hat{\theta}_{[i]}$ and $\hat{\theta}$. We consider generalized cook distance as follows.
+The Cook's distance is
 
-$$GD_{i} =(\hat{\theta}_{[i]}-\hat{\theta})^{T}\{-Q(\hat{\theta}|\hat{\theta})\}(\hat{\theta}_{[i]}-\hat{\theta}), i=1,...,n$$
+\begin{equation}
+GD_{i} =(\hat{\theta}_{[i]}-\hat{\theta})^{T}\{-Q(\hat{\theta}|\hat{\theta})\}(\hat{\theta}_{[i]}-\hat{\theta}), i=1,...,n
+\label{eq:gd}
+\end{equation}
 
-The measurement of the influence of the $i$th case is based on the Q-distance function, similar to the likelihood distance $LD_{i}$ which was defined as
+The measurement of the influence of the $i$th case is based on the Q function, similar to the likelihood distance $LD_{i}$ which was defined as
 
-$$QD_{i}=2\{Q(\hat{\theta}|\hat{\theta})-Q(\hat{\theta}_{[i]}|\hat{\theta})\}$$
+\begin{equation}
+QD_{i}=2\{Q(\hat{\theta}|\hat{\theta})-Q(\hat{\theta}_{[i]}|\hat{\theta})\}
+\label{eq:qd}
+\end{equation}
 
-* Mean Post Probability 
+### 3. Mean Posterior Probability and Kullback-Leibler Divergence
 
-Baysian quantile regression added a latent variable $v_i$ into model for each observation. Every $v_i$ is assumed to have an exponential distribution with mean $\sigma$, that with the likelihood produces a posterior distributed according to a generalized inverse Gaussian with parameters.
+In Bayesian quantile regression framework, Kozumi and Kobayashi (2011) proposed a location-scale mixture representation of the asymmetric Laplace distrbution, as follows
 
-If we define the variable $O_i$, which takes value equal to 1 when the $i$th observation is an outlier, and 0 otherwise. Then we propose to calculate the pro
-bility of an observation being an outlier as
+\begin{equation}
+Y|v \sim N(\mu + \theta v, \phi^{2}\sigma v)
+\label{eq:mixture}
+\end{equation}
 
-$$P(O_i=1)=\frac{1}{n-1}\sum_{j \neq i}P(v_i > v_j|data)$$
+where $\theta=(1-2\tau)/(\tau(1-\tau))$, $\phi^{2}=2/(\tau(1-\tau))$. $v$ is a latent variable which prior distribution is exponential and the full conditional posterior distribution for each $vi$ follows generalized inverse Gaussian distribution with parameters
 
-The probability in the expression above can be approximated given the
-MCMC draws, as follows:
+\begin{equation}
+v=\frac{1}{2}, \quad \delta^{2}_{i}=\frac{(y_i-x^{'}_{i}\beta(\tau))^{2}}{\phi^{2}\sigma}, \quad 
+\gamma^2=\frac{2}{\sigma}+\frac{\theta^{2}}{\phi^{2}\sigma}
+\label{eq:parameters}
+\end{equation}
 
-$$P(O_i = 1)=\frac{1}{M}I(v^{(l)_i}>max_{k \in 1:M}v^{(k)}_j)$$
+Parameters of $v_i$ in \@ref{eq:parameters} show two characters of latent variable $v$: (a) each random variable $v_i$ has different distributions due to parameter $\delta^2$ changes among obvervations. (b) distribution of $v_i$ depended on weighted squared residual of the quantile fit. Based on the above two characters, we propose to compare the posterior distribution of its latent variable to detect outliers. We implete two methods in `quokar`, one is mean posterior prability and the other is Kullback-Leibler divergence.
+
+We define variable $O_i$ indicating whether observation $i$ is an outlier.
+
+$$
+O_i = \left\{
+\begin{aligned}
+1 & , & i \quad is \quad outlier \\
+0 & , & i \quad is \quad normal
+\end{aligned}
+\right.$$
+
+The mean posterior probability appoximatlly calculated by MCMC draw is
+
+$$P(O_i = 1)=\frac{1}{n-1}\sum_{j \neq i}\frac{1}{M}I(v^{(l)}_{i}> \text{max}_{k \in 1:M}v^{(k)}_j)$$
 
 where $M$ is the size of the chain of $v_i$ after the burn-in perior and $v^{(l)}_i$ is the $l$th draw of this chain.
 
-
-* K-L Divergence
-
-Similar with mean posterior probability method, we also caculates Kullback-Leibler divergence which proposed by Kullback and Leibler(1951) as a more precise method of measuring the distance between those latent variables in Bayes quantile regression. The Kullback-Leibler divergence is defined as:
+Kullback and Leibler (1951) proposed a more precise method of measuring the distance between variables. Suppose $f_i$ is the posterior conditional distribution of $v_i$ and correspondingly $f_j$ is the posterior conditional distribution of $v_j$. The Kullback-Leibler divergence of $f_i$ and $f_j$ is defined as
   
 $$K(f_i, f_j)=\int log(\frac{f_i(x)}{f_j(x)}f_{i}(x))dx$$
-  
-where $f_i$ could be the posterior conditional distribution of $v_i$ and $f_j$ the posterior conditional distribution of $v_j$. We should average this divergence for one observation based on the distance from all others,
+Similar with calculating mean posterior probability, we average this divergence for one observation based on the distance from all others,
   
 $$KL(f_i)=\frac{1}{n-1}\sum_{j\neq i}K(f_i, f_j)$$
-  
-The outliers should show a high probability value for this divergence. We compute the integral using the trapezoidal rule.
 
-# Examining outlier detection
+The outliers should show a high probability value for this divergence. We compute the integral using the trapezoidal rule, and the density function are estimated using kernel estimation with Gaussian kernel function. 
+
+# Examining Outlier Detection
 
 We developed R package `quokar` to implete quantile regression outlier diagnostic methods. This package mainly realized two basic features: (a) plot the outlier states; (b) plot data with outliers marked. `quokar` is available from Github at https://github.com/wenjingwang/quokar, so to install and load withn R use:
 
@@ -514,7 +535,9 @@ We implete ais data as an example to introduce this package. AIS data include 14
 
 In single variable case, we can use scatter plot to represent the outlier stats. The following code showed how to display suspicious outliers based on quantile regression models.
 
-```{r, warning=FALSE,message=FALSE, fig.height=3, fig.width=5, fig.align = "center", fig.cap="Plot the outlier stats."}
+In single variable case, we can use scatter plot to represent the outlier stats. The following code showed how to display suspicious outliers based on quantile regression models.
+
+```{r, warning=FALSE,message=FALSE, fig.height=3, fig.width=4, fig.align = "center", fig.cap="Plot the outlier stats."}
 data(ais)
 ais_female <- filter(ais, Sex == 1)
 case <- 1 : nrow(ais_female)
@@ -564,17 +587,18 @@ n <- nrow(object$model)
 case <- rep(1:n, length(tau))
 distance <- cbind(case, distance)
 distance$residuals <- abs(distance$residuals)
-tau_flag <- paste("tau", tau, sep="")
+tau_f <- paste("tau", tau, sep="")
 text_flag <- 1:length(cutoff_h) %>%
-                            map(function(i){
-                            distance %>% 
-                            filter((residuals > cutoff_h[i] |rd > cutoff_v)
-                                & tau_flag == tau_flag[i])})
-##need polish
+                    map(function(i){
+                        distance %>% 
+                           filter((residuals > cutoff_h[i] |rd > cutoff_v)
+                                & tau_flag == tau_f[i])})
+
 text_flag_d <- rbind(text_flag[[1]], text_flag[[2]], text_flag[[3]])
 ggplot(distance, aes(x = rd, y = residuals)) +
       geom_point() +
-      geom_hline(data = data.frame(tau_flag, cutoff_h),   
+      geom_hline(data = data.frame(tau_flag = paste("tau", tau, sep=""), 
+                                   cutoff_h = cutoff_h),   
                  aes(yintercept = cutoff_h), colour = "red") +
       geom_vline(xintercept = cutoff_v, colour = "red") +
       geom_text(data = text_flag_d, aes(label = case), hjust = 0, vjust = 0) +
@@ -656,37 +680,39 @@ ggplot(kl_m, aes(x = case, y = value)) +
   ylab('Kullback-Leibler')
 ```
 
-# Visualizing quantile regression
+# Visualizing Quantile Regression in High Dimension
 
-Visualization of quantile regression will help us understand the questions 'How does the shape of the model compare to the shape of the data?'. In addition, we can have a good impression of the location of models on each quantile. We use GGobi to visualize quantile regression model.
+Visualization of quantile regression will help us answer the questions 'How does the shape of the model compare to the shape of the data?'. In addition, we can have a good impression of the location of models on each quantile. We use GGobi to visualize quantile regression model.
+
+
 
 ## Linear quantile regression model
 
 In two predictors case, quantile regression models are lines in space. We use ais data fitting models and visualize them with GGobi.
 
-```{r, eval=TRUE, echo=TRUE, fig.align="center",out.width = '20%', out.height = '20%'}
+```{r fig-name0, out.width="30%", fig.show="hold", fig.cap="Markdown supported string as caption 1",  fig.align="center", echo=FALSE}
 knitr::include_graphics(c("Figures/QR-model-single-pixel/linear-3D-1.png",
-                          "Figures/QR-model-single-pixel/linear-3D-2.png",
                           "Figures/QR-model-single-pixel/linear-3D-3.png",
-                          "Figures/QR-model-single-pixel/linear-3D-4.png",
                           "Figures/QR-model-single-pixel/linear-3D-5.png",
+                          "Figures/QR-model-single-pixel/linear-3D-2.png",
+                          "Figures/QR-model-single-pixel/linear-3D-4.png",
                           "Figures/QR-model-single-pixel/linear-3D-6.png",
-                          "Figures/QR-model-single-pixel/linear-3D-7.png",
                           "Figures/QR-model-single-pixel/linear-3D-8.png",
+                          "Figures/QR-model-single-pixel/linear-3D-7.png",
                           "Figures/QR-model-single-pixel/linear-3D-9.png"))
 ```
 
 In three predictor case, quantile regression models are cuboids in space which were displayed as follows,
 
-```{r, eval=TRUE, echo=TRUE, fig.align="center", out.width = '20%', out.height = '20%'}
+```{r fig-name1, out.width="30%", fig.show="hold", fig.cap="Markdown supported string as caption 2",  fig.align="center", echo=FALSE}
 knitr::include_graphics(c("Figures/QR-model-single-pixel/linear-4D-1.png",
-                          "Figures/QR-model-single-pixel/linear-4D-2.png",
                           "Figures/QR-model-single-pixel/linear-4D-3.png",
-                          "Figures/QR-model-single-pixel/linear-4D-4.png",
                           "Figures/QR-model-single-pixel/linear-4D-5.png",
+                          "Figures/QR-model-single-pixel/linear-4D-2.png",
+                          "Figures/QR-model-single-pixel/linear-4D-4.png",
                           "Figures/QR-model-single-pixel/linear-4D-6.png",
-                          "Figures/QR-model-single-pixel/linear-4D-7.png",
                           "Figures/QR-model-single-pixel/linear-4D-8.png",
+                          "Figures/QR-model-single-pixel/linear-4D-7.png",
                           "Figures/QR-model-single-pixel/linear-4D-9.png"))
 ```
 
@@ -694,24 +720,25 @@ knitr::include_graphics(c("Figures/QR-model-single-pixel/linear-4D-1.png",
 
 In non-linear case, we use elliptic hyperboloid and hyperbolic paraboloid as examples.
 
-```{r, eval=TRUE, echo=TRUE, fig.align="center", out.width = '20%', out.height = '20%'}
+```{r fig-name2, out.width="30%", fig.show="hold", fig.cap="Markdown supported string as caption 3",  fig.align="center", echo=FALSE}
 knitr::include_graphics(c("Figures/QR-model/curve1-1.png",
-                          "Figures/QR-model/curve1-2.png",
                           "Figures/QR-model/curve1-3.png",
-                          "Figures/QR-model/curve1-4.png",
                           "Figures/QR-model/curve1-5.png",
-                          "Figures/QR-model/curve1-6.png",
                           "Figures/QR-model/curve1-7.png",
+                          "Figures/QR-model/curve1-2.png",
+                          "Figures/QR-model/curve1-4.png",
+                          "Figures/QR-model/curve1-6.png",
                           "Figures/QR-model/curve1-8.png",
                           "Figures/QR-model/curve1-9.png"))
 ```
 
-```{r, include = FALSE, out.width = '20%', out.height = '20%'}
+```{r fig-name3, out.width="30%", fig.show="hold", fig.cap="Markdown supported string as caption 4",  fig.align="center", echo=FALSE}
+
 knitr::include_graphics(c("Figures/QR-model/curve2-1.png",
-                          "Figures/QR-model/curve2-2.png",
                           "Figures/QR-model/curve2-3.png",
-                          "Figures/QR-model/curve2-4.png",
                           "Figures/QR-model/curve2-5.png",
+                          "Figures/QR-model/curve2-2.png",
+                          "Figures/QR-model/curve2-4.png",
                           "Figures/QR-model/curve2-6.png"))
 ```
 
