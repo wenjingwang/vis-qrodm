@@ -28,7 +28,7 @@ library(purrr)
 
 # Abstract
 
-Quantile regression model becomes more and more popular and has been widely used in many research areas. Recently, Koenker reviewed the studies of quantile regression in the past 40 years, and pointed out that more diagnostic tools should be provided in addition to the extensive toolbox of estimation. This paper first comprehensively studied the outlier diagnostic for quantile regression and implement the discussed method in R language. The R package `quokar` contains functions for diagnosing outliers in quantile regression and also provide support for easily visualizing the diagnose results. In addition, this paper proposed a general framework to visualize quantile regression model (linear and non-linear) in high dimensional data space using `GGobi`. The integrated plot of quantile regression model and the fitting data set was displayed in `GGobi`, which is a more straight-forward way of examing outliers and also supported other research aspects. This paper discusses the methods used in `quokar` and illustrates the usefulness of the package through examples. At last, the visualization framework and results for quantile regression are provided.
+Quantile regression model becomes more and more popular and has been widely used in many research areas. Recently, Koenker reviewed the studies of quantile regression in the past 40 years, and pointed out that more diagnostic tools should be provided in addition to the extensive toolbox of estimation. This paper first comprehensively studied  outlier diagnostic for quantile regression and implement them in R language. The R package `quokar` contains functions for diagnosing outliers in quantile regression and also provide support for easily visualizing the diagnosed results. In addition, this paper proposed a general framework to visualize quantile regression model (linear and non-linear) in high dimensional data space using `GGobi`. The integrated plot of quantile regression model and the fitting data set displayed in `GGobi` is a more straight-forward way of examing outliers and also supported other research aspects. This paper discusses  methods used in `quokar` and illustrates the usefulness of the package through examples. At last, the visualization framework and results for quantile regression are provided.
 
 
 # Introduction
@@ -60,22 +60,22 @@ y_i=x^{'}_{i}\beta_{\tau}+\epsilon_{i}, \quad i=1,...,n
 \label{eq:linear_qr}
 \end{equation}
 
-The $\tau$th quantile function of the sample is $Q_{y}(\tau|x)=x^{'}\beta(\tau)$. Based on the idea of minim izing a sum of asymmetrically weighted absolute residuals, the objective function of quantile regression model is,
+The $\tau$th quantile function of the sample is $Q_{y}(\tau|x)=x^{'}\beta(\tau)$. Based on the idea of minimizing a sum of asymmetrically weighted absolute residuals, the objective function of quantile regression model is,
 
 \begin{equation}
 \min_{\beta_{\tau} \in \mathbb{R}^{p}}\sum_{i=1}^{n} \rho_{\tau}(y_i-x_{i}^{'}\beta_{\tau})
 \label{eq:object_function}
 \end{equation}
 
-where $\rho(.)$ is loss function which was defined as $\rho_{\tau}(u)=u(\tau-I(u <0))$. In addition, assuming $Y_1,...,Y_n$ is a sequence of i.i.d random variables which has distribution function $F$ and continuous density function $f$. The coefficience vector $\hat{\beta}_{\tau}$ is asymptotically normal, which can be expressed as,
+where $\rho(.)$ is loss function which was defined as $\rho_{\tau}(u)=u(\tau-I(u <0))$. In addition, assuming $Y_1,...,Y_n$ is a sequence of i.i.d random variables which has distribution function $F$ and continuous density function $f$. The coefficience vector $\hat{\boldsymbol{\beta}}_{\tau}$ is asymptotically normal, which can be expressed as,
 
 \begin{equation}
-\sqrt{n}(\hat{\beta}_{\tau}-\beta_{\tau}) \xrightarrow{d}
-N(0,\tau(1-\tau)D^{-1}\varOmega_{x}D^{-1})
+\sqrt{n}(\hat{\boldsymbol{\beta}}_{\tau}-\boldsymbol{\beta}_{\tau}) \xrightarrow{d}
+N(0,\tau(1-\tau)\boldsymbol{D}\boldsymbol{\varOmega}_{x}\boldsymbol{D}^{-1})
 \label{eq:distrbution}
 \end{equation}
 
-where $D=E(f(\textbf{X}\beta)\textbf{X}\textbf{X}^{'})$ and $\varOmega_{x}=E(\textbf{X}^{'}\textbf{X})$.
+where $\boldsymbol{D}=E(f(\boldsymbol{X}\boldsymbol{\beta})\boldsymbol{X}\boldsymbol{X}^{'})$ and $\boldsymbol{\varOmega}_{x}=E(\boldsymbol{X}^{'}\boldsymbol{X})$.
 
 Quantile is more robust than mean when extreme values exist in the dataset interested. This property applies equally in regression context. Onyedikachi (2015) discussed the robustness of quantile and quantile regression using influence function.
 
