@@ -505,26 +505,37 @@ Parameters of $v_i$ in \@ref(eq:parameters) show two characters of latent variab
 
 We define variable $O_i$ indicating whether observation $i$ is an outlier.
 
-$$
+\begin{equation}
 O_i = \left\{
 \begin{aligned}
 1 & , & i \quad is \quad outlier \\
 0 & , & i \quad is \quad normal
 \end{aligned}
-\right.$$
+\right.
+\label{eq:indicating_outlier}
+\end{equation}
 
 The mean posterior probability appoximatlly calculated by MCMC draw is
 
-$$P(O_i = 1)=\frac{1}{n-1}\sum_{j \neq i}\frac{1}{M}I(v^{(l)}_{i}> \text{max}_{k \in 1:M}v^{(k)}_j)$$
+\begin{equation}
+P(O_i = 1)=\frac{1}{n-1}\sum_{j \neq i}\frac{1}{M}I(v^{(l)}_{i}> \text{max}_{k \in 1:M}v^{(k)}_j)
+\label{eq:mcmc_draw}
+\end{equation}
 
 where $M$ is the size of the chain of $v_i$ after the burn-in perior and $v^{(l)}_i$ is the $l$th draw of this chain.
 
 Kullback and Leibler (1951) proposed a more precise method of measuring the distance between variables. Suppose $f_i$ is the posterior conditional distribution of $v_i$ and correspondingly $f_j$ is the posterior conditional distribution of $v_j$. The Kullback-Leibler divergence of $f_i$ and $f_j$ is defined as
   
-$$K(f_i, f_j)=\int log(\frac{f_i(x)}{f_j(x)}f_{i}(x))dx$$
+\begin{equation}
+K(f_i, f_j)=\int log(\frac{f_i(x)}{f_j(x)})f_{i}(x)dx
+\label{eq:kl_divergence}
+\end{equation}
 Similar with calculating mean posterior probability, we average this divergence for one observation based on the distance from all others,
   
-$$KL(f_i)=\frac{1}{n-1}\sum_{j\neq i}K(f_i, f_j)$$
+\begin{equation}
+KL(f_i)=\frac{1}{n-1}\sum_{j\neq i}K(f_i, f_j)
+\label{eq:mean_posterior_prob}
+\end{equation}
 
 The outliers should show a high probability value for this divergence. We compute the integral using the trapezoidal rule, and the density function are estimated using kernel estimation with Gaussian kernel function. 
 
@@ -698,7 +709,7 @@ ggplot(kl_m, aes(x = case, y = value)) +
   ylab('Kullback-Leibler')
 ```
 
-# Generalized Framework for Visualizing Regrssion Model
+# Generalized Framework for Visualizing Quantile Regrssion Model
 
 Visualization is particularly useful and comprehensive way to explore data and model. It is also a extremely straight-forward way to detect outlier by observing the location of data and model. In regression context, a fitted regression model is not only judged by its prediction error, rather other questions worth to consider, such as do the data space is too inseparablely or too sparesly to be represented by the data; are there some regions that are difficultly for model to fit. For quantile regression, we are also curious to know what is the relative location of models on different quantiles in data space. 
 
