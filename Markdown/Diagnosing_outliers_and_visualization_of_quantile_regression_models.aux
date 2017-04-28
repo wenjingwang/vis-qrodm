@@ -23,20 +23,15 @@
 \newlabel{eq:linear_qr}{{1}{3}{Robustness of Quantile Regression\relax }{equation.3.1}{}}
 \newlabel{eq:object_function}{{2}{3}{Robustness of Quantile Regression\relax }{equation.3.2}{}}
 \newlabel{eq:distrbution}{{3}{3}{Robustness of Quantile Regression\relax }{equation.3.3}{}}
-\newlabel{eq:mean-influence}{{4}{3}{Robustness of Quantile Regression\relax }{equation.3.4}{}}
-\newlabel{eq:quantile-influence}{{5}{3}{Robustness of Quantile Regression\relax }{equation.3.5}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Visualization of influence function for Mean and Quantile. It is obviously that quantile influence functions on quantile 0.1, 0.5 and 0.9 are bounded which indicat that quantile is more robust then Mean. The boundaries of influence function on low and high quantile are asymmetrical.}}{4}{figure.1}}
-\newlabel{fig:unnamed-chunk-2}{{1}{4}{Visualization of influence function for Mean and Quantile. It is obviously that quantile influence functions on quantile 0.1, 0.5 and 0.9 are bounded which indicat that quantile is more robust then Mean. The boundaries of influence function on low and high quantile are asymmetrical}{figure.1}{}}
+\newlabel{fig:vis-if}{{1}{4}{Visualization of influence function for Mean and Quantile. It is obviously that quantile influence functions on quantile 0.1, 0.5 and 0.9 are bounded which indicat that quantile is more robust then Mean. The boundaries of influence function on low and high quantile are asymmetrical}{figure.1}{}}
+\newlabel{eq:mean-influence}{{4}{4}{Robustness of Quantile Regression\relax }{equation.3.4}{}}
+\newlabel{eq:quantile-influence}{{5}{4}{Robustness of Quantile Regression\relax }{equation.3.5}{}}
 \newlabel{eq:quantile-regression-influence}{{6}{4}{Robustness of Quantile Regression\relax }{equation.3.6}{}}
 \newlabel{eq: dg}{{7}{4}{Robustness of Quantile Regression\relax }{equation.3.7}{}}
-\newlabel{eq: q_influence}{{8}{4}{Robustness of Quantile Regression\relax }{equation.3.8}{}}
+\newlabel{eq:q_influence}{{8}{4}{Robustness of Quantile Regression\relax }{equation.3.8}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Fitting quantile regression model on quantile 0.1, 0.5 and 0.9 using simulated datasets with and without outliers. The outliers located at the top-left of the original dataset. Results show that outliers pull up the slope of the 0.9 and 0.1 regression line. When outliers located at the bottom-right of the original dataset, results show that outliers pull down the slope of the 0.1 regression line.}}{5}{figure.2}}
 \newlabel{fig:qr-outlier}{{2}{5}{Fitting quantile regression model on quantile 0.1, 0.5 and 0.9 using simulated datasets with and without outliers. The outliers located at the top-left of the original dataset. Results show that outliers pull up the slope of the 0.9 and 0.1 regression line. When outliers located at the bottom-right of the original dataset, results show that outliers pull down the slope of the 0.1 regression line}{figure.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Outlier Diagnostic Methods for Quantile Regression}{5}{section.4}}
-\newlabel{outlier-diagnostic-methods-for-quantile-regression}{{4}{5}{Outlier Diagnostic Methods for Quantile Regression\relax }{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Residual-Robust Distance}{5}{subsection.4.1}}
-\newlabel{residual-robust-distance}{{4.1}{5}{Residual-Robust Distance\relax }{subsection.4.1}{}}
-\newlabel{eq:distance}{{9}{5}{Residual-Robust Distance\relax }{equation.4.9}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Fit quantile regression models using simulated data. Keep moving down the outliers in Y-axis to get different longitudinal ordinates values: $y_{2}=y-5, y_{3}=y-10$ and $y_{4}=y-15$. We are interested in the change of regression lines.}}{6}{figure.3}}
 \newlabel{fig:move-y1}{{3}{6}{Fit quantile regression models using simulated data. Keep moving down the outliers in Y-axis to get different longitudinal ordinates values: $y_{2}=y-5, y_{3}=y-10$ and $y_{4}=y-15$. We are interested in the change of regression lines}{figure.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Fit quantile regression models using simulated data. Keep moving down the outliers in Y-axis to get different longitudinal coordinates values: $y_{2}=y-5, y_{3}=y-10$ and $y_{4}=y-15$. Calculating the estimated coefficients in each experiment and results show that in single predictor case, outliers moving down in y make no difference to the quantile regression coefficients estimations. This visualization show the bound property of influence function for quantile regression.}}{6}{figure.4}}
@@ -47,58 +42,62 @@
 \newlabel{fig:move-x1}{{6}{7}{Fit quantile regression models using simulated data. Keep moving the outliers to the right in X-aixs to get different horizontal ordinate values: $x_{2}=x+0.2, x_{3}=x+0.4$ and $x_{4}=x+0.6$. We are interested in the change of regression lines}{figure.6}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Fit quantile regression models using simulated data. Keep moving the outliers to the right in X-aixs to get different horizontal ordinate values: $x_{2}=x+0.2, x_{3}=x+0.4$ and $x_{4}=x+0.6$. Calculating the estimated coefficients in each experiment and results show that outliers moving in X-aixs make larger difference to the quantile regression coefficients then moving in Y-aixs.}}{8}{figure.7}}
 \newlabel{fig:move-x2}{{7}{8}{Fit quantile regression models using simulated data. Keep moving the outliers to the right in X-aixs to get different horizontal ordinate values: $x_{2}=x+0.2, x_{3}=x+0.4$ and $x_{4}=x+0.6$. Calculating the estimated coefficients in each experiment and results show that outliers moving in X-aixs make larger difference to the quantile regression coefficients then moving in Y-aixs}{figure.7}{}}
-\newlabel{eq: mcd}{{10}{8}{Residual-Robust Distance\relax }{equation.4.10}{}}
-\newlabel{eq:rd}{{11}{8}{Residual-Robust Distance\relax }{equation.4.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Outlier Diagnostic Methods for Quantile Regression}{8}{section.4}}
+\newlabel{outlier-diagnostic-methods-for-quantile-regression}{{4}{8}{Outlier Diagnostic Methods for Quantile Regression\relax }{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Residual-Robust Distance}{8}{subsection.4.1}}
+\newlabel{residual-robust-distance}{{4.1}{8}{Residual-Robust Distance\relax }{subsection.4.1}{}}
+\newlabel{eq:distance}{{9}{8}{Residual-Robust Distance\relax }{equation.4.9}{}}
+\newlabel{eq: mcd}{{10}{9}{Residual-Robust Distance\relax }{equation.4.10}{}}
+\newlabel{eq:rd}{{11}{9}{Residual-Robust Distance\relax }{equation.4.11}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Cook's Distance and Likelihood Distance}{9}{subsection.4.2}}
 \newlabel{cooks-distance-and-likelihood-distance}{{4.2}{9}{Cook's Distance and Likelihood Distance\relax }{subsection.4.2}{}}
 \newlabel{eq: ald}{{12}{9}{Cook's Distance and Likelihood Distance\relax }{equation.4.12}{}}
 \newlabel{eq:ald_likelihood}{{13}{9}{Cook's Distance and Likelihood Distance\relax }{equation.4.13}{}}
 \newlabel{eq:cd}{{14}{9}{Cook's Distance and Likelihood Distance\relax }{equation.4.14}{}}
 \newlabel{eq: ld}{{15}{9}{Cook's Distance and Likelihood Distance\relax }{equation.4.15}{}}
-\newlabel{eq:q_function}{{16}{9}{Cook's Distance and Likelihood Distance\relax }{equation.4.16}{}}
-\newlabel{eq: q_one_deletion}{{17}{9}{Cook's Distance and Likelihood Distance\relax }{equation.4.17}{}}
-\newlabel{eq: estimator}{{18}{9}{Cook's Distance and Likelihood Distance\relax }{equation.4.18}{}}
+\newlabel{eq:q_function}{{16}{10}{Cook's Distance and Likelihood Distance\relax }{equation.4.16}{}}
+\newlabel{eq: q_one_deletion}{{17}{10}{Cook's Distance and Likelihood Distance\relax }{equation.4.17}{}}
+\newlabel{eq: estimator}{{18}{10}{Cook's Distance and Likelihood Distance\relax }{equation.4.18}{}}
 \newlabel{eq:gd}{{19}{10}{Cook's Distance and Likelihood Distance\relax }{equation.4.19}{}}
 \newlabel{eq:qd}{{20}{10}{Cook's Distance and Likelihood Distance\relax }{equation.4.20}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Mean Posterior Probability and Kullback-Leibler Divergence}{10}{subsection.4.3}}
 \newlabel{mean-posterior-probability-and-kullback-leibler-divergence}{{4.3}{10}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{subsection.4.3}{}}
 \newlabel{eq:mixture}{{21}{10}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.21}{}}
 \newlabel{eq:parameters}{{22}{10}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.22}{}}
-\newlabel{eq:indicating_outlier}{{23}{10}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.23}{}}
-\newlabel{eq:mcmc_draw}{{24}{10}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.24}{}}
+\newlabel{eq:indicating_outlier}{{23}{11}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.23}{}}
+\newlabel{eq:mcmc_draw}{{24}{11}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.24}{}}
 \newlabel{eq:kl_divergence}{{25}{11}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.25}{}}
-\newlabel{eq:mean_posterior_prob}{{26}{11}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.26}{}}
+\newlabel{eq:mean_posterior_kl}{{26}{11}{Mean Posterior Probability and Kullback-Leibler Divergence\relax }{equation.4.26}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Examining Outlier Detection}{11}{section.5}}
 \newlabel{examining-outlier-detection}{{5}{11}{Examining Outlier Detection\relax }{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Plot the outlier state}{11}{subsection.5.1}}
-\newlabel{plot-the-outlier-state}{{5.1}{11}{Plot the outlier state\relax }{subsection.5.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Plot the outlier state for single variable case.}}{12}{figure.8}}
-\newlabel{fig:data-example}{{8}{12}{Plot the outlier state for single variable case}{figure.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Plot data with outliers marked}{12}{subsection.5.2}}
-\newlabel{plot-data-with-outliers-marked}{{5.2}{12}{Plot data with outliers marked\relax }{subsection.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Plot the outlier state}{12}{subsection.5.1}}
+\newlabel{plot-the-outlier-state}{{5.1}{12}{Plot the outlier state\relax }{subsection.5.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Plot the outlier state for multi-variable regression.}}{13}{figure.9}}
-\newlabel{fig:data-example2}{{9}{13}{Plot the outlier state for multi-variable regression}{figure.9}{}}
+\newlabel{fig:multi-case}{{9}{13}{Plot the outlier state for multi-variable regression}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Plot data with outliers marked}{13}{subsection.5.2}}
+\newlabel{plot-data-with-outliers-marked}{{5.2}{13}{Plot data with outliers marked\relax }{subsection.5.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Robust Distance-Residual Plot. Points on the right of vertical cutoff line are considered leverage points and points above the horizental cutoff line are outliers in y-direction.}}{14}{figure.10}}
-\newlabel{fig:unnamed-chunk-5}{{10}{14}{Robust Distance-Residual Plot. Points on the right of vertical cutoff line are considered leverage points and points above the horizental cutoff line are outliers in y-direction}{figure.10}{}}
+\newlabel{fig:unnamed-chunk-4}{{10}{14}{Robust Distance-Residual Plot. Points on the right of vertical cutoff line are considered leverage points and points above the horizental cutoff line are outliers in y-direction}{figure.10}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Generalized Cook distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Cook distance-funtion distance to other points}}{15}{figure.11}}
-\newlabel{fig:unnamed-chunk-6}{{11}{15}{Generalized Cook distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Cook distance-funtion distance to other points\relax }{figure.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Q function distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Q function distance to other points}}{15}{figure.12}}
-\newlabel{fig:unnamed-chunk-7}{{12}{15}{Q function distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Q function distance to other points\relax }{figure.12}{}}
+\newlabel{fig:unnamed-chunk-5}{{11}{15}{Generalized Cook distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Cook distance-funtion distance to other points\relax }{figure.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Q function distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Q function distance to other points}}{16}{figure.12}}
+\newlabel{fig:unnamed-chunk-6}{{12}{16}{Q function distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Q function distance to other points\relax }{figure.12}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Generalized Framework for Visualizing Quantile Regrssion Model}{17}{section.6}}
 \newlabel{generalized-framework-for-visualizing-quantile-regrssion-model}{{6}{17}{Generalized Framework for Visualizing Quantile Regrssion Model\relax }{section.6}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Linear quantile regression model with 2 response variables. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple.}}{18}{figure.13}}
 \newlabel{fig:fig-name0}{{13}{18}{Linear quantile regression model with 2 response variables. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple}{figure.13}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Linear Case Result}{18}{subsection.6.1}}
 \newlabel{linear-case-result}{{6.1}{18}{Linear Case Result\relax }{subsection.6.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Non-linear Case Result}{18}{subsection.6.2}}
-\newlabel{non-linear-case-result}{{6.2}{18}{Non-linear Case Result\relax }{subsection.6.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Linear quantile regression model with 3 response variables. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple.}}{19}{figure.14}}
 \newlabel{fig:fig-name1}{{14}{19}{Linear quantile regression model with 3 response variables. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple}{figure.14}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Non-linear quantile regression model on elliptic hyperboloid. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple.}}{20}{figure.15}}
 \newlabel{fig:fig-name2}{{15}{20}{Non-linear quantile regression model on elliptic hyperboloid. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple}{figure.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Non-linear Case Result}{20}{subsection.6.2}}
+\newlabel{non-linear-case-result}{{6.2}{20}{Non-linear Case Result\relax }{subsection.6.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Summary and Future Work}{20}{section.7}}
+\newlabel{summary-and-future-work}{{7}{20}{Summary and Future Work\relax }{section.7}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Non-linear quantile regression model on elliptic hyperboloid. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple.}}{21}{figure.16}}
 \newlabel{fig:fig-name3}{{16}{21}{Non-linear quantile regression model on elliptic hyperboloid. Models on quantile 0.1, 0.5 and 0.9 corresponds to color orange, green and purple}{figure.16}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Summary and Future Work}{22}{section.7}}
-\newlabel{summary-and-future-work}{{7}{22}{Summary and Future Work\relax }{section.7}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {8}Reference}{22}{section.8}}
 \newlabel{reference}{{8}{22}{Reference\relax }{section.8}{}}

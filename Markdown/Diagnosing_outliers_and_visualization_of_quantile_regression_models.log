@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.4.9)  28 APR 2017 10:18
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.4.9)  28 APR 2017 17:25
 entering extended mode
 **Diagnosing_outliers_and_visualization_of_quantile_regression_models.tex
 
@@ -904,31 +904,36 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 {C:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 238.
-[2] [3]
+(Font)              <10.95> on input line 236.
+[2]
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 281.
+
+(C:\CTEX\MiKTeX\tex\latex\lm\ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [3]
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
-re-latex/unnamed-chunk-2-1.pdf, id=105, 867.24pt x 216.81pt>
+re-latex/vis-if-1.pdf, id=105, 650.43pt x 216.81pt>
 File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
-/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+/figure-latex/vis-if-1.pdf Graphic file (type pdf)
 
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
-figure-latex/unnamed-chunk-2-1.pdf>
+figure-latex/vis-if-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/unnamed-chunk-2-1.pdf used on input line 357.
-(pdftex.def)             Requested size: 452.96559pt x 113.24138pt.
-
+ession_models_files/figure-latex/vis-if-1.pdf used on input line 380.
+(pdftex.def)             Requested size: 452.9755pt x 150.99182pt.
+[4 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_reg
+ression_models_files/figure-latex/vis-if-1.pdf>]
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
-re-latex/qr-outlier-1.pdf, id=108, 650.43pt x 216.81pt>
+re-latex/qr-outlier-1.pdf, id=124, 650.43pt x 216.81pt>
 File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 /figure-latex/qr-outlier-1.pdf Graphic file (type pdf)
 
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/qr-outlier-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/qr-outlier-1.pdf used on input line 397.
+ession_models_files/figure-latex/qr-outlier-1.pdf used on input line 429.
 (pdftex.def)             Requested size: 452.9755pt x 150.99182pt.
-[4 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_reg
-ression_models_files/figure-latex/unnamed-chunk-2-1.pdf>]
+
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
 re-latex/move-y1-1.pdf, id=130, 361.35pt x 289.08pt>
 File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
@@ -937,7 +942,7 @@ File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/move-y1-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/move-y1-1.pdf used on input line 435.
+ession_models_files/figure-latex/move-y1-1.pdf used on input line 473.
 (pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
 
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
@@ -948,7 +953,7 @@ File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/move-y2-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/move-y2-1.pdf used on input line 444.
+ession_models_files/figure-latex/move-y2-1.pdf used on input line 482.
 (pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
 
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
@@ -959,7 +964,7 @@ File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/move-y-multi1-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/move-y-multi1-1.pdf used on input line 453.
+ession_models_files/figure-latex/move-y-multi1-1.pdf used on input line 491.
 (pdftex.def)             Requested size: 452.96558pt x 169.86208pt.
 
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
@@ -970,7 +975,7 @@ File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/move-x1-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/move-x1-1.pdf used on input line 462.
+ession_models_files/figure-latex/move-x1-1.pdf used on input line 500.
 (pdftex.def)             Requested size: 361.34912pt x 289.07928pt.
 
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
@@ -981,7 +986,7 @@ File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/move-x2-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/move-x2-1.pdf used on input line 471.
+ession_models_files/figure-latex/move-x2-1.pdf used on input line 509.
 (pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
 [5 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_reg
 ression_models_files/figure-latex/qr-outlier-1.pdf>] [6 <E:/vis-qrodm/Markdown/
@@ -994,335 +999,233 @@ _outliers_and_visualization_of_quantile_regression_models_files/figure-latex/mo
 ve-x1-1.pdf>] [8 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_o
 f_quantile_regression_models_files/figure-latex/move-x2-1.pdf>] [9] [10]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 745.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 775.
+
+LaTeX Warning: Reference `fig:single-case' on page 11 undefined on input line 7
+90.
+
 [11]
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
-re-latex/data-example-1.pdf, id=232, 361.35pt x 216.81pt>
+re-latex/single-case, data-example-1.pdf, id=235, 361.35pt x 216.81pt>
 File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
-/figure-latex/data-example-1.pdf Graphic file (type pdf)
+/figure-latex/single-case, data-example-1.pdf Graphic file (type pdf)
 
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
-figure-latex/data-example-1.pdf>
+figure-latex/single-case, data-example-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/data-example-1.pdf used on input line 790.
+ession_models_files/figure-latex/single-case, data-example-1.pdf used on input 
+line 823.
 (pdftex.def)             Requested size: 361.34912pt x 216.80946pt.
 
+Overfull \vbox (1.92503pt too high) detected at line 843
+ []
+
+[12 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_re
+gression_models_files/figure-latex/single-case, data-example-1.pdf>]
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
-re-latex/data-example2-1.pdf, id=233, 433.62pt x 216.81pt>
+re-latex/multi-case-1.pdf, id=248, 433.62pt x 216.81pt>
 File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
-/figure-latex/data-example2-1.pdf Graphic file (type pdf)
+/figure-latex/multi-case-1.pdf Graphic file (type pdf)
 
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
-figure-latex/data-example2-1.pdf>
+figure-latex/multi-case-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/data-example2-1.pdf used on input line 814.
+ession_models_files/figure-latex/multi-case-1.pdf used on input line 847.
 (pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 831.
-
-(C:\CTEX\MiKTeX\tex\latex\lm\ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [12 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_
-regression_models_files/figure-latex/data-example-1.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 903
+[13 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_re
+gression_models_files/figure-latex/multi-case-1.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 936
 .
 (C:\CTEX\MiKTeX\tex\latex\lm\ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [13 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_
-regression_models_files/figure-latex/data-example2-1.pdf>]
+)
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
-re-latex/unnamed-chunk-5-1.pdf, id=260, 578.16pt x 216.81pt>
+re-latex/unnamed-chunk-4-1.pdf, id=263, 578.16pt x 216.81pt>
+File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
+/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
+
+<use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
+figure-latex/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
+ession_models_files/figure-latex/unnamed-chunk-4-1.pdf used on input line 944.
+(pdftex.def)             Requested size: 452.96558pt x 169.86208pt.
+[14 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_re
+gression_models_files/figure-latex/unnamed-chunk-4-1.pdf>]
+<Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
+re-latex/unnamed-chunk-5-1.pdf, id=275, 578.16pt x 216.81pt>
 File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 /figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/unnamed-chunk-5-1.pdf used on input line 911.
+ession_models_files/figure-latex/unnamed-chunk-5-1.pdf used on input line 987.
 (pdftex.def)             Requested size: 452.96558pt x 169.86208pt.
-[14 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_re
-gression_models_files/figure-latex/unnamed-chunk-5-1.pdf>]
+
 <Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
-re-latex/unnamed-chunk-6-1.pdf, id=272, 578.16pt x 216.81pt>
+re-latex/unnamed-chunk-6-1.pdf, id=276, 578.16pt x 216.81pt>
 File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
 /figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 
 <use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
 figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/unnamed-chunk-6-1.pdf used on input line 954.
+ession_models_files/figure-latex/unnamed-chunk-6-1.pdf used on input line 1011.
+
 (pdftex.def)             Requested size: 452.96558pt x 169.86208pt.
 
-<Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/figu
-re-latex/unnamed-chunk-7-1.pdf, id=273, 578.16pt x 216.81pt>
-File: Diagnosing_outliers_and_visualization_of_quantile_regression_models_files
-/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
-
-<use Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/
-figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: Diagnosing_outliers_and_visualization_of_quantile_regr
-ession_models_files/figure-latex/unnamed-chunk-7-1.pdf used on input line 978.
-(pdftex.def)             Requested size: 452.96558pt x 169.86208pt.
-
-Underfull \vbox (badness 10000) detected at line 995
+Underfull \vbox (badness 10000) detected at line 1028
  []
 
 [15 <E:/vis-qrodm/Markdown/Diagnosing_outliers_and_visualization_of_quantile_re
-gression_models_files/figure-latex/unnamed-chunk-6-1.pdf> <E:/vis-qrodm/Markdow
-n/Diagnosing_outliers_and_visualization_of_quantile_regression_models_files/fig
-ure-latex/unnamed-chunk-7-1.pdf>] [16]
+gression_models_files/figure-latex/unnamed-chunk-5-1.pdf>] [16 <E:/vis-qrodm/Ma
+rkdown/Diagnosing_outliers_and_visualization_of_quantile_regression_models_file
+s/figure-latex/unnamed-chunk-6-1.pdf>]
 
 Package amsfonts Warning: Obsolete command \bold; \mathbf should be used instea
-d on input line 1119.
+d on input line 1153.
 
-
-<Figures/QR-model-single-pixel/linear-3D-1.png, id=294, 268.75406pt x 253.69781
+[17]
+<Figures/QR-model-single-pixel/linear-3D-1.png, id=301, 268.75406pt x 253.69781
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-1.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-1.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-1.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.2409pt x 106.89688pt.
 
-<Figures/QR-model-single-pixel/linear-3D-2.png, id=296, 264.99pt x 250.68657pt>
+<Figures/QR-model-single-pixel/linear-3D-2.png, id=303, 264.99pt x 250.68657pt>
 File: Figures/QR-model-single-pixel/linear-3D-2.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-2.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-2.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.24396pt x 107.13136pt.
 
-<Figures/QR-model-single-pixel/linear-3D-3.png, id=297, 267.24844pt x 250.68657
+<Figures/QR-model-single-pixel/linear-3D-3.png, id=304, 267.24844pt x 250.68657
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-3.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-3.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-3.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.24266pt x 106.2248pt.
 
-<Figures/QR-model-single-pixel/linear-3D-4.png, id=298, 267.24844pt x 250.68657
+<Figures/QR-model-single-pixel/linear-3D-4.png, id=305, 267.24844pt x 250.68657
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-4.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-4.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-4.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.24266pt x 106.2248pt.
 
-<Figures/QR-model-single-pixel/linear-3D-5.png, id=299, 266.49562pt x 251.43938
+<Figures/QR-model-single-pixel/linear-3D-5.png, id=306, 266.49562pt x 251.43938
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-5.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-5.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-5.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.24083pt x 106.84305pt.
 
-<Figures/QR-model-single-pixel/linear-3D-6.png, id=300, 268.00125pt x 249.93375
+<Figures/QR-model-single-pixel/linear-3D-6.png, id=307, 268.00125pt x 249.93375
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-6.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-6.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-6.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.23859pt x 105.60452pt.
 
-<Figures/QR-model-single-pixel/linear-3D-7.png, id=301, 262.73157pt x 248.42813
+<Figures/QR-model-single-pixel/linear-3D-7.png, id=308, 262.73157pt x 248.42813
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-7.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-7.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-7.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.24097pt x 107.07599pt.
 
-<Figures/QR-model-single-pixel/linear-3D-8.png, id=302, 263.48438pt x 251.43938
+<Figures/QR-model-single-pixel/linear-3D-8.png, id=309, 263.48438pt x 251.43938
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-8.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-8.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-8.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.24379pt x 108.06694pt.
 
-<Figures/QR-model-single-pixel/linear-3D-9.png, id=303, 266.49562pt x 249.93375
+<Figures/QR-model-single-pixel/linear-3D-9.png, id=310, 266.49562pt x 249.93375
 pt>
 File: Figures/QR-model-single-pixel/linear-3D-9.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-3D-9.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-3D-9.png used on 
-input line 1137.
+input line 1171.
 (pdftex.def)             Requested size: 113.24083pt x 106.20326pt.
-[17]
-<Figures/QR-model-single-pixel/linear-4D-1.png, id=308, 266.49562pt x 252.945pt
+
+<Figures/QR-model-single-pixel/linear-4D-1.png, id=313, 266.49562pt x 252.945pt
 >
 File: Figures/QR-model-single-pixel/linear-4D-1.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-1.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-1.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24083pt x 107.48283pt.
 
-<Figures/QR-model-single-pixel/linear-4D-2.png, id=309, 264.23718pt x 250.68657
+<Figures/QR-model-single-pixel/linear-4D-2.png, id=314, 264.23718pt x 250.68657
 pt>
 File: Figures/QR-model-single-pixel/linear-4D-2.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-2.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-2.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24077pt x 107.43355pt.
 
-<Figures/QR-model-single-pixel/linear-4D-3.png, id=310, 263.48438pt x 250.68657
+<Figures/QR-model-single-pixel/linear-4D-3.png, id=315, 263.48438pt x 250.68657
 pt>
 File: Figures/QR-model-single-pixel/linear-4D-3.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-3.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-3.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24379pt x 107.74338pt.
 
-<Figures/QR-model-single-pixel/linear-4D-4.png, id=311, 264.99pt x 252.19218pt>
+<Figures/QR-model-single-pixel/linear-4D-4.png, id=316, 264.99pt x 252.19218pt>
 File: Figures/QR-model-single-pixel/linear-4D-4.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-4.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-4.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24396pt x 107.77478pt.
 
-<Figures/QR-model-single-pixel/linear-4D-5.png, id=312, 263.48438pt x 249.93375
+<Figures/QR-model-single-pixel/linear-4D-5.png, id=317, 263.48438pt x 249.93375
 pt>
 File: Figures/QR-model-single-pixel/linear-4D-5.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-5.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-5.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24379pt x 107.41983pt.
 
-<Figures/QR-model-single-pixel/linear-4D-6.png, id=313, 265.74281pt x 249.93375
+<Figures/QR-model-single-pixel/linear-4D-6.png, id=318, 265.74281pt x 249.93375
 pt>
 File: Figures/QR-model-single-pixel/linear-4D-6.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-6.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-6.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24129pt x 106.50455pt.
 
-<Figures/QR-model-single-pixel/linear-4D-7.png, id=314, 265.74281pt x 249.18094
+<Figures/QR-model-single-pixel/linear-4D-7.png, id=319, 265.74281pt x 249.18094
 pt>
 File: Figures/QR-model-single-pixel/linear-4D-7.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-7.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-7.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24129pt x 106.18375pt.
 
-<Figures/QR-model-single-pixel/linear-4D-8.png, id=315, 268.00125pt x 247.67531
+<Figures/QR-model-single-pixel/linear-4D-8.png, id=320, 268.00125pt x 247.67531
 pt>
 File: Figures/QR-model-single-pixel/linear-4D-8.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-8.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-8.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.23859pt x 104.65027pt.
 
-<Figures/QR-model-single-pixel/linear-4D-9.png, id=316, 264.99pt x 248.42813pt>
+<Figures/QR-model-single-pixel/linear-4D-9.png, id=321, 264.99pt x 248.42813pt>
 File: Figures/QR-model-single-pixel/linear-4D-9.png Graphic file (type png)
 <use Figures/QR-model-single-pixel/linear-4D-9.png>
 Package pdftex.def Info: Figures/QR-model-single-pixel/linear-4D-9.png used on 
-input line 1157.
+input line 1191.
 (pdftex.def)             Requested size: 113.24396pt x 106.16621pt.
-<Figures/QR-model/curve1-1.png, id=317, 259.7203pt x 249.93375pt>
-File: Figures/QR-model/curve1-1.png Graphic file (type png)
-<use Figures/QR-model/curve1-1.png>
-Package pdftex.def Info: Figures/QR-model/curve1-1.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.76869pt x 113.33104pt.
-<Figures/QR-model/curve1-5.png, id=318, 265.74281pt x 252.19218pt>
-File: Figures/QR-model/curve1-5.png Graphic file (type png)
-<use Figures/QR-model/curve1-5.png>
-Package pdftex.def Info: Figures/QR-model/curve1-5.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.77061pt x 111.7653pt.
-<Figures/QR-model/curve1-3.png, id=319, 268.75406pt x 252.945pt>
-File: Figures/QR-model/curve1-3.png Graphic file (type png)
-<use Figures/QR-model/curve1-3.png>
-Package pdftex.def Info: Figures/QR-model/curve1-3.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.76825pt x 110.8407pt.
-<Figures/QR-model/curve1-4.png, id=320, 267.24844pt x 249.93375pt>
-File: Figures/QR-model/curve1-4.png Graphic file (type png)
-<use Figures/QR-model/curve1-4.png>
-Package pdftex.def Info: Figures/QR-model/curve1-4.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.7691pt x 110.13898pt.
-<Figures/QR-model/curve1-2.png, id=321, 267.24844pt x 246.9225pt>
-File: Figures/QR-model/curve1-2.png Graphic file (type png)
-<use Figures/QR-model/curve1-2.png>
-Package pdftex.def Info: Figures/QR-model/curve1-2.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.7691pt x 108.812pt.
-<Figures/QR-model/curve1-6.png, id=322, 265.74281pt x 248.42813pt>
-File: Figures/QR-model/curve1-6.png Graphic file (type png)
-<use Figures/QR-model/curve1-6.png>
-Package pdftex.def Info: Figures/QR-model/curve1-6.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.77061pt x 110.09717pt.
-<Figures/QR-model/curve1-7.png, id=323, 265.74281pt x 250.68657pt>
-File: Figures/QR-model/curve1-7.png Graphic file (type png)
-<use Figures/QR-model/curve1-7.png>
-Package pdftex.def Info: Figures/QR-model/curve1-7.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.77061pt x 111.09805pt.
-<Figures/QR-model/curve1-8.png, id=324, 267.24844pt x 249.93375pt>
-File: Figures/QR-model/curve1-8.png Graphic file (type png)
-<use Figures/QR-model/curve1-8.png>
-Package pdftex.def Info: Figures/QR-model/curve1-8.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.7691pt x 110.13898pt.
-<Figures/QR-model/curve1-9.png, id=325, 269.50688pt x 253.69781pt>
-File: Figures/QR-model/curve1-9.png Graphic file (type png)
-<use Figures/QR-model/curve1-9.png>
-Package pdftex.def Info: Figures/QR-model/curve1-9.png used on input line 1179.
-
-(pdftex.def)             Requested size: 117.76913pt x 110.8609pt.
-<Figures/QR-model/curve2-1.png, id=326, 266.49562pt x 254.45062pt>
-File: Figures/QR-model/curve2-1.png Graphic file (type png)
-<use Figures/QR-model/curve2-1.png>
-Package pdftex.def Info: Figures/QR-model/curve2-1.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.24083pt x 108.1226pt.
-<Figures/QR-model/curve2-2.png, id=327, 267.24844pt x 251.43938pt>
-File: Figures/QR-model/curve2-2.png Graphic file (type png)
-<use Figures/QR-model/curve2-2.png>
-Package pdftex.def Info: Figures/QR-model/curve2-2.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.24266pt x 106.5438pt.
-<Figures/QR-model/curve2-3.png, id=328, 266.49562pt x 249.93375pt>
-File: Figures/QR-model/curve2-3.png Graphic file (type png)
-<use Figures/QR-model/curve2-3.png>
-Package pdftex.def Info: Figures/QR-model/curve2-3.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.24083pt x 106.20326pt.
-<Figures/QR-model/curve2-4.png, id=329, 267.24844pt x 252.19218pt>
-File: Figures/QR-model/curve2-4.png Graphic file (type png)
-<use Figures/QR-model/curve2-4.png>
-Package pdftex.def Info: Figures/QR-model/curve2-4.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.24266pt x 106.86278pt.
-<Figures/QR-model/curve2-5.png, id=330, 268.00125pt x 251.43938pt>
-File: Figures/QR-model/curve2-5.png Graphic file (type png)
-<use Figures/QR-model/curve2-5.png>
-Package pdftex.def Info: Figures/QR-model/curve2-5.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.23859pt x 106.24069pt.
-<Figures/QR-model/curve2-6.png, id=331, 268.75406pt x 251.43938pt>
-File: Figures/QR-model/curve2-6.png Graphic file (type png)
-<use Figures/QR-model/curve2-6.png>
-Package pdftex.def Info: Figures/QR-model/curve2-6.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.2409pt x 105.94527pt.
-<Figures/QR-model/curve2-7.png, id=332, 267.24844pt x 252.19218pt>
-File: Figures/QR-model/curve2-7.png Graphic file (type png)
-<use Figures/QR-model/curve2-7.png>
-Package pdftex.def Info: Figures/QR-model/curve2-7.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.24266pt x 106.86278pt.
-<Figures/QR-model/curve2-8.png, id=333, 270.25969pt x 252.945pt>
-File: Figures/QR-model/curve2-8.png Graphic file (type png)
-<use Figures/QR-model/curve2-8.png>
-Package pdftex.def Info: Figures/QR-model/curve2-8.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.24023pt x 105.98529pt.
-<Figures/QR-model/curve2-9.png, id=334, 266.49562pt x 249.93375pt>
-File: Figures/QR-model/curve2-9.png Graphic file (type png)
-<use Figures/QR-model/curve2-9.png>
-Package pdftex.def Info: Figures/QR-model/curve2-9.png used on input line 1188.
-
-(pdftex.def)             Requested size: 113.24083pt x 106.20326pt.
 [18 <E:/vis-qrodm/Markdown/Figures/QR-model-single-pixel/linear-3D-1.png> <E:/v
 is-qrodm/Markdown/Figures/QR-model-single-pixel/linear-3D-2.png> <E:/vis-qrodm/
 Markdown/Figures/QR-model-single-pixel/linear-3D-3.png> <E:/vis-qrodm/Markdown/
@@ -1339,40 +1242,151 @@ s/QR-model-single-pixel/linear-4D-5.png> <E:/vis-qrodm/Markdown/Figures/QR-mode
 l-single-pixel/linear-4D-6.png> <E:/vis-qrodm/Markdown/Figures/QR-model-single-
 pixel/linear-4D-7.png> <E:/vis-qrodm/Markdown/Figures/QR-model-single-pixel/lin
 ear-4D-8.png> <E:/vis-qrodm/Markdown/Figures/QR-model-single-pixel/linear-4D-9.
-png>] [20 <E:/vis-qrodm/Markdown/Figures/QR-model/curve1-1.png> <E:/vis-qrodm/M
-arkdown/Figures/QR-model/curve1-5.png> <E:/vis-qrodm/Markdown/Figures/QR-model/
-curve1-3.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve1-4.png> <E:/vis-qro
-dm/Markdown/Figures/QR-model/curve1-2.png> <E:/vis-qrodm/Markdown/Figures/QR-mo
-del/curve1-6.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve1-7.png> <E:/vis
--qrodm/Markdown/Figures/QR-model/curve1-8.png> <E:/vis-qrodm/Markdown/Figures/Q
-R-model/curve1-9.png>] [21 <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-1.png
-> <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-2.png> <E:/vis-qrodm/Markdown/
-Figures/QR-model/curve2-3.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-4
-.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-5.png> <E:/vis-qrodm/Markd
-own/Figures/QR-model/curve2-6.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curv
-e2-7.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-8.png> <E:/vis-qrodm/M
-arkdown/Figures/QR-model/curve2-9.png>] [22] [23]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1421.
-[24]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1421.
+png>] <Figures/QR-model/curve1-1.png, id=353, 259.7203pt x 249.93375pt>
+File: Figures/QR-model/curve1-1.png Graphic file (type png)
+<use Figures/QR-model/curve1-1.png>
+Package pdftex.def Info: Figures/QR-model/curve1-1.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.76869pt x 113.33104pt.
+<Figures/QR-model/curve1-5.png, id=354, 265.74281pt x 252.19218pt>
+File: Figures/QR-model/curve1-5.png Graphic file (type png)
+<use Figures/QR-model/curve1-5.png>
+Package pdftex.def Info: Figures/QR-model/curve1-5.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.77061pt x 111.7653pt.
+<Figures/QR-model/curve1-3.png, id=355, 268.75406pt x 252.945pt>
+File: Figures/QR-model/curve1-3.png Graphic file (type png)
+<use Figures/QR-model/curve1-3.png>
+Package pdftex.def Info: Figures/QR-model/curve1-3.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.76825pt x 110.8407pt.
+<Figures/QR-model/curve1-4.png, id=356, 267.24844pt x 249.93375pt>
+File: Figures/QR-model/curve1-4.png Graphic file (type png)
+<use Figures/QR-model/curve1-4.png>
+Package pdftex.def Info: Figures/QR-model/curve1-4.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.7691pt x 110.13898pt.
+<Figures/QR-model/curve1-2.png, id=357, 267.24844pt x 246.9225pt>
+File: Figures/QR-model/curve1-2.png Graphic file (type png)
+<use Figures/QR-model/curve1-2.png>
+Package pdftex.def Info: Figures/QR-model/curve1-2.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.7691pt x 108.812pt.
+<Figures/QR-model/curve1-6.png, id=358, 265.74281pt x 248.42813pt>
+File: Figures/QR-model/curve1-6.png Graphic file (type png)
+<use Figures/QR-model/curve1-6.png>
+Package pdftex.def Info: Figures/QR-model/curve1-6.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.77061pt x 110.09717pt.
+<Figures/QR-model/curve1-7.png, id=359, 265.74281pt x 250.68657pt>
+File: Figures/QR-model/curve1-7.png Graphic file (type png)
+<use Figures/QR-model/curve1-7.png>
+Package pdftex.def Info: Figures/QR-model/curve1-7.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.77061pt x 111.09805pt.
+<Figures/QR-model/curve1-8.png, id=360, 267.24844pt x 249.93375pt>
+File: Figures/QR-model/curve1-8.png Graphic file (type png)
+<use Figures/QR-model/curve1-8.png>
+Package pdftex.def Info: Figures/QR-model/curve1-8.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.7691pt x 110.13898pt.
+<Figures/QR-model/curve1-9.png, id=361, 269.50688pt x 253.69781pt>
+File: Figures/QR-model/curve1-9.png Graphic file (type png)
+<use Figures/QR-model/curve1-9.png>
+Package pdftex.def Info: Figures/QR-model/curve1-9.png used on input line 1214.
+
+(pdftex.def)             Requested size: 117.76913pt x 110.8609pt.
+<Figures/QR-model/curve2-1.png, id=362, 266.49562pt x 254.45062pt>
+File: Figures/QR-model/curve2-1.png Graphic file (type png)
+<use Figures/QR-model/curve2-1.png>
+Package pdftex.def Info: Figures/QR-model/curve2-1.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.24083pt x 108.1226pt.
+<Figures/QR-model/curve2-2.png, id=363, 267.24844pt x 251.43938pt>
+File: Figures/QR-model/curve2-2.png Graphic file (type png)
+<use Figures/QR-model/curve2-2.png>
+Package pdftex.def Info: Figures/QR-model/curve2-2.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.24266pt x 106.5438pt.
+<Figures/QR-model/curve2-3.png, id=364, 266.49562pt x 249.93375pt>
+File: Figures/QR-model/curve2-3.png Graphic file (type png)
+<use Figures/QR-model/curve2-3.png>
+Package pdftex.def Info: Figures/QR-model/curve2-3.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.24083pt x 106.20326pt.
+<Figures/QR-model/curve2-4.png, id=365, 267.24844pt x 252.19218pt>
+File: Figures/QR-model/curve2-4.png Graphic file (type png)
+<use Figures/QR-model/curve2-4.png>
+Package pdftex.def Info: Figures/QR-model/curve2-4.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.24266pt x 106.86278pt.
+<Figures/QR-model/curve2-5.png, id=366, 268.00125pt x 251.43938pt>
+File: Figures/QR-model/curve2-5.png Graphic file (type png)
+<use Figures/QR-model/curve2-5.png>
+Package pdftex.def Info: Figures/QR-model/curve2-5.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.23859pt x 106.24069pt.
+<Figures/QR-model/curve2-6.png, id=367, 268.75406pt x 251.43938pt>
+File: Figures/QR-model/curve2-6.png Graphic file (type png)
+<use Figures/QR-model/curve2-6.png>
+Package pdftex.def Info: Figures/QR-model/curve2-6.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.2409pt x 105.94527pt.
+<Figures/QR-model/curve2-7.png, id=368, 267.24844pt x 252.19218pt>
+File: Figures/QR-model/curve2-7.png Graphic file (type png)
+<use Figures/QR-model/curve2-7.png>
+Package pdftex.def Info: Figures/QR-model/curve2-7.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.24266pt x 106.86278pt.
+<Figures/QR-model/curve2-8.png, id=369, 270.25969pt x 252.945pt>
+File: Figures/QR-model/curve2-8.png Graphic file (type png)
+<use Figures/QR-model/curve2-8.png>
+Package pdftex.def Info: Figures/QR-model/curve2-8.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.24023pt x 105.98529pt.
+<Figures/QR-model/curve2-9.png, id=370, 266.49562pt x 249.93375pt>
+File: Figures/QR-model/curve2-9.png Graphic file (type png)
+<use Figures/QR-model/curve2-9.png>
+Package pdftex.def Info: Figures/QR-model/curve2-9.png used on input line 1223.
+
+(pdftex.def)             Requested size: 113.24083pt x 106.20326pt.
+[20 <E:/vis-qrodm/Markdown/Figures/QR-model/curve1-1.png> <E:/vis-qrodm/Markdow
+n/Figures/QR-model/curve1-5.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve1
+-3.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve1-4.png> <E:/vis-qrodm/Mar
+kdown/Figures/QR-model/curve1-2.png> <E:/vis-qrodm/Markdown/Figures/QR-model/cu
+rve1-6.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve1-7.png> <E:/vis-qrodm
+/Markdown/Figures/QR-model/curve1-8.png> <E:/vis-qrodm/Markdown/Figures/QR-mode
+l/curve1-9.png>] [21 <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-1.png> <E:/
+vis-qrodm/Markdown/Figures/QR-model/curve2-2.png> <E:/vis-qrodm/Markdown/Figure
+s/QR-model/curve2-3.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-4.png> 
+<E:/vis-qrodm/Markdown/Figures/QR-model/curve2-5.png> <E:/vis-qrodm/Markdown/Fi
+gures/QR-model/curve2-6.png> <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-7.p
+ng> <E:/vis-qrodm/Markdown/Figures/QR-model/curve2-8.png> <E:/vis-qrodm/Markdow
+n/Figures/QR-model/curve2-9.png>] [22] [23]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1491.
+[24] [25]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1491.
 
 (E:\vis-qrodm\Markdown\Diagnosing_outliers_and_visualization_of_quantile_regres
 sion_models.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1421.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1421.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1491.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1491.
 
 Package rerunfilecheck Info: File `Diagnosing_outliers_and_visualization_of_qua
 ntile_regression_models.out' has not changed.
 (rerunfilecheck)             Checksum: B80EA3EF429361B94BD03383A915613B;3069.
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 11085 strings out of 495354
- 167558 string characters out of 3183860
- 273484 words of memory out of 3000000
- 13832 multiletter control sequences out of 15000+200000
- 84207 words of font info for 125 fonts, out of 3000000 for 9000
+ 11093 strings out of 495354
+ 167689 string characters out of 3183860
+ 274802 words of memory out of 3000000
+ 13828 multiletter control sequences out of 15000+200000
+ 78564 words of font info for 126 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 32i,11n,35p,876b,374s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 32i,11n,35p,876b,455s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/CTEX/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/CTEX/MiKTeX/fonts/enc/dvips/
 lm/lm-ts1.enc}{C:/CTEX/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}{C:/CTEX/MiKTeX/
 fonts/enc/dvips/lm/lm-mathsy.enc}{C:/CTEX/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{
@@ -1392,9 +1406,9 @@ pfb><C:/CTEX/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/CTEX/MiKTeX/fonts/type
 MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/lm/l
 mtt10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 Output written on Diagnosing_outliers_and_visualization_of_quantile_regression_
-models.pdf (24 pages, 818968 bytes).
+models.pdf (25 pages, 803232 bytes).
 PDF statistics:
- 539 PDF objects out of 1000 (max. 8388607)
- 109 named destinations out of 1000 (max. 500000)
+ 559 PDF objects out of 1000 (max. 8388607)
+ 117 named destinations out of 1000 (max. 500000)
  12649 words of extra memory for PDF output out of 14400 (max. 10000000)
 
