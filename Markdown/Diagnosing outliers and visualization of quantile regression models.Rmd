@@ -664,22 +664,27 @@ ggplot(QD_m, aes(x = case, y = value)) +
  ylab('Qfunction Distance')
 ```
 
-```{r}
+```{r,eval=TRUE,warning=FALSE,message=FALSE,results = "hide"}
 y <- ais_female$BMI
 x <- matrix(c(ais_female$LBM, ais_female$Bfat), ncol = 2, byrow = FALSE)
 tau <- c(0.1, 0.5, 0.9)
 case <- rep(1:length(y), length(tau))
-prob <- frame_bayes(y, x, tau, M =  10, burn = 1, 
+prob <- frame_bayes(y, x, tau, M =  5000, burn = 1000, 
                  method = 'bayes.prob')
-head(prob)
-kl <- frame_bayes(y, x, tau, M = 10, burn = 1,
+
+kl <- frame_bayes(y, x, tau, M = 5000, burn = 1000,
                   method = 'bayes.kl')
+
+```
+
+```{r}
+head(prob)
 head(kl)
 ```
 
 With the result which is long data form returned by function `frame_bayes`, we provide visualization of the mean posterior probability and Kullback-Leibler divergence of each observation with outlier marked. Figure 11 and 12 show that the potential outlier is case 75.
 
-```{r, eval = FALSE, echo = TRUE, warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
+```{r, eval = TRUE, echo = TRUE, warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
 
 prob_m <- cbind(case, prob)
 ggplot(prob_m, aes(x = case, y = value )) +
@@ -692,7 +697,7 @@ ggplot(prob_m, aes(x = case, y = value )) +
 
 ```
 
-```{r,eval = FALSE, echo = TRUE, warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback-Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
+```{r,eval = TRUE, echo = TRUE, warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback-Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
 
 kl_m <- cbind(case, kl)
 ggplot(kl_m, aes(x = case, y = value)) +
