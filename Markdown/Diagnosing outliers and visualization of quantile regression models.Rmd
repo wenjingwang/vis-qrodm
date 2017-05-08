@@ -1,5 +1,5 @@
 ---
-title: "Diagnosing Outliers and Visualization of Quantile Regression Model"
+title: "Diagnosing Outliers and Visualization of Quantile Regression Models"
 author:
 - Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
 - ^1^Renmin University of China  , ^2^Monash University
@@ -33,7 +33,7 @@ library(purrr)
 
 # Abstract
 
-Quantile regression model has been widely used in numerious research areas. Recently, Koenker reviewed the studies of quantile regression in the past 40 years, in which he pointed out that more diagnostic tools should be provided apart from the extensive toolboxes for estimation. This paper first comprehensively examined the robustness of quantile regression and implement outlier diagnostic methods in R language. The R package `quokar` contains functions for diagnosing outliers in quantile regression and also provide supportive visualizations of the results. In addition, this paper proposed a general framework to visualize quantile regression model (linear and non-linear) in high dimensional data space using `GGobi`. The integrated plot of fitted model and original data set provide another straight-forward way of examing outliers, which also supply massive information about data and model on other aspects. This paper discusses diagnostic methods used in `quokar` and illustrates the usefulness of the package through examples. At last, the visualization framework and results are provided.
+Quantile regression models have been widely used in numerous applications, and the subject of substantial research. A review article (@koenker2017) to appear this year surveys the area over the past 40 years. One recommendation that he suggests is that more diagnostics should be provided for the models, to supplement the extensive toolboxes for estimation. This paper provides diagnostics for assessing the robustness of quantile regression models and implements outlier detection methods in the R language (@RCore). The R package `quokar` contains functions for diagnosing outliers in quantile regression and also provides supporting visualizations. In addition, this paper proposed a general framework to visualize quantile regression model (linear and non-linear) in high dimensional data space using `GGobi`. The integrated plot of fitted model and original data set provides another approach to examing outliers, and how well the model fits the data. 
 
 # Introduction
 
