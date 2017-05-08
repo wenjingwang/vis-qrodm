@@ -1,28 +1,34 @@
 ---
-title: "Visualization of Quantile Regression and Outlier Diagnostic Model in High-D Space"
-author: 
-  - Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
-  - ^1^Renmin University of China  , ^2^Monash University
+title: "Visualization of Outlier Diagnostic Model in High-D Space"
+author:
+- Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
+- ^1^Renmin University of China, ^2^Monash University
+includes:
+  in_header: style.css
+output:
+  bookdown::pdf_book: default
+  fig_caption: yes
 fontsize: 11pt
+bibliography: reference_vm.bib
+citation_package: biblatex
 papersize: a4
-fontfamily: kpfonts
-output: 
-  bookdown::pdf_document2:
-    fig_caption: yes
+subparagraph: yes
+biblio-style: authoryear-comp
+toc: no
 ---
 
 ## Introduction
 
+Outlier diagnostic has 
 
-## Visualizing Quantile Regression
-
-### Linear Case
-
-### Non-linear Case
-
-## Visualizing Outlier Diagnostic Models
+## Visualizing Outlier Diagnostic Models for quantile regression Model
 
 ### Linear Case
 
 ### Non-linear Case
+
+Leave-one-out
+
+
+## Visualizing Outlier Diagnostic Models for Mix Level Model
 

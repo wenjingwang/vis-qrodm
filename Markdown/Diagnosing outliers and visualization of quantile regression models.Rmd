@@ -386,7 +386,7 @@ In this section we briefly introduce diagnostic methods used in `quokar`. These 
 In quantile regression, we can not use the famous "Hat Matrix" to detect leverage points since the coefficient estimation of quantile regression do not satisfy $\hat{\beta}=(X^{'}X)^{-1}X^{'}Y$. One way to identify possible leverage points is to calculate a distance from each point to a "center" of the data. Leverage point would then be the one with a distance larger than some predetermined cutoff. A conventional measurement is Mahalanobi distance:
 
 \begin{equation}
-MD(x_i) = [(x_i-\bar{x})^{'}\bar{\boldsymbol{C}}(\boldsymbol{A})^{-1}(x_i-\bar{x})]^{1/2}
+MD(x_i) = [(x_i-\bar{x})^{'}\bar{\boldsymbol{C}}(\boldsymbol{X})^{-1}(x_i-\bar{x})]^{1/2}
 \label{eq:distance}
 \end{equation}
 
@@ -426,7 +426,7 @@ L(\mathbf{\beta},\sigma|y)=\frac{\tau^{n}(1-\tau)^{n}}{\sigma^{n}}exp\{-\sum_{i=
 \label{eq:ald_likelihood}
 \end{equation}
 
-For note, a quantity with a subscript $[i]$ means the relevant quantity with the $i$th observation deleted. Let $\hat{\theta}$ and $\hat{\theta}^{*}_{[i]}$ be the maximum likelihood estimator of $\theta$ based on $L(\theta|Y)$ and $L(\theta|Y_{[i]})$ respectively. Cook's distance $CD_{i}$ is given by \@ref(eq:cd). For external norms, $M$ is ufsually chosen to be $-\ddot{L(Y|\theta)}$.
+For note, a quantity with a subscript $[i]$ means the relevant quantity with the $i$th observation deleted. Let $\hat{\theta}$ and $\hat{\theta}^{*}_{[i]}$ be the maximum likelihood estimator of $\theta$ based on $L(\theta|Y)$ and $L(\theta|Y_{[i]})$ respectively. Cook's distance $CD_{i}$ is given by \@ref(eq:cd). For external norms, $M$ is usually chosen to be $-\ddot{L}(Y|\theta)$.
 
 \begin{equation}
 CD_{i}=(\hat{\theta}^{*}_{[i]}-\hat{\theta})^{'}M(\hat{\theta}^{*}_{[i]}-\hat{\theta})
