@@ -19,16 +19,31 @@ toc: no
 
 ## Introduction
 
-Outlier diagnostic has 
+Outlier diagnostic models are widely used for detecting influential points in regression models. We are interested in the following questions:
+
+(1) Where is the boundaries of `normal` and `outlier` in data space produced by the diagnostic models?
+
+(2) How to judge the performance of different diagnostic models?
+
+(3) In non-linear regression case where the influential points are not determined `distance`, how can we locating them?
+
+## General Framework of Visualizing Oultier Diagnostic Models
+
+
+
+
+
+## Example 1: Quantile Regression
+
+
+
+
 
 ## Visualizing Outlier Diagnostic Models for quantile regression Model
 
 ### Linear Case
 
 ### Non-linear Case
-
-Leave-one-out
-
 
 ## Visualizing Outlier Diagnostic Models for Mix Level Model
 
