@@ -2,7 +2,7 @@
 title: "Visualization of Outlier Diagnostic Model in High-D Space"
 author:
 - Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
-- ^1^Renmin University of China, ^2^Monash University
+- ^1^Renmin University of China  , ^2^Monash University
 includes:
   in_header: style.css
 output:
@@ -27,16 +27,53 @@ Outlier diagnostic models are widely used for detecting influential points in re
 
 (3) In non-linear regression case where the influential points are not determined `distance`, how can we locating them?
 
-## General Framework of Visualizing Oultier Diagnostic Models
+## General Framework of Visualizing Outlier Diagnostic Models
+
+## Example 1: Quantile Regression Outlier Diagnostic
+
+```{r fig-gcd-2d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="General cook distance outlier diagnostic for single variable quantile regression models. In single variable case, we get 2-dimension result with purple and green points representing outlier and normal."}
+
+knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_gcd_2d_low.png",
+                          "Figures/QR-Diagnostic-Model/sim_gcd_2d_mid.png",
+                          "Figures/QR-Diagnostic-Model/sim_gcd_2d_high.png"))
+```
+
+```{r fig-gcd-3d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="General cook distance outlier diagnostic for two response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
+
+knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_gcd_3d_low.png",
+                          "Figures/QR-Diagnostic-Model/sim_gcd_3d_mid.png",
+                          "Figures/QR-Diagnostic-Model/sim_gcd_3d_high.png"))
+```
+
+```{r fig-gcd-4d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="General cook distance outlier diagnostic for three response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
+
+knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_gcd_4d_low.png",
+                          "Figures/QR-Diagnostic-Model/sim_gcd_4d_mid.png",
+                          "Figures/QR-Diagnostic-Model/sim_gcd_4d_high.png"))
+```
+
+```{r fig-qd-2d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="Q function outlier diagnostic for one response variables quantile regression models. In single-variable case, we get 2-dimension result with purple and green points representing outlier and normal."}
+
+knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_qd_2d_low.png",
+                          "Figures/QR-Diagnostic-Model/sim_qd_2d_mid.png",
+                          "Figures/QR-Diagnostic-Model/sim_qd_2d_high.png"))
+```
 
 
+```{r fig-qd-3d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="Q function outlier diagnostic for two response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
+
+knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_qd_3d_low.png",
+                          "Figures/QR-Diagnostic-Model/sim_qd_3d_mid.png",
+                          "Figures/QR-Diagnostic-Model/sim_qd_3d_high.png"))
+```
 
 
+```{r fig-qd-4d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="Q function outlier diagnostic for three response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
 
-## Example 1: Quantile Regression
-
-
-
+knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_qd_4d_low.png",
+                          "Figures/QR-Diagnostic-Model/sim_qd_4d_mid.png",
+                          "Figures/QR-Diagnostic-Model/sim_qd_4d_high.png"))
+```
 
 
 ## Visualizing Outlier Diagnostic Models for quantile regression Model
