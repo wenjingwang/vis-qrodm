@@ -1,15 +1,15 @@
 ---
-title: "Visualization of Outlier Diagnostic Model in High-D Space"
+title: 'Visualization of Outlier Diagnostic Model in Data Space: Boundaries and Performance'
 author:
 - Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
 - ^1^Renmin University of China  , ^2^Monash University
-includes:
-  in_header: style.css
+bibliography: reference_vm.bib
 output:
   bookdown::pdf_book: default
   fig_caption: yes
 fontsize: 11pt
-bibliography: reference_vm.bib
+includes:
+  in_header: style.css
 citation_package: biblatex
 papersize: a4
 subparagraph: yes
@@ -19,6 +19,10 @@ toc: no
 
 ## Introduction
 
+Explore how the algorithm works. @wickham2015visualizing pointed out whenever we can gain insight into the process of model fitting, we should. Observing interations helps us understand how the algorithm works and real potential pitfalls. Developing suitable visualizations forces us to think deeply about exactly what the algorithm does and can suggest possible avenues for improvement. 
+
+It is difficult to understand statistical models in high-dimensional space. Visualizing the model in data space as a means to better understand of the model fit. When a linear regression model consist of a single continuous predictor and a single response, the fitted model is a simply visualized as a line in two dimensions. When a model involves two predictors it may be visualized as a surface in three dimensions. 
+
 Outlier diagnostic models are widely used for detecting influential points in regression models. We are interested in the following questions:
 
 (1) Where is the boundaries of `normal` and `outlier` in data space produced by the diagnostic models?
@@ -27,60 +31,400 @@ Outlier diagnostic models are widely used for detecting influential points in re
 
 (3) In non-linear regression case where the influential points are not determined `distance`, how can we locating them?
 
+## Fitting Quantile Regression: Algorithm and Data
+
+The fitting method of quantile regression is different from ordinary regression model. We provide visualization method to understand the most widely used algorithms: simplex method and internal points methods. 
+
+Three formulations of quantile regression (QR) at level $\tau$
+
+\begin{equation}
+\begin{split}
+& \mathrm{min}\frac{1}{n}\sum_{i=1}^{n}\rho_{\tau}(y_i-x_i\beta) \\
+& \mathrm{min}(\tau-\frac{1}{2})(\bar{y}-\bar{x}\beta)+\frac{1}{2n}\sum_{i=1}{n}|y_i-x_i\beta|\\
+& \mathrm \sum_{i=1}^{n}y_{i}a_{i} \quad s.t. \quad X^{T}a=(1-\tau)X^{T}1_{n} \quad and \quad a\in[0,1]^{n}\\
+\end{split}
+\label{eq:simplex}
+\end{equation}
+
+where $\rho_{\tau}(t)=\tau t^{+}+(1-\tau)t^{-}$
+
+Linear programming are expressed as:
+
+\begin{equation}
+\begin{split}
+& \mathrm{\min} c^{T}z \\
+& s.t. \quad Az = b \quad z \geq 0
+\end{split}
+\label{eq: lp}
+\end{equation}
+
+We fitting quantile regression model by casting quantile regression as linear programming problem
+
+\begin{equation}
+\begin{split}
+z  & =  (\beta^{+} \quad \beta^{-} \quad \xi^{+} \quad \xi^{-})^{T}\\
+c  & =  (0 \quad 0 \quad \tau/n \quad (1-\tau)/n)^{T}\\
+A  & =  (X \quad -X \quad I \quad -I) \\
+b  & =  Y
+\end{split}
+\label{eq: rq-lp}
+\end{equation}
+
+where $c$ and $z$ are m-vectors with $m=2p+2n$, $\boldsymbol{A}$ is a n-by-m matrix, and $\xi=Y-X\beta$ is the residual vector.
+
+simplex theory
+
+Let $B \equiv {B_1,...,B_n} \subsetneqq {1,..,n}$ denote an index set. $A_{B} \equiv [A_{B_{1}},...A_{B_{n}}]$ denote an invertible sub-matrix of A. $z^{*} \equiv [z^{*}_{1},...,z^{*}_{m}]$ is called a basic solution if $z^{*}$ satisfies:
+
+\begin{equation}
+\begin{split}
+z^{*}_{B} & = A^{-1}_{B}b \\
+z^{*}_{j} & = 0 \quad for \quad j \in {1,...,m}
+\end{split}
+\label{eq: simplex2}
+\end{equation}
+
+$z^{*}$ is an optiomal solution if,
+
+\begin{equation}
+\begin{split}
+& z^{*}_{B} = A^{-1}_{B}b \geq 0 \\
+& c-A^{T}A^{-1}_{B}c_{B} \geq 0 
+\end{split}
+\label{eq: conditions}
+\end{equation}
+
+Simplex tableau is:
+
+$$
+\begin{pmatrix}
+-c_{B}^{T}z_{B} & c^{T}-c^{T}_{B}A^{-1}_{B}A \\
+A^{-1}_{B}b & A^{-1}_{B}A
+\end{pmatrix}
+$$
+
+As the algorithm show, we first find the set $B$ which consist the points solved by linear system of equations.
+
+```{r}
+library(quokar)
+library(quantreg)
+library(ggplot2)
+library(gridExtra)
+library(tidyr)
+library(dplyr)
+data(ais)
+ais_female <- dplyr::filter(ais, Sex == 1)
+```
+
+```{r}
+tau <- c(0.1, 0.5, 0.9)
+br <- rq(BMI ~ LBM, tau = tau, data = ais_female, method = "br")
+coef <- br$coef
+br_result <- frame_br(br, tau)
+origin_obs <- br_result$all_observation
+use_obs <- br_result$fitting_point
+```
+
+```{r fig-simplex1, fig.height = 4, fig.width = 5, fig.align="center", echo=FALSE, fig.cap="Simplex Algorithom."}
+g1 <- ggplot(origin_obs,
+        aes(x = value, y = y)) +
+        geom_point(alpha = 0.1) +
+        geom_abline(slope = coef[2, 1], intercept = coef[1,1],
+                colour = "gray") +
+        geom_abline(slope = coef[2, 2], intercept = coef[1,2],
+                colour = "gray") +
+        geom_abline(slope = coef[2, 3], intercept = coef[1,3],
+                colour = "grey") +
+        ylab('y') +
+        xlab('x') +
+        facet_wrap(~variable, scales = "free_x", ncol = 2) +
+        geom_point(data = use_obs, aes(x = value, y = y,
+                                        group = tau_flag,
+                                        colour = tau_flag))
+
+```
+
+In multi-variable case: we imply interactive visualization
+
+```{r}
+## multi-variable case
+br <- rq(BMI ~ LBM + Bfat , tau = tau, data = ais_female, method = 'br')
+tau <- c(0.1, 0.5, 0.9)
+br_result <- frame_br(br, tau)
+```
+```{r fig-simplex-multi, fig.height = 4, fig.width = 8, fig.align="center", echo=FALSE, fig.cap="Simplex algorithom in multi responses model."}
+origin_obs <- br_result$all_observation
+use_obs <- br_result$fitting_point
+ggplot(origin_obs,
+       aes(x = value, y = y)) +
+  geom_point(alpha = 0.1) +
+  ylab('y') +
+  xlab('x') +
+  facet_wrap(~variable, scales = "free_x", ncol = 2) +
+  geom_point(data = use_obs, aes(x = value, y = y,
+                                 group = tau_flag,
+                                 colour = tau_flag))
+```
+
+#### Better Method for Visualization
+
+
+
+
+
+
+### Interior Points Methods: Weighting
+
+```{r fig-fn-single, fig.height = 2, fig.width = 6, fig.align="center", echo=FALSE, fig.cap="Simplex algorithom in multi responses model."}
+tau <- c(0.1, 0.5, 0.9)
+fn <- rq(BMI ~ LBM, data = ais_female, tau = tau, method = 'fn')
+fn_obs <- frame_fn_obs(fn, tau)
+head(fn_obs)
+
+fn1 <- fn_obs[,1]
+case <- 1: length(fn1)
+fn1 <- cbind(case, fn1)
+m <- data.frame(y = ais_female$BMI, x1 = ais_female$LBM,fn1)
+p <- length(attr(fn$coefficients, "dimnames")[[1]])
+m_f <- m %>% gather(variable, value, -case, -fn1, -y)
+mf_a <- m_f %>%
+  group_by(variable) %>%
+  arrange(variable, desc(fn1)) %>%
+  filter(row_number() %in% 1:p)
+p1 <- ggplot(m_f, aes(x = value, y = y)) +
+ geom_point(alpha = 0.1) +
+  geom_point(data = mf_a, size = 2, colour = "purple") +
+  facet_wrap(~variable, scale = "free_x") +
+  xlab("x")
+ fn2 <- fn_obs[,2]
+ case <- 1: length(fn2)
+ fn2 <- cbind(case, fn2)
+ m <- data.frame(y = ais_female$BMI, x1 = ais_female$LBM,
+                  fn2)
+ p <- length(attr(fn$coefficients, "dimnames")[[1]])
+ m_f <- m %>% gather(variable, value, -case, -fn2, -y)
+ mf_a <- m_f %>%
+    group_by(variable) %>%
+    arrange(variable, desc(fn2)) %>%
+    filter(row_number() %in% 1:p )
+ p2 <- ggplot(m_f, aes(x = value, y = y)) +
+    geom_point(alpha = 0.1) +
+    geom_point(data = mf_a, size = 2, colour = "blue", alpha = 0.5) +
+    facet_wrap(~variable, scale = "free_x") +
+    xlab("x")
+ fn3 <- fn_obs[ ,3]
+ case <- 1: length(fn3)
+ fn3 <- cbind(case, fn3)
+ m <- data.frame(y = ais_female$BMI, x1 = ais_female$LBM,
+                  fn3)
+ p <- length(attr(fn$coefficients, "dimnames")[[1]])
+ m_f <- m %>% gather(variable, value, -case, -fn3, -y)
+ mf_a <- m_f %>%
+   group_by(variable) %>%
+   arrange(variable, desc(fn3)) %>%
+   filter(row_number() %in% 1:p )
+ p3 <- ggplot(m_f, aes(x = value, y = y)) +
+   geom_point(alpha = 0.1) +
+   geom_point(data = mf_a, size = 2, colour = "orange") +
+   facet_wrap(~variable, scale = "free_x") +
+   xlab("x")
+ grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+```{r}
+tau <- c(0.1, 0.5, 0.9)
+fn <- rq(BMI ~ LBM + Bfat, data = ais_female, tau = tau, method = 'fn')
+fn_obs <- frame_fn_obs(fn, tau)
+head(fn_obs)
+```
+
+```{r fig-fn-multi, fig.height = 2, fig.width = 6, fig.align="center", echo=FALSE, fig.cap="Simplex algorithom in multi responses model."}
+fn1 <- fn_obs[,1]
+case <- 1: length(fn1)
+fn1 <- cbind(case, fn1)
+m <- data.frame(y = ais_female$BMI, x1 = ais_female$LBM,fn1)
+p <- length(attr(fn$coefficients, "dimnames")[[1]])
+m_f <- m %>% gather(variable, value, -case, -fn1, -y)
+mf_a <- m_f %>%
+  group_by(variable) %>%
+  arrange(variable, desc(fn1)) %>%
+  filter(row_number() %in% 1:p)
+p1 <- ggplot(m_f, aes(x = value, y = y)) +
+ geom_point(alpha = 0.1) +
+  geom_point(data = mf_a, size = 2, colour = "purple") +
+  facet_wrap(~variable, scale = "free_x") +
+  xlab("x")
+ fn2 <- fn_obs[,2]
+ case <- 1: length(fn2)
+ fn2 <- cbind(case, fn2)
+ m <- data.frame(y = ais_female$BMI, x1 = ais_female$LBM,
+                  fn2)
+ p <- length(attr(fn$coefficients, "dimnames")[[1]])
+ m_f <- m %>% gather(variable, value, -case, -fn2, -y)
+ mf_a <- m_f %>%
+    group_by(variable) %>%
+    arrange(variable, desc(fn2)) %>%
+    filter(row_number() %in% 1:p )
+ p2 <- ggplot(m_f, aes(x = value, y = y)) +
+    geom_point(alpha = 0.1) +
+    geom_point(data = mf_a, size = 2, colour = "blue", alpha = 0.5) +
+    facet_wrap(~variable, scale = "free_x") +
+    xlab("x")
+ fn3 <- fn_obs[ ,3]
+ case <- 1: length(fn3)
+ fn3 <- cbind(case, fn3)
+ m <- data.frame(y = ais_female$BMI, x1 = ais_female$LBM,
+                  fn3)
+ p <- length(attr(fn$coefficients, "dimnames")[[1]])
+ m_f <- m %>% gather(variable, value, -case, -fn3, -y)
+ mf_a <- m_f %>%
+   group_by(variable) %>%
+   arrange(variable, desc(fn3)) %>%
+   filter(row_number() %in% 1:p )
+ p3 <- ggplot(m_f, aes(x = value, y = y)) +
+   geom_point(alpha = 0.1) +
+   geom_point(data = mf_a, size = 2, colour = "orange") +
+   facet_wrap(~variable, scale = "free_x") +
+   xlab("x")
+ grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+
+### Non-linear case
+
+```{r fig-nlrq, fig.height = 3, fig.width = 10, fig.align="center", echo=FALSE, fig.cap="Simplex algorithom in multi responses model."}
+x <- rep(1:25, 20)
+y <- SSlogis(x, 10, 12, 2) * rnorm(500, 1, 0.1)
+Dat <- data.frame(x = x, y = y)
+formula <- y ~ SSlogis(x, Aysm, mid, scal)
+nlrq_m <- frame_nlrq(formula, data = Dat, tau = c(0.1, 0.5, 0.9))
+weights <- nlrq_m$weights
+m <- data.frame(Dat, weights)
+m_f <- m %>% gather(tau_flag, value, -x, -y)
+ggplot(m_f, aes(x = x, y = y, colour = tau_flag)) +
+  geom_point(aes(size = value), alpha = 0.5) +
+  facet_wrap(~tau_flag)
+```
+
+
+
 ## General Framework of Visualizing Outlier Diagnostic Models
 
-## Example 1: Quantile Regression Outlier Diagnostic
+
+
+
+
+
+## Linear Quantile Regression Outlier Diagnostic
+
+We used ais data as example to do our anaylysis.
+
+
+
+```{r fig-model-2d, fig.height = 4, fig.width = 4, fig.align="center", echo=FALSE, fig.cap="data and model."}
+rq_2d <- rq(BMI ~ LBM, tau = 0.1, data = ais_female)
+coefs <- coef(rq_2d)
+ggplot(ais_female, aes(x = LBM, y = BMI)) +
+        geom_point(alpha = 0.5) +
+        geom_abline(intercept = coefs[1], slope = coefs[2], colour = 'red')
+```
+
+
+```{r fig-gcdqd-2d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="General cook distance and Q function outlier diagnostic for single variable quantile regression models. In single variable case, we get 2-dimension result with purple and green points representing outlier and normal."}
+knitr::include_graphics(c("Figures/Outlier-Diagnostic-model/sim_gcd_2d_low.png",
+                        "Figures/Outlier-Diagnostic-model/sim_qd_2d_low.png"))
+
+```
 
 ```{r fig-gcd-2d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="General cook distance outlier diagnostic for single variable quantile regression models. In single variable case, we get 2-dimension result with purple and green points representing outlier and normal."}
 
-knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_gcd_2d_low.png",
-                          "Figures/QR-Diagnostic-Model/sim_gcd_2d_mid.png",
-                          "Figures/QR-Diagnostic-Model/sim_gcd_2d_high.png"))
+knitr::include_graphics(c("Figures/Outlier-Diagnostic-model/sim_gcd_2d_low.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_2d_mid.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_2d_high.png"))
 ```
 
 ```{r fig-gcd-3d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="General cook distance outlier diagnostic for two response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
 
-knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_gcd_3d_low.png",
-                          "Figures/QR-Diagnostic-Model/sim_gcd_3d_mid.png",
-                          "Figures/QR-Diagnostic-Model/sim_gcd_3d_high.png"))
+knitr::include_graphics(c("Figures/Outlier-Diagnostic-model/sim_gcd_3d_low1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_low2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_low3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_mid1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_mid2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_mid3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_high1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_high2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_3d_high3.png"))
 ```
 
 ```{r fig-gcd-4d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="General cook distance outlier diagnostic for three response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
 
-knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_gcd_4d_low.png",
-                          "Figures/QR-Diagnostic-Model/sim_gcd_4d_mid.png",
-                          "Figures/QR-Diagnostic-Model/sim_gcd_4d_high.png"))
+knitr::include_graphics(c("Figures/Outlier-Diagnostic-model/sim_gcd_4d_low1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_low2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_low3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_mid1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_mid2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_mid3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_high1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_high2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_gcd_4d_high3.png"))
 ```
 
 ```{r fig-qd-2d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="Q function outlier diagnostic for one response variables quantile regression models. In single-variable case, we get 2-dimension result with purple and green points representing outlier and normal."}
 
-knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_qd_2d_low.png",
-                          "Figures/QR-Diagnostic-Model/sim_qd_2d_mid.png",
-                          "Figures/QR-Diagnostic-Model/sim_qd_2d_high.png"))
+knitr::include_graphics(c("Figures/Outlier-Diagnostic-model/sim_qd_2d_low.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_2d_mid.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_2d_high.png"))
 ```
 
 
 ```{r fig-qd-3d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="Q function outlier diagnostic for two response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
 
-knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_qd_3d_low.png",
-                          "Figures/QR-Diagnostic-Model/sim_qd_3d_mid.png",
-                          "Figures/QR-Diagnostic-Model/sim_qd_3d_high.png"))
+knitr::include_graphics(c("Figures/Outlier-Diagnostic-model/sim_qd_3d_low1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_low2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_low3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_mid1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_mid2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_mid3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_high1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_high2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_3d_high3.png"))
 ```
 
 
 ```{r fig-qd-4d, out.width="25%", fig.show="hold", fig.align="center", echo=FALSE, fig.show="hold", fig.cap="Q function outlier diagnostic for three response variables quantile regression models. In multi-variable case, we get 3-dimension result with purple and green points representing outlier and normal."}
 
-knitr::include_graphics(c("Figures/QR-Diagnostic-Model/sim_qd_4d_low.png",
-                          "Figures/QR-Diagnostic-Model/sim_qd_4d_mid.png",
-                          "Figures/QR-Diagnostic-Model/sim_qd_4d_high.png"))
+knitr::include_graphics(c("Figures/Outlier-Diagnostic-model/sim_qd_4d_low1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_low2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_low3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_mid1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_mid2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_mid3.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_high1.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_high2.png",
+                          "Figures/Outlier-Diagnostic-model/sim_qd_4d_high3.png"))
 ```
 
+## Non-linear Quantile Regression Outlier Diagnostic
 
-## Visualizing Outlier Diagnostic Models for quantile regression Model
 
-### Linear Case
 
-### Non-linear Case
+
+
+
+
+
+
+
 
 ## Visualizing Outlier Diagnostic Models for Mix Level Model
+
+
+
+
+
+
+
+
+
+
 
