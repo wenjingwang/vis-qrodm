@@ -1,27 +1,40 @@
 ---
-title: "Diagnosing Outliers and Visualization of Quantile Regression Models"
 author:
-- Wenjing Wang^1^, Dianne Cook^2^, Earo Wang^2^
-- ^1^Renmin University of China  , ^2^Monash University
-includes:
-  in_header: style.css
-output:
-  bookdown::pdf_book: default
-  fig_caption: yes
-fontsize: 11pt
-bibliography: reference.bib
-citation_package: biblatex
-papersize: a4
-subparagraph: yes
-biblio-style: authoryear-comp
-toc: no
----
+  - name: WenjingWang
+    affiliation: Renmin University of China
+    address: >
+      Department of Statistics, Renmin University of China, China 100872
+  - name: Dianne Cook
+    affiliation: Monash University
+    address: >
+      Department of Econometrics and Business Statistics,
+      Monash University, VIC 3800
+      Australia
+  - name: Earo Wang
+    affiliation: Monash University
+    address: >
+      Department of Econometrics and Business Statistics,
+      Monash University, VIC 3800
+      Australia
+title: 
+  formated: "Diagnosing Outliers and Visualization of Quantile Regression Models"
+  plain: "Diagnosing Outliers and Visualization of Quantile Regression Models"
+abstract: >
+  Quantile regression models have been widely used in numerous applications, and the subject of substantial research. In a recent review article (@koenker2017) that surveys the research in the for the past 40 years, one recommendation is that more diagnostics should be provided for modeling. Estimation has been the priority, but diagnosing the models is lacking. This paper provides diagnostics for assessing the robustness of quantile regression models and implements outlier detection methods in the R (@RCore) package `quokar`. The package contains functions and plots for detecting outliers in quantile regression. 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
+keywords:
+  formatted: [Outlier diagnostic, Quantile regression, Robust distance, Generalized Cook's distance, Q-function distance, Bayes]
+  plain: [Outlier diagnostic, Quantile regression, Robust distance, Generalized Cook's distance, Q-function distance, Bayes]
+preamble: >
+  \usepackage{amsmath}
+  \usepackage{amsfonts}
+output:
+  bookdown::pdf_book: 
+    base_format: rticles::jss_article
+  citation_package: biblatex
+bibliography: "reference.bib"
+link-citations: true
+---
 
 ```{r, message = FALSE, include = FALSE}
 library(quokar)
@@ -31,34 +44,31 @@ library(gridExtra)
 library(purrr)
 ```
 
-# Abstract
-
-Quantile regression models have been widely used in numerous applications, and the subject of substantial research. In a recent review article (@koenker2017) that surveys the research in the for the past 40 years, one recommendation is that more diagnostics should be provided for modeling. Estimation has been the priority, but diagnosing the models is lacking. This paper provides diagnostics for assessing the robustness of quantile regression models and implements outlier detection methods in the R (@RCore) package `quokar`. The package contains functions and plots for detecting outliers in quantile regression. 
 
 # Introduction
 
-[//]: # Where QR is used
+## Where QR is used
 Quantile regression model has been widely used in many research areas such as economy, finance and social science (see @autor2017effect, @mitchell2017physical, @gallego2017corporate, @maciejowska2016probabilistic). Quantile regression provides improvements on mean regression because, (a) observed covariates can describe the full distribution of a response variable, and (b) estimators can maintain optimal properties in the presence of heteroscedasticity or heavy tailed distributions.
 
-[//]: # Types of QR algorithms
+## Types of QR algorithms
 The research scope of quantile regression has been broadened considerably in the past decades. We surveyed some of the most recent developments: @koenker2004quantile, @geraci2006use conducted quantile regression for longitudinal data. Longitudinal data introduced a large number of “fixed effects” in quantile regression and these "fixed effects" will significantly inflate the variability of estimates of other covariate effects. They proposed to use $l^1$ regularization methods as essential computational tools. @parente2016quantile studied properties of the quantile regression estimator when data are sampled from independent and identically distributed clusters. They provided a consistent estimator of the covaiance matrix and showed the regression estimator is consistent and asympototically normal. Researchers (@galvao2011quantile, @canay2011simple) also construct quantile regression model using panel data. Panel data potentially integrate fixed effects to control unobserved covariates which extend the original quantile regression model. They presented new model format and fixed effects estimation.
 
 Due to the advantages of quantile regression model possesed, researches also interested in ebbeding it in other models to enhance model features or conduct better results analysis. @geraci2014linear proposed linear quantile mixed model which dealt with within-subject dependence by embeding subject-specific random intercepts into quantile regression model. Estimation strategies to reduce the computational burden and inefficiency using EM algorithm. @chernozhukov2006instrumental proposed instrumental variable quantile regression to evaluate the impact of endogenous variables or treatments on the entire distribution of outcomes. They modifies the conventional quantile regression and recovers quantile-specific covariate effects in an instrumental variables model.
 
-[//]: # Inference
+## Inference
 Along with the continous progresses in model improvement and application, extensive model inferencing research has been done. @gutenbrunner1993tests proposed rank-based inference to deal problems of constructing confidence intervals for individual quantile regression parameter estimates. In order to quantify the robustness of inferencing, resampling methods are studied at the same time (@hahn1995bootstrapping, @buchinsky1995estimating, @feng2011wild). @koenker1999goodness used Kolmogorov-Smironov method to measure the goodness of fit of quantile regression. To tackle the "Durbin problem", @koenker2002inference developed location shift and location-scale shift test for quantile regression model. The inferencing study also have been extended to Bayesian framework (@yu2001bayesian, @yu2007bayesian, @kozumi2011gibbs, @santos2016bayesian).
 
-[//]: # Software
+## Software
 Effective toolboxes conduct fitting and inferencing for quantile regression model has been developed based on the theoretical researches mentioned above. Free software R offers several packages implementing quantile regression, most famous `quantreg` by Roger Koenker, but also `gbm`, `quantregForest`, `qrnn`, `ALDqr` and `bayesQR`. However, few diagnostic methods were proposed for quantile regression and no toolbox for model diagnostic were implemented in R. @gu2017unobserved pointed out more work needs to be done to develop better diagnostic tools. 
 
-[//]: # Outlier diagnostics generally
+## Outlier diagnostics generally
 Outlier detection is one important aspect of model diagnostic. It is unignorable in regression analysis because the results of regression can be sensitive to outliers. Data used for fitting regression model may contain special points located far away from others either in response variable or in the space of the predictors. The latter are also called leverage points. In univariate model, outliers can be easily observed by scatter plot of predictor and responsor. Difficulty lies in high-dimensional situation, where statistical methods should be used. Various methods for detecting outliers have been explored (@rousseeuw1990unmasking, @gather1997convergence). Commonly used statistics include residuals, leverage value, studentized residuals and jacknife residuals.
 
 In regression context, classic least ordinary square estimation of linear regresssion can be expressed as $\hat{\boldsymbol{\beta}}=\boldsymbol{(X^{'}X)^{-1}X^{'}Y}$, $\hat{\boldsymbol{Y}}=\boldsymbol{X(X^{'}X)^{-1}X^{'}Y}=\boldsymbol{HY}$. where, $\boldsymbol{H}$ is called hat matrix. Residuals can be written as $\hat{\boldsymbol{\epsilon}}=\boldsymbol{Y-\hat{Y}(1-H)Y}=\boldsymbol{(1-H)\epsilon}$. Hence, if consider the influence of outliers in vertical direction and leverage points at the same time, we should use studentized residuals, which is $r_i=\frac{\hat{\epsilon}_{i}}{\sigma^{2}\sqrt{1-h_i}}$. The larger $r_i$, the more suspicious the outlier is. Another widely used outlier diagnositc framework is leave one out. Jackknife residual and Cook's distance are constructed based on this idea. These diagnostic statistics has already become available on widely distributed statistical software packages SAS, SPSS, as well as R. 
 
 Estimating process of quantile regression differs from mean regression which results no explicit solution form $\hat{\boldsymbol{\beta}}=\boldsymbol{(X^{'}X)^{-1}X^{'}Y}$. In addition, quantile regressions can be fitted on any quantile interested , which add difficulties in applying diagnosing methods and displaying results simutaneously. @sanchez2013likelihood developed case-deletion diagnostics for quantile regression using the asymmetric Laplace distribution. @santos2016bayesian discussed Bayesian quantile regression and considered using the posterior distribution of the latent variable for outlier diagnosing. Toolbox for outlier diagnostic can only be found in statistical software SAS in procedure `QUANTREG`. To the authors’ knowledge, these methods are still not be implemented in R. In order to fill the gap, related implementation in R language now is available in rencently developed package `quokar` which provides several outlier diagnostic methods as well as supportive visualization results for quantile regression.
 
-[//]: # Visualization for QR is lacking
+## Visualization for QR is lacking
 Visualizations of high-dimensional data are well developed and explored. Model visualizations are recently been studied. @wickham2015visualizing first proposed the idea of plotting model in data space. He pointed out that visual model can anwser questions such as what does the model look like? how well does the model fit the data? how does the shape of the model compare to the shape of the data? is the model fitting uniformly good, or good in some regions but poor in other regions. Integrating model and original data in one plot is a straight-forward way to observe outliers for fitted model. To visualize data and models in high dimensions, we need good tools:
 
 * The grand tour. The grand tour generating a sequence of 2d projections of an p-d object. It randomly chooses new projections and rotates between them. Through this process, we can observe the distribution of data (clusted or sparse) and identify outliers.
@@ -554,7 +564,7 @@ We implete Australia Institution of Sports (AIS) data as an example to introduce
 
 In single variable case, we can use scatter plot to represent the outlier state. The following code showed how to display suspicious outliers based on quantile regression models. Figure \@ref(fig:single-case) showed the potential outlier is case 1 and 75. When comes to multi-variable case, one way to display the outlier state in data by the scatter plot on separate covariants. Figure \@ref(fig:multi-case) showed case 56 and 75 are suspicious outliers in the data set.
 
-```{r single-case, data-example, warning=FALSE,message=FALSE, fig.height=3, fig.width=5, fig.align = "center", fig.cap="Plot the outlier state for single variable case."}
+```{r single-case, warning=FALSE,message=FALSE, fig.height=3, fig.width=5, fig.align = "center", fig.cap="Plot the outlier state for single variable case."}
 
 data(ais)
 ais_female <- filter(ais, Sex == 1)
@@ -640,7 +650,7 @@ ggplot(distance, aes(x = rd, y = residuals)) +
 
 * Generalized Cook distance and Q function distance
 
-We apply generalized Cook distance and Q function distance methods in function `frame_mle` using AIS data. Methods `bayes.prob` and `bayes.kl` in function `frame_bayes` return the mean probability and Kullback-Leibler divergence of each observation on each given quantile. The results are also in tidy data structure which can be easily used for plotting the two distances with outliers marked. Figure 9 and 10 show regression model on 0.1 quantile has outlier case 1, and case 75 is the potential outlier of regression models on quantile 0.5 and 0.9. 
+We apply generalized Cook distance and Q function distance methods in function \code{frame_mle} using AIS data. Methods \code{bayes.prob} and \code{bayes.kl} in function \code{frame_bayes} return the mean probability and Kullback-Leibler divergence of each observation on each given quantile. The results are also in tidy data structure which can be easily used for plotting the two distances with outliers marked. Figure 9 and 10 show regression model on 0.1 quantile has outlier case 1, and case 75 is the potential outlier of regression models on quantile 0.5 and 0.9. 
 
 ```{r,warning=FALSE,message=FALSE, results = "hide", fig.height=3, fig.width=8, fig.align = "center", fig.cap="Generalized Cook distance of each observation on quantile 0.1, 0.5 and 0.9. Case 75 has relative large Cook distance-funtion distance to other points"}
 y <- ais_female$BMI
@@ -670,7 +680,7 @@ ggplot(QD_m, aes(x = case, y = value)) +
  ylab('Qfunction Distance')
 ```
 
-```{r,eval=TRUE,warning=FALSE,message=FALSE,results = "hide"}
+```{r,eval=FALSE,warning=FALSE,message=FALSE,results = "hide"}
 y <- ais_female$BMI
 x <- matrix(c(ais_female$LBM, ais_female$Bfat), ncol = 2, byrow = FALSE)
 tau <- c(0.1, 0.5, 0.9)
@@ -683,14 +693,14 @@ kl <- frame_bayes(y, x, tau, M = 5000, burn = 1000,
 
 ```
 
-```{r}
+```{r,eval=FALSE}
 head(prob)
 head(kl)
 ```
 
-With the result which is long data form returned by function `frame_bayes`, we provide visualization of the mean posterior probability and Kullback-Leibler divergence of each observation with outlier marked. Figure 11 and 12 show that the potential outlier is case 75.
+With the result which is long data form returned by function \code{frame_bayes}, we provide visualization of the mean posterior probability and Kullback-Leibler divergence of each observation with outlier marked. Figure 11 and 12 show that the potential outlier is case 75.
 
-```{r, eval = TRUE, echo = TRUE, warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
+```{r, eval = FALSE, echo = TRUE, warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
 
 prob_m <- cbind(case, prob)
 ggplot(prob_m, aes(x = case, y = value )) +
@@ -703,7 +713,7 @@ ggplot(prob_m, aes(x = case, y = value )) +
 
 ```
 
-```{r,eval = TRUE, echo = TRUE, warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback-Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
+```{r,eval = FALSE, echo = TRUE, warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback-Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
 
 kl_m <- cbind(case, kl)
 ggplot(kl_m, aes(x = case, y = value)) +
@@ -820,38 +830,4 @@ In data example, it was shown that `quokar` provides convenient tools to detect 
 Another contribution of this paper is proposed a general framework to visualize quantile regression in high dimensional data space. Our visualization tool is `GGobi`. We provide integrated plot of quantile regression models and original data. Our future work will continue to explore visual methods for the outlier diagnostic models in data space. We are trying to do model performance comparison with `GGobi`.
 
 
-# Reference
 
-Koenker R, Machado J A F. Goodness of fit and related inference processes for quantile regression[J]. Journal of the american statistical association, 1999, 94(448): 1296-1310.
-
-Fitzenberger B. The moving blocks bootstrap and robust inference for linear least squares and quantile regressions[J]. Journal of Econometrics, 1998, 82(2): 235-287.
-
-Chernozhukov V, Hansen C. Instrumental variable quantile regression: A robust inference approach[J]. Journal of Econometrics, 2008, 142(1): 379-398.
-
-Geraci M, Bottai M. Quantile regression for longitudinal data using the asymmetric Laplace distribution[J]. Biostatistics, 2007, 8(1): 140-154.
-
-Koenker R. Quantile regression for longitudinal data[J]. Journal of Multivariate Analysis, 2004, 91(1): 74-89.
-
-Korobilis D. Quantile regression forecasts of inflation under model uncertainty[J]. International Journal of Forecasting, 2017, 33(1): 11-20.
-
-Autor D H, Houseman S N, Kerr S P. The Effect of Work First Job Placements on the Distribution of Earnings: An Instrumental Variable Quantile Regression Approach[J]. Journal of Labor Economics, 2017, 35(1): 149-190.
-
-
-Mitchell J A, Dowda M, Pate R R, et al. Physical Activity and Pediatric Obesity: A Quantile Regression Analysis[J]. Medicine and science in sports and exercise, 2017, 49(3): 466.
-
-Gallego-Álvarez I, Ortas E. Corporate environmental sustainability reporting in the context of national cultures: A quantile regression approach[J]. International Business Review, 2017, 26(2): 337-353.
-
-Maciejowska K, Nowotarski J, Weron R. Probabilistic forecasting of electricity spot prices using Factor Quantile Regression Averaging[J]. International Journal of Forecasting, 2016, 32(3): 957-965.
-
-
-Parente P M D C, Santos Silva J. Quantile regression with clustered data[J]. Journal of Econometric Methods, 2016, 5(1): 1-15.
-
-Galvao A F, Kato K. Smoothed quantile regression for panel data[J]. Journal of Econometrics, 2016, 193(1): 92-112.
-
-Arellano M, Bonhomme S. Nonlinear panel data estimation via quantile regressions[J]. The Econometrics Journal, 2016, 19(3).
-
-Canay I A. A simple approach to quantile regression for panel data[J]. The Econometrics Journal, 2011, 14(3): 368-386.
-
-Geraci M. Linear quantile mixed models: the lqmm package for Laplace quantile regression[J]. Journal of Statistical Software, 2014, 57(13): 1-29.
-
-Chernozhukov V, Hansen C. Instrumental quantile regression inference for structural and treatment effect models[J]. Journal of Econometrics, 2006, 132(2): 491-525.
