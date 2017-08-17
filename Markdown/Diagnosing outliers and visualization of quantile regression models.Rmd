@@ -9,12 +9,13 @@ output:
   bookdown::pdf_book: default
   fig_caption: yes
 fontsize: 11pt
-bibliography: reference.bib
 citation_package: biblatex
 papersize: a4
 subparagraph: yes
 biblio-style: authoryear-comp
 toc: no
+bibliography: "reference.bib"
+link-citations: true
 ---
 
 <script type="text/x-mathjax-config">
@@ -24,6 +25,8 @@ MathJax.Hub.Config({
 </script>
 
 ```{r, message = FALSE, include = FALSE}
+#library(devtools)
+#install_github("wenjingwang/quokar")
 library(quokar)
 library(quantreg)
 library(tidyverse)
@@ -672,13 +675,13 @@ ggplot(QD_m, aes(x = case, y = value)) +
 
 ```{r,eval=TRUE,warning=FALSE,message=FALSE,results = "hide"}
 y <- ais_female$BMI
-x <- matrix(c(ais_female$LBM, ais_female$Bfat), ncol = 2, byrow = FALSE)
+x <- cbind(1, ais_female$LBM, ais_female$Bfat)
 tau <- c(0.1, 0.5, 0.9)
 case <- rep(1:length(y), length(tau))
-prob <- frame_bayes(y, x, tau, M =  5000, burn = 1000, 
+prob <- frame_bayes(y, x, tau, M =  500, burn = 100, 
                  method = 'bayes.prob')
 
-kl <- frame_bayes(y, x, tau, M = 5000, burn = 1000,
+kl <- frame_bayes(y, x, tau, M = 500, burn = 100,
                   method = 'bayes.kl')
 
 ```
@@ -818,40 +821,3 @@ The first part of this paper presents R package `quokar` for outlier diagnostic 
 In data example, it was shown that `quokar` provides convenient tools to detect suspicious outliers in quantile regression. Future versions of the package will focus on supporting other diagnotic methods such as methods for high dimensional data or extreme quantiles and improving computational efficiency. 
 
 Another contribution of this paper is proposed a general framework to visualize quantile regression in high dimensional data space. Our visualization tool is `GGobi`. We provide integrated plot of quantile regression models and original data. Our future work will continue to explore visual methods for the outlier diagnostic models in data space. We are trying to do model performance comparison with `GGobi`.
-
-
-# Reference
-
-Koenker R, Machado J A F. Goodness of fit and related inference processes for quantile regression[J]. Journal of the american statistical association, 1999, 94(448): 1296-1310.
-
-Fitzenberger B. The moving blocks bootstrap and robust inference for linear least squares and quantile regressions[J]. Journal of Econometrics, 1998, 82(2): 235-287.
-
-Chernozhukov V, Hansen C. Instrumental variable quantile regression: A robust inference approach[J]. Journal of Econometrics, 2008, 142(1): 379-398.
-
-Geraci M, Bottai M. Quantile regression for longitudinal data using the asymmetric Laplace distribution[J]. Biostatistics, 2007, 8(1): 140-154.
-
-Koenker R. Quantile regression for longitudinal data[J]. Journal of Multivariate Analysis, 2004, 91(1): 74-89.
-
-Korobilis D. Quantile regression forecasts of inflation under model uncertainty[J]. International Journal of Forecasting, 2017, 33(1): 11-20.
-
-Autor D H, Houseman S N, Kerr S P. The Effect of Work First Job Placements on the Distribution of Earnings: An Instrumental Variable Quantile Regression Approach[J]. Journal of Labor Economics, 2017, 35(1): 149-190.
-
-
-Mitchell J A, Dowda M, Pate R R, et al. Physical Activity and Pediatric Obesity: A Quantile Regression Analysis[J]. Medicine and science in sports and exercise, 2017, 49(3): 466.
-
-Gallego-Álvarez I, Ortas E. Corporate environmental sustainability reporting in the context of national cultures: A quantile regression approach[J]. International Business Review, 2017, 26(2): 337-353.
-
-Maciejowska K, Nowotarski J, Weron R. Probabilistic forecasting of electricity spot prices using Factor Quantile Regression Averaging[J]. International Journal of Forecasting, 2016, 32(3): 957-965.
-
-
-Parente P M D C, Santos Silva J. Quantile regression with clustered data[J]. Journal of Econometric Methods, 2016, 5(1): 1-15.
-
-Galvao A F, Kato K. Smoothed quantile regression for panel data[J]. Journal of Econometrics, 2016, 193(1): 92-112.
-
-Arellano M, Bonhomme S. Nonlinear panel data estimation via quantile regressions[J]. The Econometrics Journal, 2016, 19(3).
-
-Canay I A. A simple approach to quantile regression for panel data[J]. The Econometrics Journal, 2011, 14(3): 368-386.
-
-Geraci M. Linear quantile mixed models: the lqmm package for Laplace quantile regression[J]. Journal of Statistical Software, 2014, 57(13): 1-29.
-
-Chernozhukov V, Hansen C. Instrumental quantile regression inference for structural and treatment effect models[J]. Journal of Econometrics, 2006, 132(2): 491-525.
