@@ -21,7 +21,7 @@ blind: false
 cover: true
 wpnumber: no/yr
 jelcodes: C10,C14,C22
-bibliography: ["references.bib"]
+bibliography: ["reference.bib"]
 biblio-style: authoryear-comp
 abstract: "Quantile regression models have been widely used in numerous applications, and the subject of substantial research. In a recent review article (@koenker2017) that surveys the research in the for the past 40 years, one recommendation is that more diagnostics should be provided for modeling. Estimation has been the priority, but diagnosing the models is lacking. This paper provides diagnostics for assessing the robustness of quantile regression models and implements outlier detection methods in the R (@RCore) package `quokar`. The package contains functions and plots for detecting outliers in quantile regression."
 keywords: "blah, blah"
@@ -564,7 +564,7 @@ We implete Australia Institution of Sports (AIS) data as an example to introduce
 
 In single variable case, we can use scatter plot to represent the outlier state. The following code showed how to display suspicious outliers based on quantile regression models. Figure \@ref(fig:single-case) showed the potential outlier is case 1 and 75. When comes to multi-variable case, one way to display the outlier state in data by the scatter plot on separate covariants. Figure \@ref(fig:multi-case) showed case 56 and 75 are suspicious outliers in the data set.
 
-```{r single-case, data-example, warning=FALSE,message=FALSE, fig.height=3, fig.width=5, fig.align = "center", fig.cap="Plot the outlier state for single variable case."}
+```{r single-case-data-example, warning=FALSE,message=FALSE, fig.height=3, fig.width=5, fig.align = "center", fig.cap="Plot the outlier state for single variable case."}
 
 data(ais)
 ais_female <- filter(ais, Sex == 1)
@@ -680,7 +680,7 @@ ggplot(QD_m, aes(x = case, y = value)) +
  ylab('Qfunction Distance')
 ```
 
-```{r,eval=TRUE,warning=FALSE,message=FALSE,results = "hide"}
+```{r,eval=FALSE,warning=FALSE,message=FALSE,results = "hide"}
 y <- ais_female$BMI
 x <- matrix(c(ais_female$LBM, ais_female$Bfat), ncol = 2, byrow = FALSE)
 tau <- c(0.1, 0.5, 0.9)
@@ -693,14 +693,14 @@ kl <- frame_bayes(y, x, tau, M = 5000, burn = 1000,
 
 ```
 
-```{r}
+```{r ,eval=FALSE}
 head(prob)
 head(kl)
 ```
 
 With the result which is long data form returned by function `frame_bayes`, we provide visualization of the mean posterior probability and Kullback-Leibler divergence of each observation with outlier marked. Figure 11 and 12 show that the potential outlier is case 75.
 
-```{r, eval = TRUE, echo = TRUE, warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
+```{r, eval = FALSE, echo = TRUE, warning=FALSE,message=FALSE, fig.height=3, fig.width=8, fig.align = "center", fig.cap="Mean posterior probability of each case on quantile 0.1, 0.5 and 0.9. The mean posterior probabilities are calculated based on the postierior distribution of latent variable using Bayesian quantile regression method"}
 
 prob_m <- cbind(case, prob)
 ggplot(prob_m, aes(x = case, y = value )) +
@@ -713,7 +713,7 @@ ggplot(prob_m, aes(x = case, y = value )) +
 
 ```
 
-```{r,eval = TRUE, echo = TRUE, warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback-Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
+```{r,eval = FALSE, echo = TRUE, warning=FALSE,message=FALSE, fig.height = 3, fig.width = 8, fig.align = "center", fig.cap = "Kullback-Leibler divergence of each case on quantile 0.1, 0.5 and 0.9. The Kullback-Leibler divergence is calculated based on the postierior distribution of latent variable using Bayesian quantile regression method."}
 
 kl_m <- cbind(case, kl)
 ggplot(kl_m, aes(x = case, y = value)) +
